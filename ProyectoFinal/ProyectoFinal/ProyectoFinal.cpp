@@ -22,7 +22,6 @@ Proyecto Final CGIHC Teoria y Laboratorio
 #include "Model.h"
 
 const float toRadians = 3.14159265f / 180.0f;
-//float angulocola = 0.0f;
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -151,15 +150,13 @@ int main()
 		meshList[1]->RenderMesh();
 
 		//Dibujo de modelo de ejemplo
-		//Goddard
-		color = glm::vec3(0.0f, 0.0f, 0.0f); //modelo de goddard de color negro
+		color = glm::vec3(0.0f, 0.0f, 0.0f); //color negro
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, -5.0f));
-		model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Prueba_M.RenderModel();//modificar por el modelo sin las 4 patas y sin cola
-		color = glm::vec3(0.0f, 0.0f, 1.0f);
+		Prueba_M.RenderModel();
 
 		glUseProgram(0);
 

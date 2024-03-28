@@ -100,7 +100,7 @@ int main()
 	CreateShaders();
 
 	//Camata movil temoporal
-	camera = Camera(glm::vec3(0.0f, 0.5f, 7.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.3f, 1.0f);
+	camera = Camera(glm::vec3(0.0f, 0.5f, 7.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 1.0f, 1.0f);
 
 	//Modelo de prueba cargado
 	Prueba_M = Model();
@@ -140,23 +140,97 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 
-		//DIBUJO DEL PISO (Gris)
-		color = glm::vec3(0.5f, 0.5f, 0.5f); //piso de color gris
+		//Dibujo de modelo de ejemplo
+		color = glm::vec3(0.0f, 0.0f, 0.0f); //color negro
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Prueba_M.RenderModel();
+
+		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
+		//Cuadrante 1
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		meshList[1]->RenderMesh();
 
-		//Dibujo de modelo de ejemplo
-		color = glm::vec3(0.0f, 0.0f, 0.0f); //color negro
+		//Cuadrante 2
+		color = glm::vec3(1.0f, 0.0f, 0.0f); //piso de color gris
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -2.0f, -5.0f));
-		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Prueba_M.RenderModel();
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 3
+		color = glm::vec3(0.5f, 0.2f, 0.3f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.0f, 0.0f, -750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 4
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 5
+		color = glm::vec3(0.0f, 0.0f, 1.0f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 6
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, 750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 7
+		color = glm::vec3(0.2f, 0.2f, 0.2f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.0f, 0.0f, 750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 8
+		color = glm::vec3(0.5f, 0.5f, 0.5f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Centro
+		color = glm::vec3(0.4f, 1.0f, 0.4f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(60.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 
 		glUseProgram(0);
 

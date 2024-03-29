@@ -75,12 +75,12 @@ void CreateObjects()
 	};
 
 	//Objeto 1 (Triangulo)
-	Mesh* obj1 = new Mesh();
+	Mesh *obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
 	//Objeto 2 (Cuadrado)
-	Mesh* obj2 = new Mesh();
+	Mesh *obj2 = new Mesh();
 	obj2->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj2);
 }
@@ -88,7 +88,7 @@ void CreateObjects()
 //Funcion para crear Shaders
 void CreateShaders()
 {
-	Shader* shader1 = new Shader();
+	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -121,7 +121,7 @@ int main()
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-
+	
 	//Matrices para los modelos (agregar mas si se usa jerarquia)
 	glm::mat4 model(1.0);
 	glm::mat4 modelaux(1.0);
@@ -164,7 +164,7 @@ int main()
 		//Dibujo personaje jefe Gorgory
 		model = glm::mat4(1.0);
 		color = glm::vec3(1.0f, 1.0f, 0.0f); //color amarillo
-		model = glm::translate(model, glm::vec3(350.0f, -14.2f, 650.0f));
+		model = glm::translate(model, glm::vec3(350.0f,-14.2f, 650.0f));
 		model = glm::scale(model, glm::vec3(0.45f, 0.45f, 0.45f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
@@ -264,7 +264,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		KwikE.RenderModel();
 
-		//Letrero dibujado en cuadrante 7 
 		model = glm::mat4(1.0);
 		color = glm::vec3(1.0f, 0.0f, 0.0f); //color negro
 		model = glm::translate(model, glm::vec3(330.0f, 0.3f, 770.0f));

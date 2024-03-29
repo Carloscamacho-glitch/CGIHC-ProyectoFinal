@@ -22,13 +22,16 @@ Proyecto Final CGIHC Teoria y Laboratorio
 #include "Model.h"
 
 const float toRadians = 3.14159265f / 180.0f;
-//float angulocola = 0.0f;
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
 Model Prueba_M;
+Model jefeGorgory;
+Model Letrero;
+Model KwikE;
+
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
@@ -72,12 +75,12 @@ void CreateObjects()
 	};
 
 	//Objeto 1 (Triangulo)
-	Mesh *obj1 = new Mesh();
+	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
 	//Objeto 2 (Cuadrado)
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj2);
 }
@@ -85,7 +88,7 @@ void CreateObjects()
 //Funcion para crear Shaders
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
@@ -101,16 +104,24 @@ int main()
 	CreateShaders();
 
 	//Camata movil temoporal
-	camera = Camera(glm::vec3(0.0f, 0.5f, 7.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.3f, 1.0f);
+	camera = Camera(glm::vec3(0.0f, 0.5f, 7.0f), glm::vec3(0.0f, 1.0f, 0.0f), 60.0f, 0.0f, 1.0f, 1.0f);
 
 	//Modelo de prueba cargado
 	Prueba_M = Model();
 	Prueba_M.LoadModel("Models/ModeloPrueba.obj");
+	jefeGorgory = Model();
+	jefeGorgory.LoadModel("Models/Jefe_Gorgory.obj");
+	Letrero = Model();
+	Letrero.LoadModel("Models/Letrero.obj");
+	KwikE = Model();
+	KwikE.LoadModel("Models/KwikE.obj");
+
+
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0, uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-	
+
 	//Matrices para los modelos (agregar mas si se usa jerarquia)
 	glm::mat4 model(1.0);
 	glm::mat4 modelaux(1.0);
@@ -141,25 +152,129 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 
-		//DIBUJO DEL PISO (Gris)
-		color = glm::vec3(0.5f, 0.5f, 0.5f); //piso de color gris
+		//Dibujo de modelo de ejemplo
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
+		color = glm::vec3(0.0f, 0.0f, 0.0f); //color negro
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Prueba_M.RenderModel();
+
+		//Dibujo personaje jefe Gorgory
+		model = glm::mat4(1.0);
+		color = glm::vec3(1.0f, 1.0f, 0.0f); //color amarillo
+		model = glm::translate(model, glm::vec3(350.0f, -14.2f, 650.0f));
+		model = glm::scale(model, glm::vec3(0.45f, 0.45f, 0.45f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		jefeGorgory.RenderModel();
+
+		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
+		//Cuadrante 1
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //piso de color verde
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		meshList[1]->RenderMesh();
 
-		//Dibujo de modelo de ejemplo
-		//Goddard
-		color = glm::vec3(0.0f, 0.0f, 0.0f); //modelo de goddard de color negro
+		//Cuadrante 2
+		color = glm::vec3(1.0f, 0.0f, 0.0f); //piso de color rojo
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -2.0f, -5.0f));
-		model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
+		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 3
+		color = glm::vec3(0.5f, 0.2f, 0.3f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.0f, 0.0f, -700.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 4
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //piso de color verde
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 5
+		color = glm::vec3(0.0f, 0.0f, 1.0f); //piso de color azul
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 6
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //piso de color verde
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, 750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 7
+		color = glm::vec3(0.2f, 0.2f, 0.2f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.0f, 0.0f, 750.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Cuadrante 8
+		color = glm::vec3(0.5f, 0.5f, 0.5f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+
+		//Centro
+		color = glm::vec3(0.4f, 1.0f, 0.4f); //piso de color gris
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(60.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[1]->RenderMesh();
+		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
+
+		//Kwik-E-Mart dibujado en el cuadradante 7
+		model = glm::mat4(1.0);
+		color = glm::vec3(0.0f, 1.0f, 1.0f); //color negro
+		model = glm::translate(model, glm::vec3(350.0f, 0.3f, 770.0f));
+		model = glm::scale(model, glm::vec3(13.0f, 13.0f, 11.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Prueba_M.RenderModel();//modificar por el modelo sin las 4 patas y sin cola
-		color = glm::vec3(0.0f, 0.0f, 1.0f);
+		KwikE.RenderModel();
+
+		//Letrero dibujado en cuadrante 7 
+		model = glm::mat4(1.0);
+		color = glm::vec3(1.0f, 0.0f, 0.0f); //color negro
+		model = glm::translate(model, glm::vec3(330.0f, 0.3f, 770.0f));
+		model = glm::scale(model, glm::vec3(11.0f, 11.0f, 11.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(mainWindow.getarticulacion1()), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Letrero.RenderModel();
+
 
 		glUseProgram(0);
 

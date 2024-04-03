@@ -1,8 +1,5 @@
 #include "Window.h"
 
-//Banderas para controlar la rotacion con una tecla
-int banderaart1 = 0;
-
 Window::Window()
 {
 	width = 800;
@@ -16,13 +13,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 {
 	width = windowWidth;
 	height = windowHeight;
-	rotax = 0.0f;
-	rotay = 0.0f;
-	rotaz = 0.0f;
-	articulacion1 = 0.0f;
-	articulacion2 = 0.0f;
-	mov1 = 0.0f;
-	
+	muevex = 2.0f;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -45,8 +36,8 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica 05: Optimización y Carga de Modelos", NULL, NULL);
-
+	mainWindow = glfwCreateWindow(width, height, "Practica 06: Texturizado", NULL, NULL);
+	
 	if (!mainWindow)
 	{
 		printf("Fallo en crearse la ventana con GLFW");
@@ -88,7 +79,6 @@ void Window::createCallbacks()
 	glfwSetKeyCallback(mainWindow, ManejaTeclado);
 	glfwSetCursorPosCallback(mainWindow, ManejaMouse);
 }
-
 GLfloat Window::getXChange()
 {
 	GLfloat theChange = xChange;
@@ -103,64 +93,50 @@ GLfloat Window::getYChange()
 	return theChange;
 }
 
+
+
+
 void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
 {
 	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-	
+
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+	if (key == GLFW_KEY_Y)
+	{
+		theWindow-> muevex += 1.0;
+	}
+	if (key == GLFW_KEY_U)
+	{
+		theWindow-> muevex -= 1.0;
+	}
 
-	//se limita a 45° maximo y poner una o dos teclas para ir adelante y hacia atras, tambien se modifica la traslacion
-	if (key == GLFW_KEY_E)
+	if (key == GLFW_KEY_V)
 	{
-		theWindow->rotax += 10.0;
-	}
-	if (key == GLFW_KEY_R)
-	{
-		theWindow->rotay += 10.0; //rotar sobre el eje y 10 grados
-	}
-	if (key == GLFW_KEY_T)
-	{
-		theWindow->rotaz += 10.0;
-	}
-	if (key == GLFW_KEY_F)
-	{
-		//comprobamos la bandera para decidir si incrementar o decrementar los grados
-		if (banderaart1 == 0) {
-			//si es menor a 25° se aumentan los grados
-			if (theWindow->articulacion1 >= 0) {
-				banderaart1 = 1;
-			}else{
-				theWindow->articulacion1 += 5.0;
-			}
-		}else {
-			//si es mayor a 25° se disminuyen los grados
-			if (theWindow->articulacion1 <= -45) {
-				banderaart1 = 0;
-			}else{
-				theWindow->articulacion1 -= 5.0;
-			}
+		if (theWindow->angulocola > 40.0)
+		{
+		}
+		else
+		{
+			theWindow->angulocola += 10.0;
 		}
 	}
-	if (key == GLFW_KEY_G)
+
+	if (key == GLFW_KEY_B)
 	{
-		theWindow->mov1 += 0.5;
-		theWindow->articulacion2 += 10.0;
+		if (theWindow->angulocola < -40.0)
+		{
+		}
+		else
+		{
+			theWindow->angulocola -= 10.0;
+		}
 	}
-	if (key == GLFW_KEY_H)
-	{
-		theWindow->mov1 -= 0.5;
-		theWindow->articulacion2 -= 10.0;
-	}
+	
 
 
-	if (key == GLFW_KEY_D && action == GLFW_PRESS)
-	{
-		const char* key_name = glfwGetKeyName(GLFW_KEY_D, 0);
-		//printf("se presiono la tecla: %s\n",key_name);
-	}
 
 	if (key >= 0 && key < 1024)
 	{

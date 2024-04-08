@@ -93,8 +93,7 @@ void Model::LoadMesh(aiMesh * mesh, const aiScene * scene)
 		{
 			vertices.insert(vertices.end(), { 0.0f,0.0f });
 		}
-		//Normals importante, las normales son negativas porque la luz interactúa con ellas de esa forma, cómo se vio con el 
-		
+		//Normals importante, las normales son negativas porque la luz interactúa con ellas de esa forma, cómo se vio con el dado/cubo
 		vertices.insert(vertices.end(), { -mesh->mNormals[i].x,-mesh->mNormals[i].y ,-mesh->mNormals[i].z });
 	}
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -124,22 +123,8 @@ void Model::LoadMaterials(const aiScene * scene)
 			aiString path;
 			if (material->GetTexture(aiTextureType_DIFFUSE,0,&path)==AI_SUCCESS)
 			{
-				int idx;
-				std::string filename;
-				if (std::string(path.data).rfind("/"))
-				{
-					//printf("entre a 1 / \n");
-					idx = std::string(path.data).rfind("/");//para quitar del path del modelo todo lo que este antes del \ de ubicación de directorio
-					filename = std::string(path.data).substr(idx + 1);
-				}
-				/*else if(std::string(path.data).rfind("\\"))
-				{
-					printf(" entre a 2 \\  \n");
-					idx = std::string(path.data).rfind("\\");
-					filename = std::string(path.data).substr(idx + 1);
-				}*/
-				
-				
+				int idx = std::string(path.data).rfind("\\");//para quitar del path del modelo todo lo que este antes del \ de ubicación de directorio
+				std::string filename = std::string(path.data).substr(idx + 1);
 				std::string tga ="tga";
 				std::string png = "png";
 				std::size_t existetga = filename.find(tga);

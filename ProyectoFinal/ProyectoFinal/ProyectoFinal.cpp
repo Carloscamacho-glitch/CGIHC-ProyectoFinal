@@ -21,13 +21,19 @@ Práctica 6: Texturizado
 
 #include "Window.h"
 #include "Mesh.h"
-#include "Shader_m.h"
+#include "Shader_light.h"
 #include "Camera.h"
 #include "Texture.h"
 #include "Sphere.h"
 #include"Model.h"
 #include "Skybox.h"
 
+//para iluminación
+#include "CommonValues.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
+#include "Material.h"
 const float toRadians = 3.14159265f / 180.0f;
 
 Window mainWindow;
@@ -48,6 +54,7 @@ Model SrSmoothy;
 Model Ben;
 
 
+
 Skybox skybox;
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
@@ -55,14 +62,21 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 static double limitFPS = 1.0 / 60.0;
 
+// luz direccional
+DirectionalLight mainLight;
+//para declarar varias luces de tipo pointlight
+PointLight pointLights[MAX_POINT_LIGHTS];
+SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 // Vertex Shader
-static const char* vShader = "shaders/shader_texture.vert";
+static const char* vShader = "shaders/shader_light.vert";
 
 // Fragment Shader
-static const char* fShader = "shaders/shader_texture.frag";
+static const char* fShader = "shaders/shader_light.frag";
 
-
+//materiales
+Material Material_brillante;
+Material Material_opaco;
 
 
 //cálculo del promedio de las normales para sombreado de Phong
@@ -254,6 +268,8 @@ int main()
 
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/mrsmoothie-3d-model/Mr_Smoothie.obj");
+	Ben = Model();
+	Ben.LoadModel("Models/mrsmoothie-3d-model/Mr_SmoothieCostadosPrueba.obj");
 	
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -264,6 +280,42 @@ int main()
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
 
 	skybox = Skybox(skyboxFaces);
+
+	Material_brillante = Material(4.0f, 256);
+	Material_opaco = Material(0.3f, 4);
+
+
+	////luz direccional, sólo 1 y siempre debe de existir
+	//mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+	//	0.3f, 0.3f,
+	//	0.0f, 0.0f, -1.0f);
+	////contador de luces puntuales
+	//unsigned int pointLightCount = 0;
+	////Declaración de primer luz puntual
+	//pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
+	//	0.0f, 1.0f,
+	//	-6.0f, 1.5f, 1.5f,
+	//	0.3f, 0.2f, 0.1f);
+	//pointLightCount++;
+
+	//unsigned int spotLightCount = 0;
+	////linterna
+	//spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+	//	0.0f, 2.0f,
+	//	0.0f, 0.0f, 0.0f,
+	//	0.0f, -1.0f, 0.0f,
+	//	1.0f, 0.0f, 0.0f,
+	//	5.0f);
+	//spotLightCount++;
+
+	////luz fija
+	//spotLights[1] = SpotLight(0.0f, 1.0f, 0.0f,
+	//	1.0f, 2.0f,
+	//	5.0f, 10.0f, 0.0f,
+	//	0.0f, -5.0f, 0.0f,
+	//	1.0f, 0.0f, 0.0f,
+	//	15.0f);
+	//spotLightCount++;
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
@@ -401,21 +453,15 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SrSmoothy.RenderModel();
 
-		color = glm::vec3(0.0f, 0.0f, 1.0f);
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-320.0, 50.5, -742.5));
-		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-		meshList[3]->RenderMesh();
-
-
-		////Ben prueba
+		//////Ben prueba
 		//model = glm::mat4(1.0);
 		//model = glm::translate(model, glm::vec3(-3.0f, 3.0f, -2.0f));
-		//model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model)); 
+		////model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		//Ben.RenderModel();//*/
+		//glDisable(GL_BLEND);
 
 		
 		

@@ -1,0 +1,49 @@
+# Blender 4.1.0 MTL File: 'Mr_Smoothie.blend'
+# www.blender.org
+
+newmtl green_plastic
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd smoothie_greenplastic_BaseColor.png
+map_Ns smoothie_greenplastic_Roughness.png
+map_refl smoothie_greenplastic_Metallic.png
+map_Bump -bm 1.000000 smoothie_green plastic_Normal.png
+
+newmtl semi_plastic
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd smoothie_semiplastic_BaseColor.png
+map_Ns smoothie_semiplastic_Roughness.png
+map_refl smoothie_semiplastic_Metallic.png
+map_Bump -bm 1.000000 smoothie_semi plastic_Normal.png
+
+newmtl straw
+Ns 200.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd smoothie_straw_BaseColor.png
+map_Bump -bm 1.000000 smoothie_straw_Normal.png
+
+newmtl white_plastic
+Ka 1.000000 1.000000 1.000000
+Ks 0.413636 0.413636 0.413636
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd smoothie_whiteplastic_BaseColor.png
+map_Ns smoothie_whiteplastic_Roughness.png
+map_refl smoothie_whiteplastic_Metallic.png
+map_Bump -bm 1.000000 smoothie_whiteplastic_Normal.png

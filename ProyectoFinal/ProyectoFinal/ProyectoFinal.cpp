@@ -50,8 +50,11 @@ Texture pisoTexture;
 //Texture logofiTexture;
 
 Model Prueba_M;
+//Ben10
 Model SrSmoothy;
 Model Ben;
+//Lamparas 
+Model Candil;
 
 
 
@@ -267,9 +270,12 @@ int main()
 	Prueba_M.LoadModel("Models/ModeloPrueba.obj");
 
 	SrSmoothy = Model();
-	SrSmoothy.LoadModel("Models/mrsmoothie-3d-model/Mr_Smoothie.obj");
+	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_Smoothie.obj");
 	Ben = Model();
-	Ben.LoadModel("Models/mrsmoothie-3d-model/Mr_SmoothieCostadosPrueba.obj");
+	Ben.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCostadosPrueba.obj");
+	//Lamparas
+	Candil = Model();
+	Candil.LoadModel("Models/Lamparas/candil.obj");
 	
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -463,7 +469,12 @@ int main()
 		//Ben.RenderModel();//*/
 		//glDisable(GL_BLEND);
 
-		
+		//Prueba lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.5, 15.5, 0.5));
+		//model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Candil.RenderModel();
 		
 
 		glUseProgram(0);

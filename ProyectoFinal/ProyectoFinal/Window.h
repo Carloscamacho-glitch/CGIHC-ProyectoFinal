@@ -14,6 +14,7 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getmuevex() { return muevex; }
+	GLfloat getarregloluz() { return arregloluz; }
 
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
@@ -21,12 +22,17 @@ public:
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
 	GLfloat getarticulacionllantas() { return articulacionllantas; }
 	GLfloat getdesplazamiento() { return desplazamiento; }
+	//Agregado ejercicio1 de clase  P8
+	GLboolean getlampara() { return lampara; }
+
+	//ejercicio 02 P8 
+	GLfloat getFaro() { return bandera; }
 	
 	~Window();
 private: 
 	GLFWwindow *mainWindow;
 	GLint width, height;
-	GLfloat articulacionCofre, articulacionllantas, desplazamiento;
+	GLfloat articulacionllantas, desplazamiento,arregloluz, bandera;
 	bool keys[1024];
 	GLint bufferWidth, bufferHeight;
 	void createCallbacks();
@@ -35,6 +41,9 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLfloat muevex;
+	//Agregado ejercicio 8
+	GLboolean lampara = true;
+	//
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);

@@ -53,9 +53,11 @@ Model Prueba_M;
 //Ben10
 Model SrSmoothy;
 Model Ben;
+//Simpsons
+Model KwikEmart;
+Model LetreroKwik;
 //Lamparas 
 Model Candil;
-
 
 
 Skybox skybox;
@@ -273,6 +275,12 @@ int main()
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_Smoothie.obj");
 	Ben = Model();
 	Ben.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCostadosPrueba.obj");
+	//Simpsons
+	KwikEmart = Model();
+	KwikEmart.LoadModel("Models/Simpsons/kwikEmart/KwikEMartUnidoSinPiso.obj");
+	LetreroKwik = Model();
+	LetreroKwik.LoadModel("Models/Simpsons/kwikEmart/letrero.obj");
+
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -452,13 +460,6 @@ int main()
 		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 
 
-		//Sr Smoothie
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-337.5, 0.5, -742.5));
-		model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		SrSmoothy.RenderModel();
-
 		//////Ben prueba
 		//model = glm::mat4(1.0);
 		//model = glm::translate(model, glm::vec3(-3.0f, 3.0f, -2.0f));
@@ -475,6 +476,32 @@ int main()
 		//model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Candil.RenderModel();
+
+		/////////////////////EDIFICIOS//////////////////
+		
+		//KwikEmart
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(380.0f, -1.0f, 760.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		KwikEmart.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(240.0f, 0.3f, 660.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LetreroKwik.RenderModel();
+
+		//Sr Smoothie
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-337.5, 0.5, -742.5));
+		model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		SrSmoothy.RenderModel();
 		
 
 		glUseProgram(0);

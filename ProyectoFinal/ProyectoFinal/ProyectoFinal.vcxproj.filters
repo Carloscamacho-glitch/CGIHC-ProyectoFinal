@@ -42,7 +42,7 @@
     <ClInclude Include="PointLight.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Shader_m.h">
+    <ClInclude Include="Shader_light.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
@@ -86,7 +86,10 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Shader_m.cpp">
+    <ClCompile Include="ProyectoFinal.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader_light.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Skybox.cpp">
@@ -104,9 +107,6 @@
     <ClCompile Include="Window.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="ProyectoFinal.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\shader_light.frag">
@@ -115,10 +115,10 @@
     <None Include="shaders\shader_light.vert">
       <Filter>Archivos de recursos</Filter>
     </None>
-    <None Include="shaders\shader_texture.frag">
+    <None Include="shaders\skybox.frag">
       <Filter>Archivos de recursos</Filter>
     </None>
-    <None Include="shaders\shader_texture.vert">
+    <None Include="shaders\skybox.vert">
       <Filter>Archivos de recursos</Filter>
     </None>
   </ItemGroup>

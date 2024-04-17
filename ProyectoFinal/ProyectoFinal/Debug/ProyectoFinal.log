@@ -5,6 +5,6 @@ C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\Proyect
 C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(370,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(372,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(342,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(344,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
   ProyectoFinal.vcxproj -> C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\Debug\ProyectoFinal.exe

@@ -252,7 +252,7 @@ int main()
 	CreateObjects();
 	CrearDado();
 	CreateShaders();
-	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 1.8f, 1.5f);
+	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 2.5f);
 
 	////brickTexture = Texture("Textures/brick.png");
 	////brickTexture.LoadTextureA();
@@ -272,7 +272,7 @@ int main()
 	Prueba_M.LoadModel("Models/ModeloPrueba.obj");
 
 	SrSmoothy = Model();
-	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_Smoothie.obj");
+	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
 	Ben = Model();
 	Ben.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCostadosPrueba.obj");
 	//Simpsons
@@ -393,7 +393,7 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 2
+		//Cuadrante 2 Jared
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
@@ -498,10 +498,13 @@ int main()
 
 		//Sr Smoothie
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-337.5, 0.5, -742.5));
-		model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
+		model = glm::translate(model, glm::vec3(-480.5, 0.5, -742.5));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		SrSmoothy.RenderModel();
+		glDisable(GL_BLEND);
 		
 
 		glUseProgram(0);

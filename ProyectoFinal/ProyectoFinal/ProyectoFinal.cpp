@@ -52,7 +52,6 @@ Texture pisoTexture;
 Model Prueba_M;
 //Ben10
 Model SrSmoothy;
-Model Ben;
 //Simpsons
 Model KwikEmart;
 Model LetreroKwik;
@@ -174,104 +173,18 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 }
 
-void CrearDado()
-{
-	unsigned int cubo_indices[] = {
-		// front
-		0, 1, 2,
-		2, 3, 0,
-
-		// back
-		8, 9, 10,
-		10, 11, 8,
-
-		// left
-		12, 13, 14,
-		14, 15, 12,
-		// bottom
-		16, 17, 18,
-		18, 19, 16,
-		// top
-		20, 21, 22,
-		22, 23, 20,
-
-		// right
-		4, 5, 6,
-		6, 7, 4,
-
-	};
-// average normals
-	GLfloat cubo_vertices[] = {
-		// front
-		//x		y		z		S		T			NX		NY		NZ
-		-0.5f, -0.5f,  0.5f,	0.26f,  0.34f,		0.0f,	0.0f,	-1.0f,	//0
-		0.5f, -0.5f,  0.5f,		0.49f,	0.34f,		0.0f,	0.0f,	-1.0f,	//1
-		0.5f,  0.5f,  0.5f,		0.49f,	0.66f,		0.0f,	0.0f,	-1.0f,	//2
-		-0.5f,  0.5f,  0.5f,	0.26f,	0.66f,		0.0f,	0.0f,	-1.0f,	//3
-		// right
-		//x		y		z		S		T
-		0.5f, -0.5f,  0.5f,	    0.01f,	0.34f,		-1.0f,	0.0f,	0.0f,
-		0.5f, -0.5f,  -0.5f,	0.25f,	0.34f,		-1.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  -0.5f,	0.25f,	0.66f,		-1.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  0.5f,	    0.01f,	0.66f,		-1.0f,	0.0f,	0.0f,
-		// back
-		-0.5f, -0.5f, -0.5f,	0.74f,  0.34f,		0.0f,	0.0f,	1.0f,
-		0.5f, -0.5f, -0.5f,		0.5f,	0.34f,		0.0f,	0.0f,	1.0f,
-		0.5f,  0.5f, -0.5f,		0.5f,	0.66f,		0.0f,	0.0f,	1.0f,
-		-0.5f,  0.5f, -0.5f,	0.74f,	0.66f,		0.0f,	0.0f,	1.0f,
-
-		// left
-		//x		y		z		S		T
-		-0.5f, -0.5f,  -0.5f,	0.76f,  0.34f,		1.0f,	0.0f,	0.0f,
-		-0.5f, -0.5f,  0.5f,	0.99f,	0.34f,		1.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  0.5f,	0.99f,	0.65f,		1.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  -0.5f,	0.76f,	0.65f,		1.0f,	0.0f,	0.0f,
-
-		// bottom
-		//x		y		z		S		T
-		-0.5f, -0.5f,  0.5f,	0.74f,  0.0f,		0.0f,	1.0f,	0.0f,
-		0.5f,  -0.5f,  0.5f,	0.5f,	0.0f,		0.0f,	1.0f,	0.0f,
-		 0.5f,  -0.5f,  -0.5f,	0.5f,	0.33f,		0.0f,	1.0f,	0.0f,
-		-0.5f, -0.5f,  -0.5f,	0.74f,	0.33f,		0.0f,	1.0f,	0.0f,
-
-		//UP
-		 //x		y		z		S		T
-		 -0.5f, 0.5f,  0.5f,	0.5f,  0.67f,		0.0f,	-1.0f,	0.0f,
-		 0.5f,  0.5f,  0.5f,	0.74f,	0.67f,		0.0f,	-1.0f,	0.0f,
-		  0.5f, 0.5f,  -0.5f,	0.74f,	0.99f,		0.0f,	-1.0f,	0.0f,
-		 -0.5f, 0.5f,  -0.5f,	0.5f,	0.99f,		0.0f,	-1.0f,	0.0f,
-
-	};
-
-	Mesh* dado = new Mesh();
-	dado->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
-	meshList.push_back(dado);
-
-}
-
-
-
 int main()
 {
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
 
 	CreateObjects();
-	CrearDado();
 	CreateShaders();
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 2.5f);
 
-	///*brickTexture = Texture("Textures/brick.png");
-	//brickTexture.LoadTextureA();
-	//dirtTexture = Texture("Textures/dirt.png");
-	//dirtTexture.LoadTextureA();
-	//plainTexture = Texture("Textures/plain.png");
-	//plainTexture.LoadTextureA();*/
 	pisoTexture = Texture("Textures/piso.tga");
 	pisoTexture.LoadTextureA();
-	/*AgaveTexture = Texture("Textures/Agave.tga");
-	AgaveTexture.LoadTextureA();*/
 
 	//Carga de modelos
 	Prueba_M = Model();
@@ -279,8 +192,6 @@ int main()
 
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
-	Ben = Model();
-	Ben.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCostadosPrueba.obj");
 	//Simpsons
 	KwikEmart = Model();
 	KwikEmart.LoadModel("Models/Simpsons/kwikEmart/KwikEMartUnidoSinPiso.obj");
@@ -310,8 +221,6 @@ int main()
 		0.3f, 0.3f,
 		0.0f, 0.0f, -1.0f);
 
-
-	////////Ejercicio de clase apagar lampara practica 08
 	unsigned int spotLightCount = 0;
 	//linterna
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
@@ -370,7 +279,7 @@ int main()
 
 		// luz ligada a la cámara de tipo flash
 		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
-			glm::vec3 lowerLight = camera.getCameraPosition();
+		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
@@ -378,7 +287,6 @@ int main()
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount); 
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
-	
 
 		glm::mat4 model(1.0);
 		glm::mat4 modelaux(1.0);
@@ -403,23 +311,33 @@ int main()
 		Prueba_M.RenderModel();
 
 		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
-		//Cuadrante 1
+		//Cuadrante 1-------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 0.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 2 Jared
+		//Cuadrante 2 Jared ------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 0.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 3
+		//Sr Smoothie
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-480.5, -0.5, -742.5));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		SrSmoothy.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Cuadrante 3 ------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(350.0f, 0.0f, -750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
@@ -427,7 +345,7 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 4
+		//Cuadrante 4 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
@@ -435,7 +353,7 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 5
+		//Cuadrante 5 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
@@ -443,7 +361,7 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 6
+		//Cuadrante 6 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, 750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
@@ -451,51 +369,13 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
-		//Cuadrante 7
+		//Cuadrante 7 ---------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(350.0f, 0.0f, 750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
-
-		//Cuadrante 8
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
-		//Centro
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(60.0f, 1.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
-		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
-
-
-		//////Ben prueba
-		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-3.0f, 3.0f, -2.0f));
-		////model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//glEnable(GL_BLEND);
-		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//Ben.RenderModel();//*/
-		//glDisable(GL_BLEND);
-
-		//Prueba lampara
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.5, 15.5, 0.5));
-		//model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Candil.RenderModel();
-
-		/////////////////////EDIFICIOS//////////////////
 
 		//KwikEmart
 		model = glm::mat4(1.0);
@@ -507,24 +387,38 @@ int main()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		KwikEmart.RenderModel();
 		glDisable(GL_BLEND);
-
+		//Letrero
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(240.0f, 0.3f, 660.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LetreroKwik.RenderModel();
 
-		//Sr Smoothie
+		//Cuadrante 8 -----------------------------------------------------------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-480.5, 0.5, -742.5));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		SrSmoothy.RenderModel();
-		glDisable(GL_BLEND);
+		pisoTexture.UseTexture();
+		meshList[2]->RenderMesh();
 
+		//Centro ----------------------------------------------------------------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(60.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pisoTexture.UseTexture();
+		meshList[2]->RenderMesh();
 
+		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
+
+		//Prueba lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.5, 15.5, 0.5));
+		//model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Candil.RenderModel();
+		
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();

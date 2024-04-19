@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\ProyectoFinal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|solutionrelative:ProyectoFinal\\ProyectoFinal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|solutionrelative:ProyectoFinal\\Window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Window.cpp",
+              "DocumentMoniker": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Window.cpp",
+              "RelativeDocumentMoniker": "ProyectoFinal\\Window.cpp",
+              "ToolTip": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Window.cpp",
+              "RelativeToolTip": "ProyectoFinal\\Window.cpp",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACgAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-19T21:33:51.726Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProyectoFinal.cpp",
+              "DocumentMoniker": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\ProyectoFinal.cpp",
+              "RelativeDocumentMoniker": "ProyectoFinal\\ProyectoFinal.cpp",
+              "ToolTip": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\ProyectoFinal.cpp",
+              "RelativeToolTip": "ProyectoFinal\\ProyectoFinal.cpp",
+              "ViewState": "AQIAACUBAAAAAAAAAAAAAEYBAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-19T21:33:51.821Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

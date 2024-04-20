@@ -13,10 +13,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 {
 	width = windowWidth;
 	height = windowHeight;
-	muevex = 2.0f;
-	articulacionllantas = 0.0f;
-	desplazamiento = 0.0f;
-	bandera = 1.0f;
+	Camara = 1.0;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -39,7 +36,7 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "Practica07:iluminacion1", NULL, NULL);
+	mainWindow = glfwCreateWindow(width, height, "Proyecto Final", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -108,39 +105,24 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
-	//Desplazamiento Coche
-	if (key == GLFW_KEY_Y)
-	{
-		theWindow-> muevex -= 0.5;
-		theWindow->bandera = 1.0f;
-		theWindow->articulacionllantas -= 30.0;
-	}
-	if (key == GLFW_KEY_U)
-	{
-		theWindow-> muevex += 0.5;
-		theWindow->bandera = 0.0f;
-		theWindow->articulacionllantas += 30.0;
-	}
-
-	//Desplazamiento
-	if (key == GLFW_KEY_K)
-	{
-		theWindow->desplazamiento += 1.5;
-	}
-	if (key == GLFW_KEY_J)
-	{
-		theWindow->desplazamiento -= 1.5;
-	}
-
-	//Lampara ejercicio 08
+	//Ejemplo
 	if (key == GLFW_KEY_1)
 	{
-		theWindow->lampara = false;
+		theWindow->Camara = 1.0f;
 	}
 	if (key == GLFW_KEY_2)
 	{
-		theWindow->lampara = true;
+		theWindow->Camara = 2.0f;
 	}
+	if (key == GLFW_KEY_3)
+	{
+		theWindow->Camara = 3.0f;
+	}
+	//if (key == GLFW_KEY_D)
+	//{
+	//	theWindow->MovLR -= 1.0;
+	//}
+
 
 
 	if (key >= 0 && key < 1024)

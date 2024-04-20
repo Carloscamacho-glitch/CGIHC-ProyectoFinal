@@ -35,26 +35,53 @@ Práctica 7: Iluminación 1
 #include "SpotLight.h"
 #include "Material.h"
 const float toRadians = 3.14159265f / 180.0f;
+glm::vec3 peridotPos = glm::vec3(0.0f, 0.0f, 0.0f);
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
+Camera camera2;
+Camera camera3;
+Camera* currentCamera;
 
-//Texture brickTexture;
-//Texture dirtTexture;
-//Texture plainTexture;
 Texture pisoTexture;
-//Texture dadoTexture;
-//Texture logofiTexture;
 
 Model Prueba_M;
-//Ben10
+//Ben10 ---------------------------------
 Model SrSmoothy;
-//Simpsons
+
+//Simpsons ------------------------------
 Model KwikEmart;
 Model LetreroKwik;
+
+//Steven Universe -----------------------
+Model Portal;
+Model BurbujaBismuto;
+Model BurbujaSquaridot;
+Model BurbujaJasper;
+Model GatoGalleta;
+//leon
+Model Leon;
+Model LeonPataDelDer;
+Model LeonPataDelIzq;
+Model LeonPataTrasDer;
+Model LeonPataTrasIzq;
+//peridos
+Model PeridotCuerpo;
+Model PeridotCabeza;
+Model PeridotBrazoDer;
+Model PeridotBrazoIzq;
+Model PeridotManoDer;
+Model PeridotManoIzq;
+Model PeridotPiernaDer;
+Model PeridotPiernaIzq;
+Model PeridotPieDer;
+Model PeridotPieIzq;
+//Gravity Falls -------------------------
+
+//Extras --------------------------------
 //Lamparas 
 Model Candil;
 
@@ -181,23 +208,78 @@ int main()
 	CreateObjects();
 	CreateShaders();
 
-	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 2.5f);
+	//Camara en 3ra persona
+	camera = Camera(glm::vec3(-40.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 2.5f, 2.5f);
+	//Camara aerea
+	camera2 = Camera(glm::vec3(-200.0f, 750.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -90.0f, 2.5f, 2.5f);
+	//Camara libre temporal
+	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 2.5f, 2.5f);
 
+	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	pisoTexture = Texture("Textures/piso.tga");
 	pisoTexture.LoadTextureA();
 
-	//Carga de modelos
+	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	Prueba_M = Model();
 	Prueba_M.LoadModel("Models/ModeloPrueba.obj");
 
+	//Ben 10 --------------------------------
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
-	//Simpsons
+
+	//Simpsons ------------------------------
 	KwikEmart = Model();
 	KwikEmart.LoadModel("Models/Simpsons/kwikEmart/KwikEMartUnidoSinPiso.obj");
 	LetreroKwik = Model();
 	LetreroKwik.LoadModel("Models/Simpsons/kwikEmart/letrero.obj");
 
+	//Steven Universe -----------------------
+	Portal = Model();
+	Portal.LoadModel("Models/Steven Universe/Portal.obj");
+	BurbujaBismuto = Model();
+	BurbujaBismuto.LoadModel("Models/Steven Universe/Busbuja Bismuto.obj");
+	BurbujaSquaridot = Model();
+	BurbujaSquaridot.LoadModel("Models/Steven Universe/Burbuja Squaridot.obj");
+	BurbujaJasper = Model();
+	BurbujaJasper.LoadModel("Models/Steven Universe/Burbuja Jasper.obj");
+	GatoGalleta = Model();
+	GatoGalleta.LoadModel("Models/Steven Universe/GatoGalleta.obj");
+	//leon
+	Leon = Model();
+	LeonPataDelDer.LoadModel("Models/Steven Universe/Leon.obj");
+	LeonPataDelDer = Model();
+	LeonPataDelDer.LoadModel("Models/Steven Universe/Leon Pata DelDer.obj");
+	LeonPataDelIzq = Model();
+	LeonPataDelIzq.LoadModel("Models/Steven Universe/Leon Pata DelIzq.obj");
+	LeonPataTrasDer = Model();
+	LeonPataTrasDer.LoadModel("Models/Steven Universe/Leon Pata TraDer.obj");
+	LeonPataTrasIzq = Model();
+	LeonPataTrasIzq.LoadModel("Models/Steven Universe/Leon Pata TraIzq.obj");
+	//peridos
+	PeridotCuerpo = Model();
+	PeridotCuerpo.LoadModel("Models/Steven Universe/Peridot cuerpo.obj");
+	PeridotCabeza = Model();
+	PeridotCabeza.LoadModel("Models/Steven Universe/Peridot cabeza.obj");
+	PeridotBrazoDer = Model();
+	PeridotBrazoDer.LoadModel("Models/Steven Universe/Peridot brazo derecho.obj");
+	PeridotBrazoIzq = Model();
+	PeridotBrazoIzq.LoadModel("Models/Steven Universe/Peridot brazo izquierdo.obj");
+	PeridotManoDer = Model();
+	PeridotManoDer.LoadModel("Models/Steven Universe/Peridot mano derecha.obj");
+	PeridotManoIzq = Model();
+	PeridotManoIzq.LoadModel("Models/Steven Universe/Peridot mano izquierda.obj");
+	PeridotPiernaDer = Model();
+	PeridotPiernaDer.LoadModel("Models/Steven Universe/Peridot pierna derecha.obj");
+	PeridotPiernaIzq = Model();
+	PeridotPiernaIzq.LoadModel("Models/Steven Universe/Peridot pierna izquierda.obj");
+	PeridotPieDer = Model();
+	PeridotPieDer.LoadModel("Models/Steven Universe/Peridot pie derecho.obj");
+	PeridotPieIzq = Model();
+	PeridotPieIzq.LoadModel("Models/Steven Universe/Peridot pie izquierdo.obj");
+
+	//Gravity Falls -------------------------
+
+	//Extras --------------------------------
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -255,13 +337,22 @@ int main()
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime);
-		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+		if (mainWindow.getCamara() == 1.0f) {
+			currentCamera = &camera;
+		}
+		else if (mainWindow.getCamara() == 2.0f) {
+			currentCamera = &camera2;
+		}
+		else {
+			currentCamera = &camera3;
+		}
+		currentCamera->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime);
+		currentCamera->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange());
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
+		skybox.DrawSkybox(currentCamera->calculateViewMatrix(), projection);
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
@@ -274,8 +365,8 @@ int main()
 		uniformShininess = shaderList[0].GetShininessLocation();
 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
-		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
+		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
 
 		// luz ligada a la cámara de tipo flash
 		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
@@ -289,7 +380,10 @@ int main()
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
 		glm::mat4 model(1.0);
-		glm::mat4 modelaux(1.0);
+		glm::mat4 ModelAuxPeridot1(1.0);
+		glm::mat4 ModelAuxPeridot2(1.0);
+		glm::mat4 ModelAuxPeridot3(1.0);
+		glm::mat4 ModelAuxPeridot4(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0);
@@ -305,7 +399,7 @@ int main()
 
 		//Dibujo de modelo de ejemplo
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 10.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Prueba_M.RenderModel();
@@ -410,12 +504,71 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
+		//Portal
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Portal.RenderModel();
+
+		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
+		//Peridot ---------------------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z));
+		model = glm::scale(model, glm::vec3(1.6f, 1.6f, 1.6f));
+		ModelAuxPeridot1 = model;
+		ModelAuxPeridot2 = model;
+		ModelAuxPeridot3 = model;
+		ModelAuxPeridot4 = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotCuerpo.RenderModel();
+		//cabeza
+		model = glm::translate(model, glm::vec3(0.0f, 3.7f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotCabeza.RenderModel();
+		//Brazo derecho
+		model = ModelAuxPeridot1;
+		model = glm::translate(model, glm::vec3(0.0f, 2.6f, -0.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotBrazoDer.RenderModel();
+		//Mano derecha
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, -0.95f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotManoDer.RenderModel();
+		//Brazo izquierdo
+		model = ModelAuxPeridot2;
+		model = glm::translate(model, glm::vec3(0.0f, 2.6f, 0.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotBrazoIzq.RenderModel();
+		//Mano izquierda
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.95f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotManoIzq.RenderModel();
+		//Pierna derecha
+		model = ModelAuxPeridot3;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.35f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotPiernaDer.RenderModel();
+		//Pie derecho
+		model = glm::translate(model, glm::vec3(0.0f, -2.3f, -0.95f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotPieDer.RenderModel();
+		//Pierna izquierda
+		model = ModelAuxPeridot4;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.35f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotPiernaIzq.RenderModel();
+		//Pie izquierdo
+		model = glm::translate(model, glm::vec3(0.0f, -2.3f, 0.95f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PeridotPieIzq.RenderModel();
+
 		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 
 		//Prueba lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.5, 15.5, 0.5));
-		//model = glm::scale(model, glm::vec3(40.0f, 40.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Candil.RenderModel();
 		

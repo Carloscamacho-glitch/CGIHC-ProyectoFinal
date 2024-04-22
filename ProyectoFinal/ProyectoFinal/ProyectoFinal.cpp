@@ -82,6 +82,7 @@ Model PeridotPieIzq;
 //Gravity Falls -------------------------
 
 //Extras --------------------------------
+Model Invernadero;
 //Lamparas 
 Model Candil;
 
@@ -91,8 +92,6 @@ DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS]; //Incluye luz delantera del coche 
 SpotLight spotLights2[MAX_SPOT_LIGHTS]; //Tendra la luz trasera del coche
-
-
 
 
 // Vertex Shader
@@ -229,7 +228,7 @@ int main()
 
 	//Simpsons ------------------------------
 	KwikEmart = Model();
-	KwikEmart.LoadModel("Models/Simpsons/kwikEmart/KwikEMartUnidoSinPiso.obj");
+	KwikEmart.LoadModel("Models/Simpsons/kwikEmart/KwikEMartUnido.obj");
 	LetreroKwik = Model();
 	LetreroKwik.LoadModel("Models/Simpsons/kwikEmart/letrero.obj");
 
@@ -280,6 +279,9 @@ int main()
 	//Gravity Falls -------------------------
 
 	//Extras --------------------------------
+	Invernadero = Model();
+	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
+
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -473,18 +475,19 @@ int main()
 
 		//KwikEmart
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(380.0f, -1.0f, 760.0f));
-		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		model = glm::translate(model, glm::vec3(380.0f, -1.0f, 766.6f));
+		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		KwikEmart.RenderModel();
 		glDisable(GL_BLEND);
+
 		//Letrero
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(240.0f, 0.3f, 660.0f));
-		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::scale(model, glm::vec3(15.5f, 17.0f, 15.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LetreroKwik.RenderModel();
 
@@ -506,11 +509,21 @@ int main()
 
 		//Portal
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-200.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-50.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Portal.RenderModel();
+
+		//Invernadero
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-400.0f, 1.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(0.015f, 0.0135f, 0.015f));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Invernadero.RenderModel();
+		glDisable(GL_BLEND);
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
 		//Peridot ---------------------------

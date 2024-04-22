@@ -51,6 +51,7 @@ Texture pisoTexture;
 Model Prueba_M;
 //Ben10 ---------------------------------
 Model SrSmoothy;
+Model Ben;
 
 //Simpsons ------------------------------
 Model KwikEmart;
@@ -62,13 +63,13 @@ Model BurbujaBismuto;
 Model BurbujaSquaridot;
 Model BurbujaJasper;
 Model GatoGalleta;
-//leon
+//Leon
 Model Leon;
 Model LeonPataDelDer;
 Model LeonPataDelIzq;
 Model LeonPataTrasDer;
 Model LeonPataTrasIzq;
-//peridos
+//Peridot
 Model PeridotCuerpo;
 Model PeridotCabeza;
 Model PeridotBrazoDer;
@@ -85,6 +86,7 @@ Model PeridotPieIzq;
 Model Invernadero;
 //Lamparas 
 Model Candil;
+Model Lampara1;
 
 // luz direccional
 DirectionalLight mainLight;
@@ -225,6 +227,8 @@ int main()
 	//Ben 10 --------------------------------
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
+	Ben = Model();
+	Ben.LoadModel("Models/Ben10/Ben/Ben.obj");
 
 	//Simpsons ------------------------------
 	KwikEmart = Model();
@@ -243,7 +247,7 @@ int main()
 	BurbujaJasper.LoadModel("Models/Steven Universe/Burbuja Jasper.obj");
 	GatoGalleta = Model();
 	GatoGalleta.LoadModel("Models/Steven Universe/GatoGalleta.obj");
-	//leon
+	//Leon
 	Leon = Model();
 	LeonPataDelDer.LoadModel("Models/Steven Universe/Leon.obj");
 	LeonPataDelDer = Model();
@@ -254,7 +258,7 @@ int main()
 	LeonPataTrasDer.LoadModel("Models/Steven Universe/Leon Pata TraDer.obj");
 	LeonPataTrasIzq = Model();
 	LeonPataTrasIzq.LoadModel("Models/Steven Universe/Leon Pata TraIzq.obj");
-	//peridos
+	//Peridot
 	PeridotCuerpo = Model();
 	PeridotCuerpo.LoadModel("Models/Steven Universe/Peridot cuerpo.obj");
 	PeridotCabeza = Model();
@@ -285,6 +289,8 @@ int main()
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
+	Lampara1 = Model();
+	Lampara1.LoadModel("Models/Lamparas/Lampara01.obj");
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -418,20 +424,35 @@ int main()
 		//Cuadrante 2 Jared ------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 0.0f, 15.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
 		//Sr Smoothie
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-480.5, -0.5, -742.5));
+		model = glm::translate(model, glm::vec3(-480.5, 0.5, -742.5));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		SrSmoothy.RenderModel();
 		glDisable(GL_BLEND);
+
+		//Ben prueba
+		model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(250.0f, 0.3f, 660.0f));
+		model = glm::translate(model, glm::vec3(-360.0f, 0.0f, -700.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Ben.RenderModel();
+
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-591.5f, 7.0f, -608.5f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara1.RenderModel();
 
 		//Cuadrante 3 ------------------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -441,6 +462,13 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(108.5f, 7.0f, -608.5f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara1.RenderModel();
+
 		//Cuadrante 4 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
@@ -449,6 +477,13 @@ int main()
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
 
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(806.5f, 7.0f, -608.5f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara1.RenderModel();
+
 		//Cuadrante 5 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
@@ -456,6 +491,13 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
+
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-810.5f, 0.0f, 109.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.5f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Candil.RenderModel();
 
 		//Cuadrante 6 -------------------------------------------------------------------
 		model = glm::mat4(1.0);

@@ -1,5 +1,5 @@
 /*
-Práctica 7: Iluminación 1 
+Proyecto Final
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -52,6 +52,43 @@ Model Prueba_M;
 //Ben10 ---------------------------------
 Model SrSmoothy;
 Model Ben;
+Model Azmuth;
+Model Omnitrix;
+Model Khyber;
+Model EcoEco;
+//Diamante
+Model Diamante;
+Model DiamanteBrazoIzq;
+Model DiamanteManoIzq;
+//Escarabola
+Model Escarabola;
+Model EscarabolaPataDelDer;
+Model EscarabolaPataDelIzq;
+Model EscarabolaPataTrasDer;
+Model EscarabolaPataTrasIzq;
+//Crabdozer
+Model Crabdozer;
+Model CrabdozerPataDelDer;
+Model CrabdozerPataDelIzq;
+Model CrabdozerPataMedDer;
+Model CrabdozerPataMedIzq;
+Model CrabdozerPataTrasDer;
+Model CrabdozerPataTrasIzq;
+//DX Mark 10
+Model CocheBen;
+Model CocheBen_RuedaDelDer;
+Model CocheBen_RuedaDelIzq;
+Model CocheBen_RuedaTrasDer;
+Model CocheBen_RuedaTrasIzq;
+//Rustbucket
+Model Rustbucket;
+Model Rustbucket_RuedaDelDer;
+Model Rustbucket_RuedaDelIzq;
+Model Rustbucket_RuedaTrasDer;
+Model Rustbucket_RuedaTrasIzq;
+//Xylene Ship
+Model XyleneShip;
+Model XyleneShip_Arco;
 
 //Simpsons ------------------------------
 Model KwikEmart;
@@ -85,13 +122,14 @@ Model PeridotPieIzq;
 
 //Extras --------------------------------
 Model Invernadero;
+Model Banca;
+Model Jardinera;
+Model Banca2;
+Model Arboles3;
 //Lamparas 
 Model Candil;
 Model Lampara1;
 Model Lampara2;
-Model Jardinera;
-Model Banca2;
-Model Arboles3;
 
 
 // luz direccional
@@ -235,6 +273,74 @@ int main()
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
 	Ben = Model();
 	Ben.LoadModel("Models/Ben10/Ben/Ben.obj");
+	Omnitrix = Model();
+	Omnitrix.LoadModel("Models/Ben10/Omnitrix/Omnitrix.obj");
+	Azmuth = Model();
+	Azmuth.LoadModel("Models/Ben10/Azmuth/Azmuth.obj");
+	Khyber = Model();
+	Khyber.LoadModel("Models/Ben10/Khyber/Khyber.obj");
+	EcoEco = Model();
+	EcoEco.LoadModel("Models/Ben10/Ulimate_EcoEco/U_EcoEco.obj");
+	//Escarabola
+	Escarabola = Model();
+	Escarabola.LoadModel("Models/Ben10/ball-weevil/BallWeevil.obj");
+	EscarabolaPataDelDer = Model();
+	EscarabolaPataDelDer.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataDelDer.obj");
+	EscarabolaPataDelIzq = Model();
+	EscarabolaPataDelIzq.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataDelIzq.obj");
+	EscarabolaPataTrasDer = Model();
+	EscarabolaPataTrasDer.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataTraDer.obj");
+	EscarabolaPataTrasIzq = Model();
+	EscarabolaPataTrasIzq.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataTraIzq.obj");
+	//Crabdozer
+	Crabdozer = Model();
+	Crabdozer.LoadModel("Models/Ben10/Crabdozer/Crabdozer.obj");
+	CrabdozerPataDelDer = Model();
+	CrabdozerPataDelDer.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataDelDer.obj");
+	CrabdozerPataDelIzq = Model();
+	CrabdozerPataDelIzq.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataDelIzq.obj");
+	CrabdozerPataMedDer = Model();
+	CrabdozerPataMedDer.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataMediaDer.obj");
+	CrabdozerPataMedIzq = Model();
+	CrabdozerPataMedIzq.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataMediaIzq.obj");
+	CrabdozerPataTrasDer = Model();
+	CrabdozerPataTrasDer.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataTrasDer.obj");
+	CrabdozerPataTrasIzq = Model();
+	CrabdozerPataTrasIzq.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataTrasIzq.obj");
+	//Diamante
+	Diamante = Model();
+	Diamante.LoadModel("Models/Ben10/Diamondhead/Diamante.obj");
+	DiamanteBrazoIzq = Model();
+	DiamanteBrazoIzq.LoadModel("Models/Ben10/Diamondhead/Diamante_BrazoIzq.obj");
+	DiamanteManoIzq = Model();
+	DiamanteManoIzq.LoadModel("Models/Ben10/Diamondhead/Diamante_ManoIzq.obj");
+	//DX Mark 10
+	CocheBen = Model();
+	CocheBen.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10.obj");
+	CocheBen_RuedaDelDer = Model();
+	CocheBen_RuedaDelDer.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaDer.obj");
+	CocheBen_RuedaDelIzq = Model();
+	CocheBen_RuedaDelIzq.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaIzq.obj");
+	CocheBen_RuedaTrasDer = Model();
+	CocheBen_RuedaTrasDer.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaDer.obj");
+	CocheBen_RuedaTrasIzq = Model();
+	CocheBen_RuedaTrasIzq.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaIzq.obj");
+	//Rustbucket
+	Rustbucket = Model();
+	Rustbucket.LoadModel("Models/Ben10/rustbucket/Rustbucket.obj");
+	Rustbucket_RuedaDelDer = Model();
+	Rustbucket_RuedaDelDer.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaDer.obj");
+	Rustbucket_RuedaTrasDer = Model();
+	Rustbucket_RuedaTrasDer.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaDer.obj");
+	Rustbucket_RuedaDelIzq = Model();
+	Rustbucket_RuedaDelIzq.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaIzq.obj");
+	Rustbucket_RuedaTrasIzq = Model();
+	Rustbucket_RuedaTrasIzq.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaIzq.obj");
+	//Xylene Ship
+	XyleneShip = Model();
+	XyleneShip.LoadModel("Models/Ben10/Xylene_Ship/Xylene's Ship.obj");
+	XyleneShip_Arco = Model();
+	XyleneShip_Arco.LoadModel("Models/Ben10/Xylene_Ship/Xylene's Ship_Arco.obj");
 
 	//Simpsons ------------------------------
 	KwikEmart = Model();
@@ -293,6 +399,8 @@ int main()
 	//Extras --------------------------------
 	Invernadero = Model();
 	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
+	Banca = Model();
+	Banca.LoadModel("Models/Extras/bancajardin.obj");
 	Jardinera = Model();
 	Jardinera.LoadModel("Models/Extras/Jardinera2.obj");
 	Banca2 = Model();
@@ -694,6 +802,36 @@ int main()
 		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
+
+		//Banca 1
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -300.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Banca 2
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -300.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Banca 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Banca 4
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
 		//Peridot ---------------------------

@@ -56,6 +56,7 @@ Model Ben;
 //Simpsons ------------------------------
 Model KwikEmart;
 Model LetreroKwik;
+Model Letras;
 
 //Steven Universe -----------------------
 Model Portal;
@@ -87,6 +88,11 @@ Model Invernadero;
 //Lamparas 
 Model Candil;
 Model Lampara1;
+Model Lampara2;
+Model Jardinera;
+Model Banca2;
+Model Arboles3;
+
 
 // luz direccional
 DirectionalLight mainLight;
@@ -235,6 +241,8 @@ int main()
 	KwikEmart.LoadModel("Models/Simpsons/kwikEmart/KwikEMartUnido.obj");
 	LetreroKwik = Model();
 	LetreroKwik.LoadModel("Models/Simpsons/kwikEmart/letrero.obj");
+	Letras = Model();
+	Letras.LoadModel("Models/Simpsons/Letras/Letras.obj");
 
 	//Steven Universe -----------------------
 	Portal = Model();
@@ -285,12 +293,20 @@ int main()
 	//Extras --------------------------------
 	Invernadero = Model();
 	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
+	Jardinera = Model();
+	Jardinera.LoadModel("Models/Extras/Jardinera2.obj");
+	Banca2 = Model();
+	Banca2.LoadModel("Models/Extras/Banca2.obj");
+	Arboles3 = Model();
+	Arboles3.LoadModel("Models/Extras/ArbolesConjunto3.obj");
 
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
 	Lampara1 = Model();
 	Lampara1.LoadModel("Models/Lamparas/Lampara01.obj");
+	Lampara2 = Model();
+	Lampara2.LoadModel("Models/Lamparas/Lampara2.obj");
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -484,6 +500,42 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
+		//Letras
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1070.0f, 0.5f, -720.0f));
+		model = glm::scale(model, glm::vec3(17.0f, 17.5f, 17.0f));
+		model = glm::rotate(model, -135 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Letras.RenderModel();
+
+		//Banca 1
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -510.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
+		//Banca 2
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -410.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
+		//Banca 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -310.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
+		//Banca 4
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(830.0f, 0.0f, -850.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
 		//Cuadrante 5 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
@@ -506,6 +558,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
+
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-108.5f, 0.0f, 608.5f));
+		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara2.RenderModel();
 
 		//Cuadrante 7 ---------------------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -533,6 +593,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LetreroKwik.RenderModel();
 
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(578.5f, 0.0f, 608.5f));
+		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara2.RenderModel();
+
 		//Cuadrante 8 -----------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
@@ -540,6 +608,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
+
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(806.5f, 0.0f, 118.5f));
+		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara2.RenderModel();
 
 		//Centro ----------------------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -566,6 +642,58 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Invernadero.RenderModel();
 		glDisable(GL_BLEND);
+
+		//Jardinera 1
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 200.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jardinera.RenderModel();
+
+		//Jardinera 2
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -200.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jardinera.RenderModel();
+
+		//Jardinera 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, 200.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jardinera.RenderModel();
+
+		//Jardinera 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -200.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jardinera.RenderModel();
+
+		//Arboles 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(460.0f, 0.0f, 100.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(420.0f, 0.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(140.0f, 0.0f, 240.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
 		//Peridot ---------------------------

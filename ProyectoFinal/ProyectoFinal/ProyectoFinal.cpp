@@ -47,8 +47,9 @@ Camera camera3;
 Camera* currentCamera;
 
 Texture pisoTexture;
+Texture estatua;
 
-Model Prueba_M;
+Model Prueba_M; 
 //Ben10 ---------------------------------
 Model SrSmoothy;
 Model Ben;
@@ -57,6 +58,9 @@ Model Ben;
 Model KwikEmart;
 Model LetreroKwik;
 Model Letras;
+Model Duff;
+Model JefeGorgory;
+Model Apu;
 
 //Steven Universe -----------------------
 Model Portal;
@@ -85,6 +89,8 @@ Model PeridotPieIzq;
 
 //Extras --------------------------------
 Model Invernadero;
+Model Bote;
+
 //Lamparas 
 Model Candil;
 Model Lampara1;
@@ -199,6 +205,78 @@ void CreateObjects()
 
 }
 
+void CrearCubo()
+{
+	unsigned int cubo_indices[] = {
+		// front
+		0, 1, 2,
+		2, 3, 0,
+
+		// back
+		8, 9, 10,
+		10, 11, 8,
+
+		// left
+		12, 13, 14,
+		14, 15, 12,
+		// bottom
+		16, 17, 18,
+		18, 19, 16,
+		// top
+		20, 21, 22,
+		22, 23, 20,
+
+		// right
+		4, 5, 6,
+		6, 7, 4,
+	};
+
+	GLfloat cubo_vertices[] = {
+
+		//front
+		-0.5f, -0.5f,  0.5f,	0.0f,   0.5f,		0.0f,	0.0f,	-1.0f,	//0
+		0.5f, -0.5f,  0.5f,		0.5f,	0.5f,		0.0f,	0.0f,	-1.0f,	//1
+		0.5f,  0.5f,  0.5f,		0.5f,	1.0f,		0.0f,	0.0f,	-1.0f,	//2
+		-0.5f,  0.5f,  0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	-1.0f,	//3
+		// right
+		//x		y		z		S		T
+		0.5f, -0.5f,  0.5f,	    0.0f,   0.5f,		-1.0f,	0.0f,	0.0f,
+		0.5f, -0.5f,  -0.5f,	0.5f,	0.5f,		-1.0f,	0.0f,	0.0f,
+		0.5f,  0.5f,  -0.5f,	0.5f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		0.5f,  0.5f,  0.5f,	    0.0f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		// back
+		-0.5f, -0.5f, -0.5f,	0.0f,   0.5f,		0.0f,	0.0f,	1.0f,
+		0.5f, -0.5f, -0.5f,		0.5f,	0.5f,		0.0f,	0.0f,	1.0f,
+		0.5f,  0.5f, -0.5f,		0.5f,	1.0f,		0.0f,	0.0f,	1.0f,
+		-0.5f,  0.5f, -0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	1.0f,
+
+		// left
+		//x		y		z		S		T
+		-0.5f, -0.5f,  -0.5f,	0.0f,   0.5f,		1.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f,  0.5f,	0.5f,	0.5f,		1.0f,	0.0f,	0.0f,
+		-0.5f,  0.5f,  0.5f,	0.5f,	1.0f,		1.0f,	0.0f,	0.0f,
+		-0.5f,  0.5f,  -0.5f,	0.0f,	1.0f,		1.0f,	0.0f,	0.0f,
+
+		// bottom
+		//x		y		z		S		T
+		-0.5f, -0.5f,  0.5f,	0.5f,   0.0f,		0.0f,	1.0f,	0.0f,
+		0.5f,  -0.5f,  0.5f,	1.0f,	0.0f,		0.0f,	1.0f,	0.0f,
+		 0.5f,  -0.5f,  -0.5f,	1.0f,	0.5f,		0.0f,	1.0f,	0.0f,
+		-0.5f, -0.5f,  -0.5f,	0.5f,	0.5f,		0.0f,	1.0f,	0.0f,
+
+		//UP
+		 //x		y		z		S		T
+		 -0.5f, 0.5f,  0.5f,	0.0f,   0.0f,		0.0f,	-1.0f,	0.0f,
+		 0.5f,  0.5f,  0.5f,	0.5f,	0.0f,		0.0f,	-1.0f,	0.0f,
+		  0.5f, 0.5f,  -0.5f,	0.5f,	0.5f,		0.0f,	-1.0f,	0.0f,
+		 -0.5f, 0.5f,  -0.5f,	0.0f,	0.5f,		0.0f,	-1.0f,	0.0f,
+
+	};
+	Mesh* cubo = new Mesh();
+	cubo->CreateMesh(cubo_vertices, cubo_indices, 192, 36); 
+	meshList.push_back(cubo); 
+} 
+
 
 void CreateShaders()
 {
@@ -214,6 +292,7 @@ int main()
 
 	CreateObjects();
 	CreateShaders();
+	CrearCubo();
 
 	//Camara en 3ra persona
 	camera = Camera(glm::vec3(-40.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 2.5f, 2.5f);
@@ -225,6 +304,8 @@ int main()
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	pisoTexture = Texture("Textures/piso.tga");
 	pisoTexture.LoadTextureA();
+	estatua = Texture("Textures/daiza1.png");
+	estatua.LoadTextureA();
 
 	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	Prueba_M = Model();
@@ -243,6 +324,10 @@ int main()
 	LetreroKwik.LoadModel("Models/Simpsons/kwikEmart/letrero.obj");
 	Letras = Model();
 	Letras.LoadModel("Models/Simpsons/Letras/Letras.obj");
+	Duff = Model();
+	Duff.LoadModel("Models/Simpsons/Estatua/Estatua.obj");
+	JefeGorgory = Model();
+	JefeGorgory.LoadModel("Models/Simpsons/Personajes/Jefe_Gorgory.obj");
 
 	//Steven Universe -----------------------
 	Portal = Model();
@@ -299,6 +384,8 @@ int main()
 	Banca2.LoadModel("Models/Extras/Banca2.obj");
 	Arboles3 = Model();
 	Arboles3.LoadModel("Models/Extras/ArbolesConjunto3.obj");
+	Bote = Model();
+	Bote.LoadModel("Models/Extras/Bote.obj");
 
 	//Lamparas
 	Candil = Model();
@@ -404,6 +491,7 @@ int main()
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
 		glm::mat4 model(1.0);
+		glm::mat4 modelauxDuff(1.0); 
 		glm::mat4 ModelAuxPeridot1(1.0);
 		glm::mat4 ModelAuxPeridot2(1.0);
 		glm::mat4 ModelAuxPeridot3(1.0);
@@ -530,11 +618,34 @@ int main()
 
 		//Banca 4
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(830.0f, 0.0f, -850.0f));
+		model = glm::translate(model, glm::vec3(870.0f, 0.0f, -850.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
+
+		//Bote de Basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -460.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		//Bote de Basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(820.0f, 0.0f, -850.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		//Jefe Gorgory
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.0f, -15.5f, -750.0f));
+		model = glm::scale(model, glm::vec3(0.52f, 0.52f, 0.52f));
+		model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		JefeGorgory.RenderModel();
 
 		//Cuadrante 5 -------------------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -666,7 +777,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Jardinera.RenderModel();
 
-		//Jardinera 3
+		//Jardinera 4
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -200.0f));
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
@@ -674,15 +785,30 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Jardinera.RenderModel();
 
-		//Arboles 
+		//Arboles subcuadrante 2
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(460.0f, 0.0f, 100.0f));
+		model = glm::translate(model, glm::vec3(-190.0f, 0.0f, -260.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-440.0f, 0.0f, -230.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+		///Terminan arboles subcuadrante 2///
+
+		//Arboles subcuadrante 4
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(460.0f, 0.0f, 70.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(420.0f, 0.0f, 300.0f));
+		model = glm::translate(model, glm::vec3(420.0f, 0.0f, 270.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -694,6 +820,20 @@ int main()
 		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
+		///Terminan arboles subcuadrante 4///
+
+		//Pedestal estatua 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(240.5f, 13.0f, 110.0f));
+		model = glm::scale(model, glm::vec3(27.0f, 26.0f, 27.0f));
+		modelauxDuff = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		estatua.UseTexture();
+		meshList[3]->RenderMesh();
+		//Estatua Duff
+		model = glm::translate(model, glm::vec3(0.0f, 0.51f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Duff.RenderModel();
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
 		//Peridot ---------------------------

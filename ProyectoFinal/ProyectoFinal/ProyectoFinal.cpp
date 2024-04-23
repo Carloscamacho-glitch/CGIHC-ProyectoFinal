@@ -1,5 +1,5 @@
 /*
-Pr醕tica 7: Iluminaci髇 1 
+Proyecto Final
 */
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
@@ -28,7 +28,7 @@ Pr醕tica 7: Iluminaci髇 1
 #include"Model.h"
 #include "Skybox.h"
 
-//para iluminaci髇
+//para iluminaci贸n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -53,6 +53,43 @@ Model Prueba_M;
 //Ben10 ---------------------------------
 Model SrSmoothy;
 Model Ben;
+Model Azmuth;
+Model Omnitrix;
+Model Khyber;
+Model EcoEco;
+//Diamante
+Model Diamante;
+Model DiamanteBrazoIzq;
+Model DiamanteManoIzq;
+//Escarabola
+Model Escarabola;
+Model EscarabolaPataDelDer;
+Model EscarabolaPataDelIzq;
+Model EscarabolaPataTrasDer;
+Model EscarabolaPataTrasIzq;
+//Crabdozer
+Model Crabdozer;
+Model CrabdozerPataDelDer;
+Model CrabdozerPataDelIzq;
+Model CrabdozerPataMedDer;
+Model CrabdozerPataMedIzq;
+Model CrabdozerPataTrasDer;
+Model CrabdozerPataTrasIzq;
+//DX Mark 10
+Model CocheBen;
+Model CocheBen_RuedaDelDer;
+Model CocheBen_RuedaDelIzq;
+Model CocheBen_RuedaTrasDer;
+Model CocheBen_RuedaTrasIzq;
+//Rustbucket
+Model Rustbucket;
+Model Rustbucket_RuedaDelDer;
+Model Rustbucket_RuedaDelIzq;
+Model Rustbucket_RuedaTrasDer;
+Model Rustbucket_RuedaTrasIzq;
+//Xylene Ship
+Model XyleneShip;
+Model XyleneShip_Arco;
 
 //Simpsons ------------------------------
 Model KwikEmart;
@@ -89,15 +126,16 @@ Model PeridotPieIzq;
 
 //Extras --------------------------------
 Model Invernadero;
-Model Bote;
 
+Model Bote;
+Model Banca;
+Model Jardinera;
+Model Banca2;
+Model Arboles3;
 //Lamparas 
 Model Candil;
 Model Lampara1;
 Model Lampara2;
-Model Jardinera;
-Model Banca2;
-Model Arboles3;
 
 
 // luz direccional
@@ -129,7 +167,7 @@ static double limitFPS = 1.0 / 60.0;
 
 
 
-//funci髇 de calculo de normales por promedio de v閞tices 
+//funci贸n de calculo de normales por promedio de v茅rtices 
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -316,6 +354,74 @@ int main()
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
 	Ben = Model();
 	Ben.LoadModel("Models/Ben10/Ben/Ben.obj");
+	Omnitrix = Model();
+	Omnitrix.LoadModel("Models/Ben10/Omnitrix/Omnitrix.obj");
+	Azmuth = Model();
+	Azmuth.LoadModel("Models/Ben10/Azmuth/Azmuth.obj");
+	Khyber = Model();
+	Khyber.LoadModel("Models/Ben10/Khyber/Khyber.obj");
+	EcoEco = Model();
+	EcoEco.LoadModel("Models/Ben10/Ulimate_EcoEco/U_EcoEco.obj");
+	//Escarabola
+	Escarabola = Model();
+	Escarabola.LoadModel("Models/Ben10/ball-weevil/BallWeevil.obj");
+	EscarabolaPataDelDer = Model();
+	EscarabolaPataDelDer.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataDelDer.obj");
+	EscarabolaPataDelIzq = Model();
+	EscarabolaPataDelIzq.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataDelIzq.obj");
+	EscarabolaPataTrasDer = Model();
+	EscarabolaPataTrasDer.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataTraDer.obj");
+	EscarabolaPataTrasIzq = Model();
+	EscarabolaPataTrasIzq.LoadModel("Models/Ben10/ball-weevil/BallWeevil_PataTraIzq.obj");
+	//Crabdozer
+	Crabdozer = Model();
+	Crabdozer.LoadModel("Models/Ben10/Crabdozer/Crabdozer.obj");
+	CrabdozerPataDelDer = Model();
+	CrabdozerPataDelDer.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataDelDer.obj");
+	CrabdozerPataDelIzq = Model();
+	CrabdozerPataDelIzq.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataDelIzq.obj");
+	CrabdozerPataMedDer = Model();
+	CrabdozerPataMedDer.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataMediaDer.obj");
+	CrabdozerPataMedIzq = Model();
+	CrabdozerPataMedIzq.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataMediaIzq.obj");
+	CrabdozerPataTrasDer = Model();
+	CrabdozerPataTrasDer.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataTrasDer.obj");
+	CrabdozerPataTrasIzq = Model();
+	CrabdozerPataTrasIzq.LoadModel("Models/Ben10/Crabdozer/Crabdozer_PataTrasIzq.obj");
+	//Diamante
+	Diamante = Model();
+	Diamante.LoadModel("Models/Ben10/Diamondhead/Diamante.obj");
+	DiamanteBrazoIzq = Model();
+	DiamanteBrazoIzq.LoadModel("Models/Ben10/Diamondhead/Diamante_BrazoIzq.obj");
+	DiamanteManoIzq = Model();
+	DiamanteManoIzq.LoadModel("Models/Ben10/Diamondhead/Diamante_ManoIzq.obj");
+	//DX Mark 10
+	CocheBen = Model();
+	CocheBen.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10.obj");
+	CocheBen_RuedaDelDer = Model();
+	CocheBen_RuedaDelDer.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaDer.obj");
+	CocheBen_RuedaDelIzq = Model();
+	CocheBen_RuedaDelIzq.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaIzq.obj");
+	CocheBen_RuedaTrasDer = Model();
+	CocheBen_RuedaTrasDer.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaDer.obj");
+	CocheBen_RuedaTrasIzq = Model();
+	CocheBen_RuedaTrasIzq.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10_RuedaIzq.obj");
+	//Rustbucket
+	Rustbucket = Model();
+	Rustbucket.LoadModel("Models/Ben10/rustbucket/Rustbucket.obj");
+	Rustbucket_RuedaDelDer = Model();
+	Rustbucket_RuedaDelDer.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaDer.obj");
+	Rustbucket_RuedaTrasDer = Model();
+	Rustbucket_RuedaTrasDer.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaDer.obj");
+	Rustbucket_RuedaDelIzq = Model();
+	Rustbucket_RuedaDelIzq.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaIzq.obj");
+	Rustbucket_RuedaTrasIzq = Model();
+	Rustbucket_RuedaTrasIzq.LoadModel("Models/Ben10/rustbucket/Rustbucket_LlantaIzq.obj");
+	//Xylene Ship
+	XyleneShip = Model();
+	XyleneShip.LoadModel("Models/Ben10/Xylene_Ship/Xylene's Ship.obj");
+	XyleneShip_Arco = Model();
+	XyleneShip_Arco.LoadModel("Models/Ben10/Xylene_Ship/Xylene's Ship_Arco.obj");
 
 	//Simpsons ------------------------------
 	KwikEmart = Model();
@@ -378,6 +484,8 @@ int main()
 	//Extras --------------------------------
 	Invernadero = Model();
 	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
+	Banca = Model();
+	Banca.LoadModel("Models/Extras/bancajardin.obj");
 	Jardinera = Model();
 	Jardinera.LoadModel("Models/Extras/Jardinera2.obj");
 	Banca2 = Model();
@@ -409,7 +517,7 @@ int main()
 	Material_opaco = Material(0.3f, 4);
 
 
-	//luz direccional, s髄o 1 y siempre debe de existir
+	//luz direccional, s贸lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
 		0.0f, 0.0f, -1.0f);
@@ -471,7 +579,7 @@ int main()
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
 		
-		//informaci髇 en el shader de intensidad especular y brillo
+		//informaci贸n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
@@ -479,13 +587,13 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
 
-		// luz ligada a la c醡ara de tipo flash
-		//sirve para que en tiempo de ejecuci髇 (dentro del while) se cambien propiedades de la luz
+		// luz ligada a la c谩mara de tipo flash
+		//sirve para que en tiempo de ejecuci贸n (dentro del while) se cambien propiedades de la luz
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
-		//informaci髇 al shader de fuentes de iluminaci髇
+		//informaci贸n al shader de fuentes de iluminaci贸n
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount); 
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
@@ -834,6 +942,36 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 0.51f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Duff.RenderModel();
+
+		//Banca 1
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -300.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Banca 2
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -300.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Banca 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Banca 4
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
 		//Peridot ---------------------------

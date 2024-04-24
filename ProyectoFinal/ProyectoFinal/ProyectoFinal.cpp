@@ -100,6 +100,11 @@ Model Letras;
 Model Duff;
 Model JefeGorgory;
 Model Apu;
+Model DonutVan;
+Model DonutVanLlanta01;
+Model DonutVanLlanta02;
+Model BlimpDuff;
+
 
 //Steven Universe -----------------------
 Model Portal;
@@ -285,10 +290,10 @@ void CrearCubo()
 		0.5f,  0.5f,  -0.5f,	0.5f,	1.0f,		-1.0f,	0.0f,	0.0f,
 		0.5f,  0.5f,  0.5f,	    0.0f,	1.0f,		-1.0f,	0.0f,	0.0f,
 		// back
-		-0.5f, -0.5f, -0.5f,	0.0f,   0.5f,		0.0f,	0.0f,	1.0f,
-		0.5f, -0.5f, -0.5f,		0.5f,	0.5f,		0.0f,	0.0f,	1.0f,
-		0.5f,  0.5f, -0.5f,		0.5f,	1.0f,		0.0f,	0.0f,	1.0f,
-		-0.5f,  0.5f, -0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	1.0f,
+		-0.5f, -0.5f, -0.5f,	0.5f,   0.5f,		0.0f,	0.0f,	1.0f,
+		0.5f, -0.5f, -0.5f,		0.0f,	0.5f,		0.0f,	0.0f,	1.0f,
+		0.5f,  0.5f, -0.5f,		0.0f,	1.0f,		0.0f,	0.0f,	1.0f,
+		-0.5f,  0.5f, -0.5f,	0.5f,	1.0f,		0.0f,	0.0f,	1.0f,
 
 		// left
 		//x		y		z		S		T
@@ -440,6 +445,17 @@ int main()
 	Duff.LoadModel("Models/Simpsons/Estatua/Estatua.obj");
 	JefeGorgory = Model();
 	JefeGorgory.LoadModel("Models/Simpsons/Personajes/Jefe_Gorgory.obj");
+	DonutVan = Model();
+	DonutVan.LoadModel("Models/Simpsons/DonutVan/DonutVan.obj");
+	DonutVanLlanta01 = Model();
+	DonutVanLlanta01.LoadModel("Models/Simpsons/DonutVan/DonutVanLlanta01.obj");
+	DonutVanLlanta02 = Model();
+	DonutVanLlanta02.LoadModel("Models/Simpsons/DonutVan/DonutVanLlanta02.obj");
+	Apu = Model();
+	Apu.LoadModel("Models/Simpsons/Personajes/Apu.obj");
+	BlimpDuff = Model();
+	BlimpDuff.LoadModel("Models/Simpsons/Blimp/BlimpDuff.obj");
+
 
 	//Steven Universe -----------------------
 	Portal = Model();
@@ -611,6 +627,7 @@ int main()
 		glm::mat4 modelauxRust(1.0);
 		glm::mat4 modelauxDiamante(1.0);
 		glm::mat4 modelauxDuff(1.0); 
+		glm::mat4 modelauxDonutVan(1.0);
 		glm::mat4 ModelAuxPeridot1(1.0);
 		glm::mat4 ModelAuxPeridot2(1.0);
 		glm::mat4 ModelAuxPeridot3(1.0);
@@ -643,6 +660,34 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
+
+		//Bancas//
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-850.0f, 0.0f, -170.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-850.0f, 0.0f, -250.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-930.0f, 0.0f, -140.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -140.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca2.RenderModel();
+		//Terminan bancas
 
 		//Cuadrante 2 Jared ------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -907,41 +952,13 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara2.RenderModel();
 
-		//DX Mark 10///////
-		//Carro 
+		//Apu 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(200.0f, 0.2f, 555.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.5f, 10.5f, 10.5f));
-		modelauxMark10 = model;
+		model = glm::translate(model, glm::vec3(360.5f, 0.0f, 650.5f));
+		model = glm::scale(model, glm::vec3(1.8f, 1.7f, 1.8f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CocheBen.RenderModel();
-		model = modelauxMark10;
-
-		//Llanta delantera derecha
-		model = glm::translate(model, glm::vec3(1.4f, 0.7f, 2.7f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CocheBen_RuedaDelDer.RenderModel();
-		model = modelauxMark10;
-
-		//Llanta delantera izquierda
-		model = glm::translate(model, glm::vec3(-1.9f, 0.7f, 2.7f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CocheBen_RuedaDelIzq.RenderModel();
-		model = modelauxMark10;
-
-		//Llanta trasera derecha
-		model = glm::translate(model, glm::vec3(1.4f, 0.7f, -1.7f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CocheBen_RuedaTrasDer.RenderModel();
-		model = modelauxMark10;
-
-		//Llanta trasera izquierda
-		model = glm::translate(model, glm::vec3(-1.9f, 0.7f, -1.7f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CocheBen_RuedaTrasIzq.RenderModel();
-		model = modelauxMark10;
-		////////
+		Apu.RenderModel();
 
 		//Cuadrante 8 -----------------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -958,6 +975,14 @@ int main()
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara2.RenderModel();
+
+		//Blimp Duff
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.5f, 0.0f, 250.5f));
+		model = glm::scale(model, glm::vec3(3.5f, 3.0f, 3.5f));
+		model = glm::rotate(model, -75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BlimpDuff.RenderModel();
 
 		//Centro ----------------------------------------------------------------------
 		model = glm::mat4(1.0);
@@ -1078,14 +1103,14 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-508.0f, 0.0f, 190.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 225 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 220 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pinos.RenderModel();
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-422.0f, 0.0f, 310.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pinos.RenderModel();
 
@@ -1113,7 +1138,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(140.0f, 0.0f, -290.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 40 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pinos.RenderModel();
 
@@ -1146,6 +1171,45 @@ int main()
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca.RenderModel();
+
+		//Botes de basura //
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(240.5f, 0.0f, 240.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-240.5f, 0.0f, 240.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-240.5f, 0.0f, -240.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+		
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(240.5f, 0.0f, -240.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 240.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+		
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -240.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		//Terminan botes de basura//
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
 		//Peridot ---------------------------
@@ -1199,6 +1263,73 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PeridotPieIzq.RenderModel();
 
+		//Carretera -----------------------------------
+
+		//DonutVan
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(250.0f, 0.0f, -550.0f));
+		model = glm::scale(model, glm::vec3(19.0f, 18.0f, 19.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		modelauxDonutVan = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		DonutVan.RenderModel();
+
+		//Llanta
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		DonutVanLlanta01.RenderModel();
+		model = modelauxDonutVan;
+
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.45f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		DonutVanLlanta01.RenderModel();
+		model = modelauxDonutVan;
+
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		DonutVanLlanta02.RenderModel();
+		model = modelauxDonutVan;
+	
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.45f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		DonutVanLlanta02.RenderModel();
+	
+
+		//DX Mark 10///////
+		//Carro 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(200.0f, 0.2f, 555.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.5f, 10.5f, 10.5f));
+		modelauxMark10 = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CocheBen.RenderModel();
+		model = modelauxMark10;
+
+		//Llanta delantera derecha
+		model = glm::translate(model, glm::vec3(1.4f, 0.7f, 2.7f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CocheBen_RuedaDelDer.RenderModel();
+		model = modelauxMark10;
+
+		//Llanta delantera izquierda
+		model = glm::translate(model, glm::vec3(-1.9f, 0.7f, 2.7f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CocheBen_RuedaDelIzq.RenderModel();
+		model = modelauxMark10;
+
+		//Llanta trasera derecha
+		model = glm::translate(model, glm::vec3(1.4f, 0.7f, -1.7f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CocheBen_RuedaTrasDer.RenderModel();
+		model = modelauxMark10;
+
+		//Llanta trasera izquierda
+		model = glm::translate(model, glm::vec3(-1.9f, 0.7f, -1.7f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CocheBen_RuedaTrasIzq.RenderModel();
+		model = modelauxMark10;
+		////////
 		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 
 		//Prueba lampara

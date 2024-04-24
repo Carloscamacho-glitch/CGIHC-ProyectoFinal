@@ -5,9 +5,9 @@ C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\Proy
 C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(357,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(359,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(373,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(374,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(552,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(554,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(568,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(569,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
 LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   ProyectoFinal.vcxproj -> C:\Users\jared\OneDrive\Documentos\GitHub\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe

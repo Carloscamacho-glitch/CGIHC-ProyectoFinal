@@ -1,0 +1,18 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 18.04.2024 20:08:06
+
+newmtl Rustbucket_Material_001
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr -1.5000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd tex1_256x256_m_5f998e1865acc53d_14-tex1_256x256_m_5f998e1865.png
+	map_d tex1_256x256_m_5f998e1865acc53d_14-tex1_256x256_m_5f998e1865.png

@@ -139,6 +139,11 @@ Model Banca;
 Model Jardinera;
 Model Banca2;
 Model Arboles3;
+Model Buzon;
+Model Parquimetro;
+Model Poste;
+Model Coladera1;
+Model Coladera2;
 //Lamparas 
 Model Candil;
 Model Lampara1;
@@ -518,6 +523,16 @@ int main()
 	Bote.LoadModel("Models/Extras/Bote.obj");
 	Pinos = Model();
 	Pinos.LoadModel("Models/Extras/ArbolesConjunto01.obj");
+	Buzon = Model();
+	Buzon.LoadModel("Models/Extras/Buzon.obj");
+	Coladera1 = Model();
+	Coladera1.LoadModel("Models/Extras/Coladera1.obj");
+	Coladera2 = Model();
+	Coladera2.LoadModel("Models/Extras/Coladera2.obj");
+	Poste = Model();
+	Poste.LoadModel("Models/Extras/Poste.obj");
+	Parquimetro = Model();
+	Parquimetro.LoadModel("Models/Extras/Parquimetro.obj");
 
 	//Lamparas
 	Candil = Model();
@@ -1080,7 +1095,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
-		
+
 		//Apu 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(360.5f, 0.0f, 650.5f));
@@ -1129,7 +1144,6 @@ int main()
 		XyleneShip_Arco.RenderModel();
 		model = modelauxShip;
 		////---------------
-		
 
 		//Centro ----------------------------------------------------------------------
 		model = glm::mat4(1.0);

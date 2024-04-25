@@ -1,80 +1,15 @@
-﻿  Camera.cpp
-  DirectionalLight.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-  (compilando archivo de origen "Camera.cpp")
-  
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-  (compilando archivo de origen "Camera.cpp")
-  
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\DirectionalLight.cpp(18,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\DirectionalLight.cpp(19,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\DirectionalLight.cpp(21,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\DirectionalLight.cpp(22,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-  Light.cpp
-  Material.cpp
-  Mesh_tn.cpp
-  Model.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(16,10): warning C4477: 'printf' : la cadena de formato '%s' requiere un argumento de tipo 'char *', pero el argumento variádico 1 tiene el tipo 'const std::string'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(16,80): warning C4474: "printf": se pasaron demasiados argumentos para la cadena de formato
-  C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(16,80):
-  los marcadores de posición y sus parámetros esperan 1 argumentos variádicos, pero se proporcionaron 2
-  
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(51,7): warning C4804: '<': uso no seguro del tipo 'bool' en la operación
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(51,21): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(138,14): warning C4477: 'printf' : la cadena de formato '%s' requiere un argumento de tipo 'char *', pero el argumento variádico 1 tiene el tipo 'std::string'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp(147,14): warning C4477: 'printf' : la cadena de formato '%s' requiere un argumento de tipo 'char *', pero el argumento variádico 1 tiene el tipo 'std::string'
-  PointLight.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(28,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(29,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(30,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(32,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(33,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(34,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp(35,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
-  ProyectoFinal.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+﻿  ProyectoFinal.cpp
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(591,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(593,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(607,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(608,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-  Shader_light.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(207,75): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(207,26): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(206,91): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(206,42): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(220,98): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(220,62): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(220,24): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(219,70): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(219,24): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(218,88): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp(218,42): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-  Skybox.cpp
-  Sphere.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Sphere.cpp(39,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Sphere.cpp(43,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-  SpotLight.cpp
-  Texture.cpp
-  Window.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-  (compilando archivo de origen "Window.cpp")
-  
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-  (compilando archivo de origen "Window.cpp")
-  
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(149,22): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(150,22): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(154,28): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(155,40): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(157,21): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(158,21): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-  Generando código...
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp(75): warning C4715: 'Window::Initialise': no todas las rutas de acceso de control devuelven un valor
-  LINK : no se encontró C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\Debug\ProyectoFinal.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
-  ProyectoFinal.vcxproj -> C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\Debug\ProyectoFinal.exe
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(601,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(603,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(621,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(656,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(686,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(705,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(706,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+  ProyectoFinal.vcxproj -> C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe

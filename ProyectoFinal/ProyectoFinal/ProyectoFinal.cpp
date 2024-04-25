@@ -140,6 +140,9 @@ Model PeridotPieIzq;
 //Gravity Falls -------------------------
 
 //Extras --------------------------------
+Model Piso;
+Model Carriles;
+Model Agua;
 Model Invernadero;
 Model Pinos;
 Model Bote;
@@ -353,11 +356,11 @@ int main()
 	CrearCubo();
 
 	//Camara en 3ra persona
-	camera = Camera(glm::vec3(-40.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 2.5f, 2.5f);
+	camera = Camera(glm::vec3(-40.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.5f, 2.5f);
 	//Camara aerea
-	camera2 = Camera(glm::vec3(-200.0f, 750.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -90.0f, 2.5f, 2.5f);
+	camera2 = Camera(glm::vec3(-200.0f, 750.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -90.0f, 5.5f, 2.5f);
 	//Camara libre temporal
-	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 2.5f, 2.5f);
+	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
 
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	pisoTexture = Texture("Textures/piso.tga");
@@ -519,6 +522,12 @@ int main()
 	//Gravity Falls -------------------------
 
 	//Extras --------------------------------
+	Piso = Model();
+	Piso.LoadModel("Models/Extras/Piso.obj");
+	Carriles = Model();
+	Carriles.LoadModel("Models/Extras/Piso2.obj");
+	Agua = Model();
+	Agua.LoadModel("Models/Extras/Piso3.obj");
 	Invernadero = Model();
 	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
 	Banca = Model();
@@ -770,12 +779,12 @@ int main()
 
 		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 		//Cuadrante 1-------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 0.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Bancas//
 		model = glm::mat4(1.0);
@@ -806,12 +815,12 @@ int main()
 		//Terminan bancas
 
 		//Cuadrante 2 Jared ------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Sr Smoothie
 		model = glm::mat4(1.0);
@@ -880,16 +889,16 @@ int main()
 		Bote.RenderModel();
 
 		//Cuadrante 3 ------------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(350.0f, 0.0f, -750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//La gran rosquilla
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(300.0f, 50.0f, -750.0f));
+		model = glm::translate(model, glm::vec3(450.0f, 50.0f, -1050.0f));
 		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
@@ -905,12 +914,12 @@ int main()
 		Lampara1.RenderModel();
 
 		//Cuadrante 4 -------------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -1070,12 +1079,12 @@ int main()
 		//////--------------------
 
 		//Cuadrante 5 -------------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -1133,12 +1142,12 @@ int main()
 		//////
 
 		//Cuadrante 6 -------------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, 750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -1156,12 +1165,12 @@ int main()
 		Bote.RenderModel();
 
 		//Cuadrante 7 ---------------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(350.0f, 0.0f, 750.0f));
 		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//KwikEmart
 		model = glm::mat4(1.0);
@@ -1212,12 +1221,12 @@ int main()
 		Apu.RenderModel();
 
 		//Cuadrante 8 -----------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -1254,12 +1263,25 @@ int main()
 		////---------------
 
 		//Centro ----------------------------------------------------------------------
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(60.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
+		//Piso
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Piso.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Carriles.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Agua.RenderModel();
 
 		//Portal
 		model = glm::mat4(1.0);

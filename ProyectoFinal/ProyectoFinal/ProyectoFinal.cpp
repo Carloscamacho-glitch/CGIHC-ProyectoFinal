@@ -34,8 +34,15 @@ Proyecto Final
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Material.h"
+#include <time.h> //tiempo
 const float toRadians = 3.14159265f / 180.0f;
 glm::vec3 peridotPos = glm::vec3(0.0f, 0.0f, 0.0f);
+
+//variable para guardar y manejar el tiempo
+time_t contador, contador2;
+double resta, tiempoguardado, resta2, tiempoguardado2;
+float dia = 0.0f, intensidad = 0.2f, direccionx = -1.0f, direcciony = 0.0f;
+int aux = 0;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -107,6 +114,7 @@ Model BlimpDuff;
 
 
 //Steven Universe -----------------------
+Model LGR;
 Model Portal;
 Model BurbujaBismuto;
 Model BurbujaSquaridot;
@@ -463,6 +471,8 @@ int main()
 
 
 	//Steven Universe -----------------------
+	LGR = Model();
+	LGR.LoadModel("Models/Steven Universe/La Gran Rosquilla.obj");
 	Portal = Model();
 	Portal.LoadModel("Models/Steven Universe/Portal.obj");
 	BurbujaBismuto = Model();
@@ -592,6 +602,94 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
+
+		//Calculo de dia y noche
+		contador = time(NULL);
+		resta = contador - tiempoguardado;
+
+		//cambio de variables
+		if (resta >= 60) {
+			if (dia == 1.0f) {
+				//Noche
+				dia = 0.0f;
+			}
+			else {
+				//Dia
+				dia = 1.0f;
+			}
+			//resetea el tiempo guardado al tiempo actual
+			tiempoguardado = contador;
+		}
+
+		if (dia == 1.0f) {
+			contador2 = time(NULL);
+			resta2 = contador2 - tiempoguardado2;
+			//calculo de intensidad y posicion del sol
+			if (resta2 >= 1) {
+				//control de la intensidad
+				if (intensidad >= 0.21f && (59 >= aux && aux >= 40)) {
+					intensidad -= 0.015f;
+				}
+				else if (0.5f >= intensidad && (19 >= aux && aux >= 0)) {
+					intensidad += 0.015f;
+				}
+				//control de direccion
+				if (direcciony >= -1.0f && (9 >= aux && aux >= 0)) {
+					direcciony -= 0.1f;
+				}
+				else if (0.0f >= direccionx && (19 >= aux && aux >= 10)) {
+					direccionx += 0.1f;
+				}
+				else if (1.0f >= direccionx && (49 >= aux && aux >= 40)) {
+					direccionx += 0.1f;
+				}
+				else if (1.0f >= direcciony && (59 >= aux && aux >= 50)) {
+					direcciony += 0.1f;
+				}
+				//aumenta la variable que cuenta los segundos
+				if (aux == 59) {
+					aux = 0;
+				}
+				else {
+					aux += 1;
+				}
+				tiempoguardado2 = contador2;
+			}
+			//
+			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+				intensidad, intensidad,
+				direccionx, direcciony, 0.0f);
+		}
+		else {
+			contador2 = time(NULL);
+			resta2 = contador2 - tiempoguardado2;
+			//calculo de intensidad de la noche
+			if (resta2 >= 1) {
+				//control de la intensidad
+				if (intensidad >= 0.1f && (9 >= aux && aux >= 0)) {
+					intensidad -= 0.01f;
+				}
+				else if (0.2f >= intensidad && (59 >= aux && aux >= 50)) {
+					intensidad += 0.01f;
+					if (59 == aux) {
+						direcciony = 0.0f;
+						direccionx = -1.0f;
+					}
+				}
+				//aumenta la variable que cuenta los segundos
+				if (aux == 59) {
+					aux = 0;
+				}
+				else {
+					aux += 1;
+				}
+				tiempoguardado2 = contador2;
+			}
+			//
+			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+				intensidad, intensidad,
+				0.0f, 0.0f, 0.0f);
+		}
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
@@ -788,6 +886,16 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
 		meshList[2]->RenderMesh();
+
+		//La gran rosquilla
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, 50.0f, -750.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		LGR.RenderModel();
+		glDisable(GL_BLEND);
 
 		//Lampara
 		model = glm::mat4(1.0);

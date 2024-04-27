@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|solutionrelative:ProyectoFinal\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\ProyectoFinal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|solutionrelative:ProyectoFinal\\ProyectoFinal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|solutionrelative:ProyectoFinal\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DCF79965-F6C9-4163-A750-C2046713D9E0}|ProyectoFinal\\ProyectoFinal.vcxproj|C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -74,7 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\Camera.h",
               "RelativeDocumentMoniker": "ProyectoFinal\\Camera.h",
@@ -88,13 +88,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ProyectoFinal.cpp",
               "DocumentMoniker": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\ProyectoFinal.cpp",
               "RelativeDocumentMoniker": "ProyectoFinal\\ProyectoFinal.cpp",
               "ToolTip": "C:\\Users\\PCReboot\\Documents\\Github\\CGIHC-ProyectoFinal\\ProyectoFinal\\ProyectoFinal\\ProyectoFinal.cpp",
               "RelativeToolTip": "ProyectoFinal\\ProyectoFinal.cpp",
-              "ViewState": "AQIAAM0CAAAAAAAAAAAAAOACAAAAAAAA",
+              "ViewState": "AQIAAMkDAAAAAAAAAADwv+IDAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-19T21:33:51.821Z",
               "IsPinned": true,

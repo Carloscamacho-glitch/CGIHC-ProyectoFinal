@@ -53,7 +53,6 @@ Camera camera2;
 Camera camera3;
 Camera* currentCamera;
 
-Texture pisoTexture;
 Texture estatua;
 
 Model Prueba_M; 
@@ -363,8 +362,6 @@ int main()
 	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
 
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
-	pisoTexture = Texture("Textures/piso.tga");
-	pisoTexture.LoadTextureA();
 	estatua = Texture("Textures/daiza1.png");
 	estatua.LoadTextureA();
 
@@ -767,11 +764,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 
-		/*pisoTexture.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-
-		meshList[2]->RenderMesh();*/
-
 		//Dibujo de modelo de ejemplo
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -779,37 +771,29 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Prueba_M.RenderModel();
 
-		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 		//Cuadrante 1-------------------------------------------------
-		/*model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 0.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();*/
-
 		//Bancas//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-850.0f, 0.0f, -170.0f));
+		model = glm::translate(model, glm::vec3(-1220.0f, 0.0f, -240.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-850.0f, 0.0f, -250.0f));
+		model = glm::translate(model, glm::vec3(-1220.0f, 0.0f, -370.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-930.0f, 0.0f, -140.0f));
-		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		model = glm::translate(model, glm::vec3(-1480.0f, 0.0f, -180.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 18.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -140.0f));
+		model = glm::translate(model, glm::vec3(-1700.0f, 0.0f, -180.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -817,16 +801,9 @@ int main()
 		//Terminan bancas
 
 		//Cuadrante 2 Jared ------------------------------------------------------
-		/*model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();*/
-
 		//Sr Smoothie
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-480.5, 0.5, -742.5));
+		model = glm::translate(model, glm::vec3(-680.5, 0.5, -1112.5));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
@@ -837,7 +814,7 @@ int main()
 		//Ben
 		model = glm::mat4(1.0);
 		//model = glm::translate(model, glm::vec3(200.0f, 0.2f, 545.0f));
-		model = glm::translate(model, glm::vec3(-325.0f, 0.0f, -660.0f));
+		model = glm::translate(model, glm::vec3(-525.0f, 0.0f, -1030.0f));
 		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ben.RenderModel();
@@ -845,14 +822,14 @@ int main()
 		/////Transformaciones////----------------
 		////EcoEco
 		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-315.0f, 0.0f, -660.0f));
+		//model = glm::translate(model, glm::vec3(-515.0f, 0.0f, -1030.0f));
 		//model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
 		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//EcoEco.RenderModel();
 
 		////Diamante 
 		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-290.0f, 0.0f, -660.0f));
+		//model = glm::translate(model, glm::vec3(-490.0f, 0.0f, -1030.0f));
 		//model = glm::scale(model, glm::vec3(4.1f, 4.1f, 4.1f));
 		//modelauxDiamante = model;
 		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -872,32 +849,25 @@ int main()
 
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-591.5f, 7.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(-886.5f, 7.0f, -912.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
 		//Botes de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-108.0f, 0.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(-208.0f, 0.0f, -958.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-108.0f, 0.0f, -890.5f));
+		model = glm::translate(model, glm::vec3(-208.0f, 0.0f, -1290.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		//Cuadrante 3 ------------------------------------------------------------------
-		/*model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(350.0f, 0.0f, -750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();*/
-
 		//La gran rosquilla
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(450.0f, 50.0f, -1050.0f));
@@ -910,29 +880,22 @@ int main()
 
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(108.5f, 7.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(163.5f, 7.0f, -913.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
 		//Cuadrante 4 -------------------------------------------------------------------
-		/*model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();*/
-
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(806.5f, 7.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(1216.5f, 7.0f, -163.5f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
 		//Letras
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1070.0f, 0.5f, -720.0f));
+		model = glm::translate(model, glm::vec3(1570.0f, 0.5f, -1020.0f));
 		model = glm::scale(model, glm::vec3(17.0f, 17.5f, 17.0f));
 		model = glm::rotate(model, -135 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -940,27 +903,21 @@ int main()
 
 		//Banca 1
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -510.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -710.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		//Banca 2
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -410.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -410.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		//Banca 3
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -310.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca2.RenderModel();
-
-		//Banca 4
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(870.0f, 0.0f, -850.0f));
+		model = glm::translate(model, glm::vec3(1270.0f, 0.0f, -1300.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -968,7 +925,7 @@ int main()
 
 		//Bote de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -460.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -555.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -976,14 +933,14 @@ int main()
 
 		//Bote de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(820.0f, 0.0f, -850.0f));
+		model = glm::translate(model, glm::vec3(1220.0f, 0.0f, -1250.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		//Jefe Gorgory
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.0f, -15.5f, -750.0f));
+		model = glm::translate(model, glm::vec3(1400.0f, -15.5f, -950.0f));
 		model = glm::scale(model, glm::vec3(0.52f, 0.52f, 0.52f));
 		model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -991,7 +948,7 @@ int main()
 
 		//Khyber
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1100.0f, 0.0f, -200.0f));
+		model = glm::translate(model, glm::vec3(1700.0f, 0.0f, -300.0f));
 		model = glm::scale(model, glm::vec3(2.7f, 2.7f, 2.7f));
 		model = glm::rotate(model, 225 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -999,7 +956,7 @@ int main()
 
 		//Escarabola---------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(950.0f, 0.0f, -350.0f));
+		model = glm::translate(model, glm::vec3(1450.0f, 0.0f, -350.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		//model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelauxEscarabola = model;
@@ -1035,7 +992,7 @@ int main()
 
 		//Crabdozer-------------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(950.0f, 0.1f, -500.0f));
+		model = glm::translate(model, glm::vec3(1350.0f, 0.1f, -600.0f));
 		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
 		modelauxCrab = model;

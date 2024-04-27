@@ -25,7 +25,7 @@ Proyecto Final
 #include "Camera.h"
 #include "Texture.h"
 #include "Sphere.h"
-#include"Model.h"
+#include "Model.h"
 #include "Skybox.h"
 
 //para iluminación
@@ -358,7 +358,7 @@ int main()
 	//Camara en 3ra persona
 	camera = Camera(glm::vec3(-300.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.5f, 2.5f);
 	//Camara aerea
-	camera2 = Camera(glm::vec3(-300.0f, 750.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -90.0f, 5.5f, 2.5f);
+	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f);
 	//Camara libre temporal
 	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
 
@@ -732,6 +732,8 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
+
+		/*std::cout << "Camera Position: (" << currentCamera->getCameraPosition().x << ", " << currentCamera->getCameraPosition().y << ", " << currentCamera->getCameraPosition().z << ")" << std::endl;*/
 
 		// luz ligada a la cámara de tipo flash
 		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz

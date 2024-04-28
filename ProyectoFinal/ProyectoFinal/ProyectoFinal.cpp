@@ -25,7 +25,7 @@ Proyecto Final
 #include "Camera.h"
 #include "Texture.h"
 #include "Sphere.h"
-#include"Model.h"
+#include "Model.h"
 #include "Skybox.h"
 
 //para iluminación
@@ -53,7 +53,6 @@ Camera camera2;
 Camera camera3;
 Camera* currentCamera;
 
-Texture pisoTexture;
 Texture estatua;
 
 Model Prueba_M; 
@@ -138,8 +137,35 @@ Model PeridotPiernaIzq;
 Model PeridotPieDer;
 Model PeridotPieIzq;
 //Gravity Falls -------------------------
+Model hongos1;
+Model hongos2;
+Model hongos3;
+Model gompersPDD;
+Model gompersPDI;
+Model gompersPTD;
+Model gompersPTI;
+Model gompers;
+Model estatuaBill;
+Model trickster;
+Model mysteryShack;
+Model pato;
+Model patoPDD;
+Model patoPDI;
+Model patoPTD;
+Model patoPTI;
+Model dipper;
+Model dipperCabeza;
+Model dipperBD;
+Model dipperBI;
+Model dipperPD;
+Model dipperPI;
+Model huella;
+
 
 //Extras --------------------------------
+Model Piso;
+Model Carriles;
+Model Agua;
 Model Invernadero;
 Model Pinos;
 Model Bote;
@@ -353,15 +379,13 @@ int main()
 	CrearCubo();
 
 	//Camara en 3ra persona
-	camera = Camera(glm::vec3(-40.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 2.5f, 2.5f);
+	camera = Camera(glm::vec3(-300.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.5f, 2.5f);
 	//Camara aerea
-	camera2 = Camera(glm::vec3(-200.0f, 750.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -90.0f, 2.5f, 2.5f);
+	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f);
 	//Camara libre temporal
-	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 2.5f, 2.5f);
+	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
 
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
-	pisoTexture = Texture("Textures/piso.tga");
-	pisoTexture.LoadTextureA();
 	estatua = Texture("Textures/daiza1.png");
 	estatua.LoadTextureA();
 
@@ -517,8 +541,61 @@ int main()
 	PeridotPieIzq.LoadModel("Models/Steven Universe/Peridot pie izquierdo.obj");
 
 	//Gravity Falls -------------------------
+	hongos1 = Model();
+	hongos1.LoadModel("Models/Gravity Falls/Hongos/Hongos1.obj");
+	hongos2 = Model();
+	hongos2.LoadModel("Models/Gravity Falls/Hongos/Hongos2.obj");
+	hongos3 = Model();
+	hongos3.LoadModel("Models/Gravity Falls/Hongos/Hongos3.obj");
+	gompersPDD = Model();
+	gompersPDD.LoadModel("Models/Gravity Falls/Gompers/Gompers PDD.obj");
+	gompersPDI = Model();
+	gompersPDI.LoadModel("Models/Gravity Falls/Gompers/Gompers PDI.obj");
+	gompersPTD = Model();
+	gompersPTD.LoadModel("Models/Gravity Falls/Gompers/Gompers PTI.obj");
+	gompersPTI = Model();
+	gompersPTI.LoadModel("Models/Gravity Falls/Gompers/Gompers PTD.obj");
+	gompers = Model();
+	gompers.LoadModel("Models/Gravity Falls/Gompers/Gompers.obj");
+	estatuaBill = Model();
+	estatuaBill.LoadModel("Models/Gravity Falls/Estatua Bill/Estatua Bill.obj");
+	trickster = Model();
+	trickster.LoadModel("Models/Gravity Falls/Trickster/trickster.obj");
+	mysteryShack = Model();
+	mysteryShack.LoadModel("Models/Gravity Falls/Mystery Shack/Mystery Shack.obj");
+	pato = Model();
+	pato.LoadModel("Models/Gravity Falls/Pato/Pato.obj");
+	patoPDD = Model();
+	patoPDD.LoadModel("Models/Gravity Falls/Pato/Pato PDD.obj");
+	patoPDI = Model();
+	patoPDI.LoadModel("Models/Gravity Falls/Pato/Pato PDI.obj");
+	patoPTD = Model();
+	patoPTD.LoadModel("Models/Gravity Falls/Pato/Pato PTD.obj");
+	patoPTI = Model();
+	patoPTI.LoadModel("Models/Gravity Falls/Pato/Pato PTD.obj");
+	dipper = Model();
+	dipper.LoadModel("Models/Gravity Falls/Dipper/Dipper.obj");
+	dipperCabeza = Model();
+	dipperCabeza.LoadModel("Models/Gravity Falls/Dipper/Dipper Cabeza.obj");
+	dipperBD = Model();
+	dipperBD.LoadModel("Models/Gravity Falls/Dipper/Dipper BD.obj");
+	dipperBI = Model();
+	dipperBI.LoadModel("Models/Gravity Falls/Dipper/Dipper BI.obj");
+	dipperPD = Model();
+	dipperPD.LoadModel("Models/Gravity Falls/Dipper/Dipper PD.obj");
+	dipperPI = Model();
+	dipperPI.LoadModel("Models/Gravity Falls/Dipper/Dipper PI.obj");
+	huella = Model();
+	huella.LoadModel("Models/Gravity Falls/Huella/huella.obj");
+
 
 	//Extras --------------------------------
+	Piso = Model();
+	Piso.LoadModel("Models/Extras/Piso.obj");
+	Carriles = Model();
+	Carriles.LoadModel("Models/Extras/Piso2.obj");
+	Agua = Model();
+	Agua.LoadModel("Models/Extras/Piso3.obj");
 	Invernadero = Model();
 	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
 	Banca = Model();
@@ -724,6 +801,8 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
 
+		/*std::cout << "Camera Position: (" << currentCamera->getCameraPosition().x << ", " << currentCamera->getCameraPosition().y << ", " << currentCamera->getCameraPosition().z << ")" << std::endl;*/
+
 		// luz ligada a la cámara de tipo flash
 		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
 		glm::vec3 lowerLight = camera.getCameraPosition();
@@ -756,11 +835,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 
-		/*pisoTexture.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-
-		meshList[2]->RenderMesh();*/
-
 		//Dibujo de modelo de ejemplo
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -768,54 +842,59 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Prueba_M.RenderModel();
 
-		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
 		//Cuadrante 1-------------------------------------------------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 0.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
 		//Bancas//
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-850.0f, 0.0f, -170.0f));
+		model = glm::translate(model, glm::vec3(-1220.0f, 0.0f, -240.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-850.0f, 0.0f, -250.0f));
+		model = glm::translate(model, glm::vec3(-1220.0f, 0.0f, -370.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-930.0f, 0.0f, -140.0f));
-		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
+		model = glm::translate(model, glm::vec3(-1480.0f, 0.0f, -180.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 18.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, -140.0f));
+		model = glm::translate(model, glm::vec3(-1700.0f, 0.0f, -180.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 		//Terminan bancas
 
-		//Cuadrante 2 Jared ------------------------------------------------------
+		//Hongos
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, -750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
+		model = glm::translate(model, glm::vec3(-1600, 10.0, -1000));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		hongos1.RenderModel();
 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1300, 25.0, -500));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		hongos2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1400, 20.0, -400));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		hongos3.RenderModel();
+
+
+		//Cuadrante 2 Jared ------------------------------------------------------
 		//Sr Smoothie
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-480.5, 0.5, -742.5));
+		model = glm::translate(model, glm::vec3(-680.5, 0.5, -1112.5));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
@@ -826,7 +905,7 @@ int main()
 		//Ben
 		model = glm::mat4(1.0);
 		//model = glm::translate(model, glm::vec3(200.0f, 0.2f, 545.0f));
-		model = glm::translate(model, glm::vec3(-325.0f, 0.0f, -660.0f));
+		model = glm::translate(model, glm::vec3(-525.0f, 0.0f, -1030.0f));
 		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ben.RenderModel();
@@ -834,14 +913,14 @@ int main()
 		/////Transformaciones////----------------
 		////EcoEco
 		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-315.0f, 0.0f, -660.0f));
+		//model = glm::translate(model, glm::vec3(-515.0f, 0.0f, -1030.0f));
 		//model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
 		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//EcoEco.RenderModel();
 
 		////Diamante 
 		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-290.0f, 0.0f, -660.0f));
+		//model = glm::translate(model, glm::vec3(-490.0f, 0.0f, -1030.0f));
 		//model = glm::scale(model, glm::vec3(4.1f, 4.1f, 4.1f));
 		//modelauxDiamante = model;
 		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -861,35 +940,28 @@ int main()
 
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-591.5f, 7.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(-886.5f, 7.0f, -912.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
 		//Botes de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-108.0f, 0.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(-208.0f, 0.0f, -958.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-108.0f, 0.0f, -890.5f));
+		model = glm::translate(model, glm::vec3(-208.0f, 0.0f, -1290.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		//Cuadrante 3 ------------------------------------------------------------------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(350.0f, 0.0f, -750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
 		//La gran rosquilla
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(300.0f, 50.0f, -750.0f));
+		model = glm::translate(model, glm::vec3(450.0f, 50.0f, -1050.0f));
 		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
@@ -899,29 +971,22 @@ int main()
 
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(108.5f, 7.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(163.5f, 7.0f, -913.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
 		//Cuadrante 4 -------------------------------------------------------------------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, -500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(806.5f, 7.0f, -608.5f));
+		model = glm::translate(model, glm::vec3(1216.5f, 7.0f, -163.5f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
 		//Letras
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1070.0f, 0.5f, -720.0f));
+		model = glm::translate(model, glm::vec3(1570.0f, 0.5f, -1020.0f));
 		model = glm::scale(model, glm::vec3(17.0f, 17.5f, 17.0f));
 		model = glm::rotate(model, -135 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -929,27 +994,21 @@ int main()
 
 		//Banca 1
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -510.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -710.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		//Banca 2
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -410.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -410.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		//Banca 3
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -310.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca2.RenderModel();
-
-		//Banca 4
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(870.0f, 0.0f, -850.0f));
+		model = glm::translate(model, glm::vec3(1270.0f, 0.0f, -1300.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -957,7 +1016,7 @@ int main()
 
 		//Bote de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1150.0f, 0.0f, -460.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -555.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -965,14 +1024,14 @@ int main()
 
 		//Bote de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(820.0f, 0.0f, -850.0f));
+		model = glm::translate(model, glm::vec3(1220.0f, 0.0f, -1250.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		//Jefe Gorgory
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.0f, -15.5f, -750.0f));
+		model = glm::translate(model, glm::vec3(1400.0f, -15.5f, -950.0f));
 		model = glm::scale(model, glm::vec3(0.52f, 0.52f, 0.52f));
 		model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -980,7 +1039,7 @@ int main()
 
 		//Khyber
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1100.0f, 0.0f, -200.0f));
+		model = glm::translate(model, glm::vec3(1700.0f, 0.0f, -300.0f));
 		model = glm::scale(model, glm::vec3(2.7f, 2.7f, 2.7f));
 		model = glm::rotate(model, 225 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -988,7 +1047,7 @@ int main()
 
 		//Escarabola---------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(950.0f, 0.0f, -350.0f));
+		model = glm::translate(model, glm::vec3(1450.0f, 0.0f, -350.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		//model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelauxEscarabola = model;
@@ -1024,7 +1083,7 @@ int main()
 
 		//Crabdozer-------------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(950.0f, 0.1f, -500.0f));
+		model = glm::translate(model, glm::vec3(1350.0f, 0.1f, -600.0f));
 		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
 		modelauxCrab = model;
@@ -1070,79 +1129,17 @@ int main()
 		//////--------------------
 
 		//Cuadrante 5 -------------------------------------------------------------------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1000.0f, 0.0f, 500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-810.5f, 0.0f, 109.0f));
+		model = glm::translate(model, glm::vec3(-1215.5f, 0.0f, 165.0f));
 		model = glm::scale(model, glm::vec3(7.0f, 7.5f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Candil.RenderModel();
 
-		//Rustbucket//////
-		//Carro 
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-895.0f, 0.3f, 50.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
-		modelauxRust = model;
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket.RenderModel();
-		model = modelauxRust;
-
-		//Llanta delantera derecha
-		model = glm::translate(model, glm::vec3(1.3f, 0.55f, 2.9f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket_RuedaDelDer.RenderModel();
-		model = modelauxRust;
-
-		//Llanta delantera izquierda
-		model = glm::translate(model, glm::vec3(-1.3f, 0.55f, 2.9f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket_RuedaDelIzq.RenderModel();
-		model = modelauxRust;
-
-		//Llanta media derecha
-		model = glm::translate(model, glm::vec3(1.3f, 0.55f, -0.85f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket_RuedaDelDer.RenderModel();
-		model = modelauxRust;
-
-		//Llanta media izquierda
-		model = glm::translate(model, glm::vec3(-1.3f, 0.55f, -0.85f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket_RuedaDelIzq.RenderModel();
-		model = modelauxRust;
-
-		//Llanta trasera derecha
-		model = glm::translate(model, glm::vec3(1.3f, 0.55f, -1.95f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket_RuedaTrasDer.RenderModel();
-		model = modelauxRust;
-
-		//Llanta trasera izquierda
-		model = glm::translate(model, glm::vec3(-1.3f, 0.55f, -1.95f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Rustbucket_RuedaTrasIzq.RenderModel();
-		model = modelauxRust;
-		//////
-
 		//Cuadrante 6 -------------------------------------------------------------------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-350.0f, 0.0f, 750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-108.5f, 0.0f, 608.5f));
+		model = glm::translate(model, glm::vec3(-168.0f, 0.0f, 912.0f));
 		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1150,22 +1147,14 @@ int main()
 
 		//Bote de basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-591.5f, 0.0f, 608.5f));
+		model = glm::translate(model, glm::vec3(-836.5f, 0.0f, 958.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
-		//Cuadrante 7 ---------------------------------------------------------------------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(350.0f, 0.0f, 750.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
-
 		//KwikEmart
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(380.0f, -1.0f, 766.6f));
+		model = glm::translate(model, glm::vec3(530.0f, -1.0f, 1116.6f));
 		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1176,14 +1165,100 @@ int main()
 
 		//Letrero
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(240.0f, 0.3f, 660.0f));
+		model = glm::translate(model, glm::vec3(390.0f, 0.3f, 1010.0f));
 		model = glm::scale(model, glm::vec3(15.5f, 17.0f, 15.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LetreroKwik.RenderModel();
 
+
+		//Cuadrante 7 ---------------------------------------------------------------------
+		
+		//Mystery Shack
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-500.0f, 2.0f, 1120.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8.8f, 8.8f, 8.8f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		mysteryShack.RenderModel();
+
+		//Dipper
+		glm::mat4 ModelAuxDipper1(1.0);
+		glm::mat4 ModelAuxDipper2(1.0);
+		glm::mat4 ModelAuxDipper3(1.0);
+		glm::mat4 ModelAuxDipper4(1.0);
+		glm::mat4 ModelAuxDipper5(1.0);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-475.0f, 20.0f, 950.0f));
+		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		ModelAuxDipper1 = model;
+		ModelAuxDipper2 = model;
+		ModelAuxDipper3 = model;
+		ModelAuxDipper4 = model;
+		ModelAuxDipper5 = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		dipper.RenderModel();
+
+
+		//Pierna delantera derecha
+		model = ModelAuxDipper1;
+		model = glm::translate(model, glm::vec3(-0.15f, -0.9f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.85f, 0.85f, 0.85f));
+		model = glm::rotate(model, glm::radians(20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		dipperPI.RenderModel();
+		//Pierna delantera izquierda
+		model = ModelAuxDipper2;
+		model = glm::scale(model, glm::vec3(0.85f, 0.85f, 0.85f));
+		model = glm::translate(model, glm::vec3(0.3f, -1.0f, 0.1));
+		model = glm::rotate(model, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		dipperPI.RenderModel();
+		//Brazo derecho
+		model = ModelAuxDipper3;
+		model = glm::translate(model, glm::vec3(-0.3, -0.1f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		dipperBI.RenderModel();
+		////Brazo izquierdo
+		model = ModelAuxDipper4;
+		model = glm::translate(model, glm::vec3(0.35, -0.1f, 0.1f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		dipperBD.RenderModel();
+		//Cabeza
+		model = ModelAuxDipper5;
+		model = glm::translate(model, glm::vec3(0.0, 0.1f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		dipperCabeza.RenderModel();
+
+		//Hongos
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-700, 5.0, 1100));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		hongos1.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300, 5.0, 1100));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		hongos2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-500, 5.0, 1350));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		hongos3.RenderModel();
+
+
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(578.5f, 0.0f, 608.5f));
+		model = glm::translate(model, glm::vec3(888.5f, 0.0f, 912.0f));
 		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1192,13 +1267,13 @@ int main()
 
 		//Botes de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(108.0f, 0.0f, 608.5f));
+		model = glm::translate(model, glm::vec3(208.0f, 0.0f, 958.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(108.0f, 0.0f, 890.5f));
+		model = glm::translate(model, glm::vec3(208.0f, 0.0f, 1240.5f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
@@ -1206,13 +1281,14 @@ int main()
 
 		//Apu 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(360.5f, 0.0f, 650.5f));
+		model = glm::translate(model, glm::vec3(460.5f, 0.0f, 1000.5f));
 		model = glm::scale(model, glm::vec3(1.8f, 1.7f, 1.8f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Apu.RenderModel();
 
 		//Cuadrante 8 -----------------------------------------------------------------
+
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
@@ -1230,7 +1306,7 @@ int main()
 
 		//Blimp Duff
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.5f, 0.0f, 250.5f));
+		model = glm::translate(model, glm::vec3(1650.5f, 0.0f, 450.5f));
 		model = glm::scale(model, glm::vec3(3.5f, 3.0f, 3.5f));
 		model = glm::rotate(model, -75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1238,7 +1314,7 @@ int main()
 
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(935.0f, 15.0f, 660.0f));
+		model = glm::translate(model, glm::vec3(1335.0f, 27.0f, 660.0f));
 		model = glm::rotate(model, -45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(5.5f, 5.5f, 5.5f));
 		modelauxShip = model;
@@ -1248,22 +1324,33 @@ int main()
 
 		//Arco
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, -32.5f * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		XyleneShip_Arco.RenderModel();
 		model = modelauxShip;
 		////---------------
 
+		//Sun incinerator
+		/*model = glm::translate(model, glm::vec3(1435.0f, 15.0f, 1060.0f));*/
+		
 		//Centro ----------------------------------------------------------------------
+		//Piso
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(60.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		Piso.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Carriles.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Agua.RenderModel();
 
 		//Portal
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-50.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-300.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1271,15 +1358,15 @@ int main()
 
 		//Ominitrix
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(520.0f, 0.0f, -50.0f));
+		model = glm::translate(model, glm::vec3(620.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(5.5f, 5.0f, 5.5f));
+		model = glm::scale(model, glm::vec3(8.5f, 5.0f, 8.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Omnitrix.RenderModel();
 
 		//Invernadero
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-400.0f, 1.0f, -30.0f));
+		model = glm::translate(model, glm::vec3(-700.0f, 1.0f, -30.0f));
 		model = glm::scale(model, glm::vec3(0.015f, 0.0135f, 0.015f));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1287,77 +1374,376 @@ int main()
 		Invernadero.RenderModel();
 		glDisable(GL_BLEND);
 
-		//Jardinera 1
+		// subcuadrante 1 -------
+		 
+		//Pato
+		glm::mat4 ModelAuxPato1(1.0);
+		glm::mat4 ModelAuxPato2(1.0);
+		glm::mat4 ModelAuxPato3(1.0);
+		glm::mat4 ModelAuxPato4(1.0);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 200.0f));
-		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-360.0f, 9.0f, -305.0f));
+		model = glm::scale(model, glm::vec3(90.0f, 90.0f, 90.0f));
+		ModelAuxPato1 = model;
+		ModelAuxPato2 = model;
+		ModelAuxPato3 = model;
+		ModelAuxPato4 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Jardinera.RenderModel();
+		pato.RenderModel();
 
+
+		//Pierna delantera derecha
+		model = ModelAuxPato1;
+		model = glm::translate(model, glm::vec3(-0.04, -0.04, 0.047));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		patoPDI.RenderModel();
+		//Pierna delantera izquierda
+		model = ModelAuxPato2;
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		model = glm::translate(model, glm::vec3(0.02f, -0.04f, 0.028));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		patoPDD.RenderModel();
+		//Pierna trasera izquierda
+		model = ModelAuxPato3;
+		model = glm::translate(model, glm::vec3(0.035, -0.05f, -0.075f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		patoPTD.RenderModel();
+		//Pierna trasera derecha
+		model = ModelAuxPato4;
+		model = glm::translate(model, glm::vec3(-0.035, -0.05f, -0.061f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		patoPTI.RenderModel();
+
+		
 		//Jardinera 2
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -200.0f));
+		model = glm::translate(model, glm::vec3(360.0f, 0.0f, -350.0f));
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Jardinera.RenderModel();
 
-		//Jardinera 3
+		//Pinos
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, 200.0f));
-		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		model = glm::translate(model, glm::vec3(740.0f, 0.0f, -450.0f));
+		model = glm::scale(model, glm::vec3(7.3f, 8.3f, 7.3f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Jardinera.RenderModel();
+		Pinos.RenderModel();
 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(730.0f, 0.0f, -310.0f));
+		model = glm::scale(model, glm::vec3(8.3f, 9.3f, 8.3f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(520.0f, 0.0f, -450.0f));
+		model = glm::scale(model, glm::vec3(6.3f, 8.3f, 6.3f));
+		model = glm::rotate(model, 245 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(500.0f, 0.0f, -310.0f));
+		model = glm::scale(model, glm::vec3(7.3f, 10.3f, 7.3f));
+		model = glm::rotate(model, 120 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(210.0f, 0.0f, -450.0f));
+		model = glm::scale(model, glm::vec3(6.3f, 9.5f, 6.3f));
+		model = glm::rotate(model, 40 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(210.0f, 0.0f, -290.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 8.3f, 6.5f));
+		model = glm::rotate(model, 75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		//Banca 2
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(360.0f, 0.0f, -510.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.5f, 0.0f, -400.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+		///Terminan subcuadrante 1///
+
+		// subcuadrante 2 --------
 		//Jardinera 4
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -200.0f));
+		model = glm::translate(model, glm::vec3(-360.0f, 0.0f, -350.0f));
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Jardinera.RenderModel();
 
-		//Arboles subcuadrante 2
+		//Arboles
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-190.0f, 0.0f, -260.0f));
+		model = glm::translate(model, glm::vec3(-730.0f, 0.0f, -400.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::rotate(model, -60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-740.0f, 0.0f, -280.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::rotate(model, -78 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-240.0f, 0.0f, -410.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-440.0f, 0.0f, -230.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Arboles3.RenderModel();
-		///Terminan arboles subcuadrante 2///
-
-		//Arboles subcuadrante 4
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(460.0f, 0.0f, 70.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::translate(model, glm::vec3(-240.0f, 0.0f, -310.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		model = glm::rotate(model, -145 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(420.0f, 0.0f, 270.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-520.0f, 0.0f, -380.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(140.0f, 0.0f, 240.0f));
+		model = glm::translate(model, glm::vec3(-520.0f, 0.0f, -260.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, -33 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arboles3.RenderModel();
-		///Terminan arboles subcuadrante 4///
+
+		//Banca 1
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-360.0f, 0.0f, -510.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.5f, 0.0f, -400.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+		//Estatua Bill
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.0f, 25.0f, -250.0f));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		estatuaBill.RenderModel();
+
+		//trickster
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(450.0f, 0.0f, -150.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		trickster.RenderModel();
+
+		///Terminan subcuadrante 2///
+
+		// subcuadrante 3 -------
+		//Jardinera 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-360.0f, 0.0f, 350.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jardinera.RenderModel();
+
+		//Pinos
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-710.0f, 0.0f, 410.0f));
+		model = glm::scale(model, glm::vec3(7.5f, 10.3f, 7.5f));
+		model = glm::rotate(model, -104 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-750.0f, 0.0f, 310.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 9.5f, 6.5f));
+		model = glm::rotate(model, -64 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-520.0f, 0.0f, 450.0f));
+		model = glm::scale(model, glm::vec3(6.3f, 8.3f, 6.3f));
+		model = glm::rotate(model, -256 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-520.0f, 0.0f, 310.0f));
+		model = glm::scale(model, glm::vec3(8.3f, 12.3f, 8.3f));
+		model = glm::rotate(model, -148 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 0.0f, 430.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 8.5f, 7.0f));
+		model = glm::rotate(model, -15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-190.0f, 0.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(7.3f, 9.3f, 7.3f));
+		model = glm::rotate(model, -107 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pinos.RenderModel();
+
+		//Banca 3
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-360.0f, 0.0f, 510.0f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//Basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.5f, 0.0f, 400.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+
+		//Gompers
+		glm::mat4 ModelAuxGompers1(1.0);
+		glm::mat4 ModelAuxGompers2(1.0);
+		glm::mat4 ModelAuxGompers3(1.0);
+		glm::mat4 ModelAuxGompers4(1.0);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-360.0f, 15.0f, 305.0f));
+		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
+		ModelAuxGompers1 = model;
+		ModelAuxGompers2 = model;
+		ModelAuxGompers3 = model;
+		ModelAuxGompers4 = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gompers.RenderModel();
+
+
+		//Pierna delantera izquierda
+		model = glm::translate(model, glm::vec3(-0.2f, -0.75, -0.015));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gompersPDD.RenderModel();
+		//Pierna delantera derecha
+		model = ModelAuxGompers1;
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		model = glm::translate(model, glm::vec3(0.2f, -0.75f, -0.025));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gompersPDI.RenderModel();
+		//Pierna trasera derecha
+		model = glm::translate(model, glm::vec3(0.0, 0.15f, 0.75f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gompersPTD.RenderModel();
+		//Pierna trasera izquierda
+		model = ModelAuxGompers4;
+		model = glm::translate(model, glm::vec3(-0.2, -0.65f, 0.87f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gompersPTI.RenderModel();
+
+
+		///Terminan subcuadrante 3///
+
+		// subcuadrante 4 -------
+		//Jardinera 1
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(360.0f, 0.0f, 350.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jardinera.RenderModel();
+
+		//Arboles
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(710.0f, 0.0f, 470.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		model = glm::rotate(model, -15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(720.0f, 0.0f, 310.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
+		model = glm::rotate(model, 10 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(520.0f, 0.0f, 430.0f));
+		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		model = glm::rotate(model, 109 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(520.0f, 0.0f, 310.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		model = glm::rotate(model, 33 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(220.0f, 0.0f, 470.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(220.0f, 0.0f, 310.0f));
+		model = glm::scale(model, glm::vec3(5.3f, 6.5f, 5.3f));
+		model = glm::rotate(model, 75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arboles3.RenderModel();
+
+		//Banca 4
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(360.0f, 0.0f, 510.0f));
+		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Banca.RenderModel();
+
+		//basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.5f, 0.0f, 400.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
 
 		//Pedestal estatua 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(240.5f, 13.0f, 110.0f));
+		model = glm::translate(model, glm::vec3(340.5f, 13.0f, 260.0f));
 		model = glm::scale(model, glm::vec3(27.0f, 26.0f, 27.0f));
 		modelauxDuff = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1367,117 +1753,20 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 0.51f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Duff.RenderModel();
-
-		//Pinos
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-508.0f, 0.0f, 190.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 220 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pinos.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-422.0f, 0.0f, 310.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pinos.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-140.0f, 0.0f, 290.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pinos.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(435.0f, 0.0f, -310.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 225 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pinos.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(508.0f, 0.0f, -190.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pinos.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(140.0f, 0.0f, -290.0f));
-		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
-		model = glm::rotate(model, 40 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pinos.RenderModel();
-
-		//Banca 1
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, -300.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca.RenderModel();
-
-		//Banca 2
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(300.0f, 0.0f, -300.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca.RenderModel();
-
-		//Banca 3
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-300.0f, 0.0f, 300.0f));
-		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca.RenderModel();
-
-		//Banca 4
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(300.0f, 0.0f, 300.0f));
-		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca.RenderModel();
+		///Terminan subcuadrante 4///
 
 		//Botes de basura //
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(240.5f, 0.0f, 240.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-240.5f, 0.0f, 240.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-240.5f, 0.0f, -240.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 390.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 		
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(240.5f, 0.0f, -240.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -390.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 240.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-		
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -240.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-
 		//Terminan botes de basura//
 
 		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
@@ -1534,9 +1823,57 @@ int main()
 
 		//Carretera -----------------------------------
 
+		//Rustbucket//////
+		//Carro 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1295.0f, 0.3f, 60.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
+		modelauxRust = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket.RenderModel();
+		model = modelauxRust;
+
+		//Llanta delantera derecha
+		model = glm::translate(model, glm::vec3(1.3f, 0.55f, 2.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket_RuedaDelDer.RenderModel();
+		model = modelauxRust;
+
+		//Llanta delantera izquierda
+		model = glm::translate(model, glm::vec3(-1.3f, 0.55f, 2.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket_RuedaDelIzq.RenderModel();
+		model = modelauxRust;
+
+		//Llanta media derecha
+		model = glm::translate(model, glm::vec3(1.3f, 0.55f, -0.85f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket_RuedaDelDer.RenderModel();
+		model = modelauxRust;
+
+		//Llanta media izquierda
+		model = glm::translate(model, glm::vec3(-1.3f, 0.55f, -0.85f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket_RuedaDelIzq.RenderModel();
+		model = modelauxRust;
+
+		//Llanta trasera derecha
+		model = glm::translate(model, glm::vec3(1.3f, 0.55f, -1.95f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket_RuedaTrasDer.RenderModel();
+		model = modelauxRust;
+
+		//Llanta trasera izquierda
+		model = glm::translate(model, glm::vec3(-1.3f, 0.55f, -1.95f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Rustbucket_RuedaTrasIzq.RenderModel();
+		model = modelauxRust;
+		//////
+
 		//DonutVan
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(250.0f, 0.0f, -550.0f));
+		model = glm::translate(model, glm::vec3(250.0f, 0.0f, -677.0f));
 		model = glm::scale(model, glm::vec3(19.0f, 18.0f, 19.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelauxDonutVan = model;
@@ -1567,7 +1904,7 @@ int main()
 		//DX Mark 10///////
 		//Carro 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(200.0f, 0.2f, 555.0f));
+		model = glm::translate(model, glm::vec3(400.0f, 0.2f, 815.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.5f, 10.5f, 10.5f));
 		modelauxMark10 = model;
@@ -1599,13 +1936,6 @@ int main()
 		CocheBen_RuedaTrasIzq.RenderModel();
 		model = modelauxMark10;
 		////////
-		//------------------------------------------------------------------Piso temporal-------------------------------------------------------------------
-
-		//Prueba lampara
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.5, 15.5, 0.5));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Candil.RenderModel();
 		
 		glUseProgram(0);
 

@@ -1,0 +1,55 @@
+﻿  Camera.cpp
+  DirectionalLight.cpp
+  Light.cpp
+  Material.cpp
+  Mesh_tn.cpp
+  Model.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Camera.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Camera.cpp")
+  
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Light.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "DirectionalLight.cpp")
+  
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Light.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Light.cpp")
+  
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Material.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Material.cpp")
+  
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Mesh.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Mesh_tn.cpp")
+  
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Model.h(4,9): error C1083: No se puede abrir el archivo incluir: 'assimp/Importer.hpp': No such file or directory
+  (compilando archivo de origen "Model.cpp")
+  
+  PointLight.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Light.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "PointLight.cpp")
+  
+  ProyectoFinal.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(13,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  Shader_light.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Shader_light.h(7,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Shader_light.cpp")
+  
+  Skybox.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Skybox.h(6,9): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Skybox.cpp")
+  
+  Sphere.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\definition.h(11,10): error C1083: No se puede abrir el archivo incluir: 'glm.hpp': No such file or directory
+  (compilando archivo de origen "Sphere.cpp")
+  
+  SpotLight.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Light.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "SpotLight.cpp")
+  
+  Texture.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Texture.h(2,9): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Texture.cpp")
+  
+  Window.cpp
+C:\Users\ferra\Downloads\Alemán\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(3,9): error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
+  (compilando archivo de origen "Window.cpp")
+  
+  Generando código...

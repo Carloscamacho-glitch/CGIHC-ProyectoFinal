@@ -20,18 +20,18 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime)
 {
 	GLfloat velocity = moveSpeed * deltaTime;
-	glm::vec3 moveXY = glm::normalize(glm::vec3(front.x, 0.0f, front.z));
+	glm::vec3 movXZ = glm::normalize(glm::vec3(front.x, 0.0f, front.z));
 
 	//Camara en 3ra persona
 	if (cameraID == 1.0f) {
 		if (keys[GLFW_KEY_W])
 		{
-			position += moveXY * velocity;
+			position += movXZ * velocity;
 		}
 
 		if (keys[GLFW_KEY_S])
 		{
-			position -= moveXY * velocity;
+			position -= movXZ * velocity;
 		}
 
 		if (keys[GLFW_KEY_A])
@@ -45,35 +45,24 @@ void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime)
 		}
 	//Camara aerea
 	}else if (cameraID == 2.0f) {
-		if (keys[GLFW_KEY_W])
+		if (keys[GLFW_KEY_W] && position.z >= -1070.0f)
 		{
-			position += moveXY * velocity;
+			position += movXZ * velocity;
 		}
 
-		if (keys[GLFW_KEY_S])
+		if (keys[GLFW_KEY_S] && 1070.0f >= position.z)
 		{
-			position -= moveXY * velocity;
+			position -= movXZ * velocity;
 		}
 
-		if (keys[GLFW_KEY_A])
+		if (keys[GLFW_KEY_A] && position.x >= -1302.0f)
 		{
 			position -= right * velocity;
 		}
 
-		if (keys[GLFW_KEY_D])
+		if (keys[GLFW_KEY_D] && 1302.0f >= position.x)
 		{
 			position += right * velocity;
-		}
-		//Para bajar y subir la cámara
-		if (keys[GLFW_KEY_LEFT_SHIFT]) {
-			if (position.y > 500) {
-				position.y -= velocity; // La cámara baja
-			}
-		}
-		if (keys[GLFW_KEY_SPACE]) {
-			if (position.y < 1000) {
-				position.y += velocity; // La cámara sube
-			}
 		}
 	//Camara en libre
 	}else {
@@ -121,9 +110,7 @@ void Camera::mouseControl(int cameraID,  GLfloat xChange, GLfloat yChange)
 		}
 	//Camara aerea
 	}else if (cameraID == 2.0f) {
-		xChange *= turnSpeed;
 
-		yaw += xChange;
 
 	//Camara en libre
 	}else {

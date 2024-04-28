@@ -1264,7 +1264,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara2.RenderModel();
 
-		
+
 		//Botes de Basura
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(208.0f, 0.0f, 958.5f));
@@ -1278,6 +1278,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
+
 		//Apu 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(460.5f, 0.0f, 1000.5f));
@@ -1287,6 +1288,22 @@ int main()
 		Apu.RenderModel();
 
 		//Cuadrante 8 -----------------------------------------------------------------
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pisoTexture.UseTexture();
+		meshList[2]->RenderMesh();
+
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(806.5f, 0.0f, 118.5f));
+		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara2.RenderModel();
+
 		//Blimp Duff
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1650.5f, 0.0f, 450.5f));

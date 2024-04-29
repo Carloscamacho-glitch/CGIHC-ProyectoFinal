@@ -1,3 +1,15 @@
-﻿  LINK : no se encontró C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
-  ProyectoFinal.vcxproj -> C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe
+﻿  ProyectoFinal.cpp
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+  (compilando archivo de origen "ProyectoFinal.cpp")
+  
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+  (compilando archivo de origen "ProyectoFinal.cpp")
+  
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(679,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(681,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(699,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(734,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(764,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(783,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(784,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+  ProyectoFinal.vcxproj -> C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\Debug\ProyectoFinal.exe

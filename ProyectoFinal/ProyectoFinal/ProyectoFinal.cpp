@@ -174,16 +174,18 @@ Model Banca;
 Model Jardinera;
 Model Banca2;
 Model Arboles3;
-Model Buzon;
-Model Parquimetro;
 Model Poste;
+Model FilaPostes;
+Model FilaPostes2;
 Model Coladera1;
 Model Coladera2;
+
 Model Semaforo;
 Model Semaforo2;
 Model Barrera;
 Model Espectacular1;
 Model Espectacular2;
+
 //Lamparas 
 Model Candil; 
 Model Lampara1;
@@ -635,6 +637,11 @@ int main()
 	Espectacular2.LoadModel("Models/Extras/Espectacular2.obj");
 	Semaforo2 = Model();
 	Semaforo2.LoadModel("Models/Extras/Semaforo2.obj");
+	FilaPostes = Model();
+	FilaPostes.LoadModel("Models/Extras/Poste_Fila.obj");
+	FilaPostes2 = Model();
+	FilaPostes2.LoadModel("Models/Extras/Poste_Fila2.obj");
+
 
 	//Lamparas
 	Candil = Model();
@@ -908,6 +915,12 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		hongos3.RenderModel();
 
+		//Coladera
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1050.0, 0.0, -750.0));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Coladera1.RenderModel();
 
 		//Cuadrante 2 Jared ------------------------------------------------------
 		//Sr Smoothie
@@ -972,6 +985,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
 
+		//Coladera
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-310.5, 0.0, -1112.5));
+		model = glm::rotate(model, glm::radians(117.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Coladera2.RenderModel();
+
 		//Botes de Basura
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-208.0f, 0.0f, -958.5f));
@@ -996,6 +1017,14 @@ int main()
 		LGR.RenderModel();
 		glDisable(GL_BLEND);
 
+		//Coladera
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(600.5, 0.0, -1105.5));
+		model = glm::rotate(model, glm::radians(117.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Coladera2.RenderModel();
+
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(163.5f, 7.0f, -913.0f));
@@ -1010,6 +1039,13 @@ int main()
 		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara1.RenderModel();
+
+		//Coladera
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1050.0, 0.0, -750.0));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Coladera1.RenderModel();
 
 		//Letras
 		model = glm::mat4(1.0);
@@ -1164,14 +1200,12 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LamparaLago.RenderModel();
 
-		//Cuadrante 6 -------------------------------------------------------------------
-		//Lampara
+		//Coladera
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-168.0f, 0.0f, 912.0f));
-		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1050.0, 0.0, 750.0));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Lampara2.RenderModel();
+		Coladera1.RenderModel();
 
 		//Bote de basura
 		model = glm::mat4(1.0);
@@ -1217,6 +1251,9 @@ int main()
 
 
 		//Cuadrante 7 ---------------------------------------------------------------------
+
+		//Cuadrante 6 -------------------------------------------------------------------
+
 		
 		//Mystery Shack
 		model = glm::mat4(1.0);
@@ -1302,6 +1339,43 @@ int main()
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		hongos3.RenderModel();
+		
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-168.0f, 0.0f, 912.0f));
+		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara2.RenderModel();
+
+		//Bote de basura
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-836.5f, 0.0f, 958.5f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+
+		//Cuadrante 7 ---------------------------------------------------------------------
+		
+		//KwikEmart
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(530.0f, -1.0f, 1116.6f));
+		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		KwikEmart.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Letrero
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(390.0f, 0.3f, 1010.0f));
+		model = glm::scale(model, glm::vec3(15.5f, 17.0f, 15.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LetreroKwik.RenderModel();
+
 
 		//Semaforo
 		model = glm::mat4(1.0);
@@ -1311,6 +1385,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Semaforo.RenderModel();
 
+		//Coladera
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.5, 0.0, 1116.6));
+		model = glm::rotate(model, glm::radians(117.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Coladera2.RenderModel();
+
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(888.5f, 0.0f, 912.0f));
@@ -1318,7 +1400,6 @@ int main()
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara2.RenderModel();
-
 
 		//Botes de Basura
 		model = glm::mat4(1.0);
@@ -1344,13 +1425,6 @@ int main()
 
 		//Cuadrante 8 -----------------------------------------------------------------
 
-		/*model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();*/
-
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(806.5f, 0.0f, 118.5f));
@@ -1358,6 +1432,13 @@ int main()
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Lampara2.RenderModel();
+
+		//Coladera
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1050.0, 0.0, 750.0));
+		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Coladera1.RenderModel();
 
 		//Blimp Duff
 		model = glm::mat4(1.0);
@@ -1402,6 +1483,33 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Agua.RenderModel();
+
+		//Perimetro Postes
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -650.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.4f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		FilaPostes.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 640.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.4f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		FilaPostes.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(938.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.4f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		FilaPostes2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-945.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.4f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		FilaPostes2.RenderModel();
 
 		//Portal
 		model = glm::mat4(1.0);

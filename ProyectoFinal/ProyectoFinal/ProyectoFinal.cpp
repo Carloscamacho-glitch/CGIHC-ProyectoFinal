@@ -1268,19 +1268,11 @@ int main()
 
 		//Dipper
 		glm::mat4 ModelAuxDipper1(1.0);
-		glm::mat4 ModelAuxDipper2(1.0);
-		glm::mat4 ModelAuxDipper3(1.0);
-		glm::mat4 ModelAuxDipper4(1.0);
-		glm::mat4 ModelAuxDipper5(1.0);
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-475.0f, 20.0f, 950.0f));
 		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		ModelAuxDipper1 = model;
-		ModelAuxDipper2 = model;
-		ModelAuxDipper3 = model;
-		ModelAuxDipper4 = model;
-		ModelAuxDipper5 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dipper.RenderModel();
 
@@ -1293,28 +1285,28 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dipperPI.RenderModel();
 		//Pierna delantera izquierda
-		model = ModelAuxDipper2;
+		model = ModelAuxDipper1;
 		model = glm::scale(model, glm::vec3(0.85f, 0.85f, 0.85f));
 		model = glm::translate(model, glm::vec3(0.3f, -1.0f, 0.1));
 		model = glm::rotate(model, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dipperPI.RenderModel();
 		//Brazo derecho
-		model = ModelAuxDipper3;
+		model = ModelAuxDipper1;
 		model = glm::translate(model, glm::vec3(-0.3, -0.1f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dipperBI.RenderModel();
 		////Brazo izquierdo
-		model = ModelAuxDipper4;
+		model = ModelAuxDipper1;
 		model = glm::translate(model, glm::vec3(0.35, -0.1f, 0.1f));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dipperBD.RenderModel();
 		//Cabeza
-		model = ModelAuxDipper5;
+		model = ModelAuxDipper1;
 		model = glm::translate(model, glm::vec3(0.0, 0.1f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1541,19 +1533,12 @@ int main()
 		 
 		//Pato
 		glm::mat4 ModelAuxPato1(1.0);
-		glm::mat4 ModelAuxPato2(1.0);
-		glm::mat4 ModelAuxPato3(1.0);
-		glm::mat4 ModelAuxPato4(1.0);
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-360.0f, 9.0f, -305.0f));
 		model = glm::scale(model, glm::vec3(90.0f, 90.0f, 90.0f));
 		ModelAuxPato1 = model;
-		ModelAuxPato2 = model;
-		ModelAuxPato3 = model;
-		ModelAuxPato4 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pato.RenderModel();
-
 
 		//Pierna delantera derecha
 		model = ModelAuxPato1;
@@ -1562,19 +1547,19 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		patoPDI.RenderModel();
 		//Pierna delantera izquierda
-		model = ModelAuxPato2;
+		model = ModelAuxPato1;
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
 		model = glm::translate(model, glm::vec3(0.02f, -0.04f, 0.028));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		patoPDD.RenderModel();
 		//Pierna trasera izquierda
-		model = ModelAuxPato3;
+		model = ModelAuxPato1;
 		model = glm::translate(model, glm::vec3(0.035, -0.05f, -0.075f));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		patoPTD.RenderModel();
 		//Pierna trasera derecha
-		model = ModelAuxPato4;
+		model = ModelAuxPato1;
 		model = glm::translate(model, glm::vec3(-0.035, -0.05f, -0.061f));
 		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1799,21 +1784,16 @@ int main()
 
 		//Gompers
 		glm::mat4 ModelAuxGompers1(1.0);
-		glm::mat4 ModelAuxGompers2(1.0);
-		glm::mat4 ModelAuxGompers3(1.0);
-		glm::mat4 ModelAuxGompers4(1.0);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-360.0f, 15.0f, 305.0f));
+		model = glm::translate(model, glm::vec3(-360.0f, 18.0f, 300.0f));
 		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
 		ModelAuxGompers1 = model;
-		ModelAuxGompers2 = model;
-		ModelAuxGompers3 = model;
-		ModelAuxGompers4 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompers.RenderModel();
 
 
 		//Pierna delantera izquierda
+		model = ModelAuxGompers1;
 		model = glm::translate(model, glm::vec3(-0.2f, -0.75, -0.015));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1821,17 +1801,18 @@ int main()
 		//Pierna delantera derecha
 		model = ModelAuxGompers1;
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
-		model = glm::translate(model, glm::vec3(0.2f, -0.75f, -0.025));
+		model = glm::translate(model, glm::vec3(0.15f, -0.7f, -0.037));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompersPDI.RenderModel();
 		//Pierna trasera derecha
-		model = glm::translate(model, glm::vec3(0.0, 0.15f, 0.75f));
+		model = ModelAuxGompers1;
+		model = glm::translate(model, glm::vec3(0.15, -0.65f, 0.855f));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompersPTD.RenderModel();
 		//Pierna trasera izquierda
-		model = ModelAuxGompers4;
-		model = glm::translate(model, glm::vec3(-0.2, -0.65f, 0.87f));
+		model = ModelAuxGompers1;
+		model = glm::translate(model, glm::vec3(-0.22, -0.65f, 0.87f));
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompersPTI.RenderModel();

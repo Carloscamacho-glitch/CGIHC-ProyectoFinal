@@ -1,14 +1,14 @@
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Camera.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Camera.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\DirectionalLight.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\DirectionalLight.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Light.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Light.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Material.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Material.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Mesh_tn.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Mesh_tn.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Model.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Model.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\PointLight.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\PointLight.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Shader_light.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Shader_light.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Skybox.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Skybox.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Sphere.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Sphere.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\SpotLight.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\SpotLight.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Texture.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Texture.obj
-C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.cpp;C:\Users\ferra\Downloads\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Debug\Window.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Camera.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Camera.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\DirectionalLight.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\DirectionalLight.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Light.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Light.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Material.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Material.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Mesh_tn.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Mesh_tn.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Model.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Model.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\PointLight.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\PointLight.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Shader_light.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Shader_light.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Skybox.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Skybox.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Sphere.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Sphere.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\SpotLight.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\SpotLight.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Texture.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Texture.obj
+C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.cpp;C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Debug\Window.obj

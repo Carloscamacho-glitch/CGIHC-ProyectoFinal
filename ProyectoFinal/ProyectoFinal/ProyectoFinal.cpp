@@ -4,6 +4,7 @@ Proyecto Final
 //para cargar imagen
 #define STB_IMAGE_IMPLEMENTATION
 
+#include <windows.h>
 #include <stdio.h>
 #include <string.h>
 #include <cmath>
@@ -178,10 +179,16 @@ Model Parquimetro;
 Model Poste;
 Model Coladera1;
 Model Coladera2;
+Model Semaforo;
+Model Semaforo2;
+Model Barrera;
+Model Espectacular1;
+Model Espectacular2;
 //Lamparas 
-Model Candil;
+Model Candil; 
 Model Lampara1;
 Model Lampara2;
+Model LamparaLago;
 
 
 // luz direccional
@@ -369,8 +376,10 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 }
 
+
 int main()
 {
+
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
 
@@ -477,7 +486,7 @@ int main()
 	LetreroKwik = Model();
 	LetreroKwik.LoadModel("Models/Simpsons/kwikEmart/letrero.obj");
 	Letras = Model();
-	Letras.LoadModel("Models/Simpsons/Letras/Letras.obj");
+	Letras.LoadModel("Models/Simpsons/Letras/LetrasMontana2.obj");
 	Duff = Model();
 	Duff.LoadModel("Models/Simpsons/Estatua/Estatua.obj");
 	JefeGorgory = Model();
@@ -610,16 +619,22 @@ int main()
 	Bote.LoadModel("Models/Extras/Bote.obj");
 	Pinos = Model();
 	Pinos.LoadModel("Models/Extras/ArbolesConjunto01.obj");
-	Buzon = Model();
-	Buzon.LoadModel("Models/Extras/Buzon.obj");
 	Coladera1 = Model();
 	Coladera1.LoadModel("Models/Extras/Coladera1.obj");
 	Coladera2 = Model();
 	Coladera2.LoadModel("Models/Extras/Coladera2.obj");
 	Poste = Model();
 	Poste.LoadModel("Models/Extras/Poste.obj");
-	Parquimetro = Model();
-	Parquimetro.LoadModel("Models/Extras/Parquimetro.obj");
+	Semaforo = Model();
+	Semaforo.LoadModel("Models/Extras/Semaforo.obj");
+	Barrera = Model();
+	Barrera.LoadModel("Models/Extras/Barrera.obj");
+	Espectacular1 = Model();
+	Espectacular1.LoadModel("Models/Extras/Espectacular1.obj");
+	Espectacular2 = Model();
+	Espectacular2.LoadModel("Models/Extras/Espectacular2.obj");
+	Semaforo2 = Model();
+	Semaforo2.LoadModel("Models/Extras/Semaforo2.obj");
 
 	//Lamparas
 	Candil = Model();
@@ -628,6 +643,8 @@ int main()
 	Lampara1.LoadModel("Models/Lamparas/Lampara01.obj");
 	Lampara2 = Model();
 	Lampara2.LoadModel("Models/Lamparas/Lampara2.obj");
+	LamparaLago = Model();
+	LamparaLago.LoadModel("Models/Lamparas/LamparaLago.obj");
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -671,6 +688,7 @@ int main()
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
+	int contadorEspectacular = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -685,7 +703,7 @@ int main()
 		resta = contador - tiempoguardado;
 
 		//cambio de variables
-		if (resta >= 60) {
+		if (resta >= 660) {
 			if (dia == 1.0f) {
 				//Noche
 				dia = 0.0f;
@@ -910,6 +928,15 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ben.RenderModel();
 
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-156.5f, 0.0f, -910.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo.RenderModel();
+
+
 		/////Transformaciones////----------------
 		////EcoEco
 		//model = glm::mat4(1.0);
@@ -986,29 +1013,29 @@ int main()
 
 		//Letras
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1570.0f, 0.5f, -1020.0f));
-		model = glm::scale(model, glm::vec3(17.0f, 17.5f, 17.0f));
-		model = glm::rotate(model, -135 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(2240.0f, 10.5f, -1290.0f));
+		model = glm::scale(model, glm::vec3(23.0f, 24.5f, 23.0f));
+		model = glm::rotate(model, -145 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Letras.RenderModel();
 
 		//Banca 1
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -710.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -310.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		//Banca 2
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -410.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -510.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca2.RenderModel();
 
 		//Banca 3
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1270.0f, 0.0f, -1300.0f));
+		model = glm::translate(model, glm::vec3(1300.0f, 0.0f, -1300.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1016,7 +1043,7 @@ int main()
 
 		//Bote de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -555.0f));
+		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -410.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1024,7 +1051,7 @@ int main()
 
 		//Bote de Basura
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1220.0f, 0.0f, -1250.0f));
+		model = glm::translate(model, glm::vec3(1250.0f, 0.0f, -1300.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
@@ -1131,10 +1158,11 @@ int main()
 		//Cuadrante 5 -------------------------------------------------------------------
 		//Lampara
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1215.5f, 0.0f, 165.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 7.5f, 7.0f));
+		model = glm::translate(model, glm::vec3(-1265.5f, 0.0f, 192.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Candil.RenderModel();
+		LamparaLago.RenderModel();
 
 		//Cuadrante 6 -------------------------------------------------------------------
 		//Lampara
@@ -1166,9 +1194,26 @@ int main()
 		//Letrero
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(390.0f, 0.3f, 1010.0f));
-		model = glm::scale(model, glm::vec3(15.5f, 17.0f, 15.5f));
+		model = glm::scale(model, glm::vec3(15.5f, 16.0f, 15.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LetreroKwik.RenderModel();
+
+		//Espectacular 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(250.0f, 0.3f, 1300.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 3.0f, 2.5f));
+		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
+			Espectacular1.RenderModel();
+		}
+		else if (contadorEspectacular > 600 && contadorEspectacular <= 1200) {
+			Espectacular2.RenderModel();
+		}
+		contadorEspectacular++;
+		if (contadorEspectacular > 1200) {
+			contadorEspectacular = 0; // Reiniciar el contador
+		}
 
 
 		//Cuadrante 7 ---------------------------------------------------------------------
@@ -1179,7 +1224,10 @@ int main()
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8.8f, 8.8f, 8.8f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		mysteryShack.RenderModel();
+		glDisable(GL_BLEND);
 
 		//Dipper
 		glm::mat4 ModelAuxDipper1(1.0);
@@ -1189,7 +1237,7 @@ int main()
 		glm::mat4 ModelAuxDipper5(1.0);
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-475.0f, 20.0f, 950.0f));
-		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		ModelAuxDipper1 = model;
 		ModelAuxDipper2 = model;
@@ -1255,6 +1303,13 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		hongos3.RenderModel();
 
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(156.5f, 0.0f, 910.0f));
+		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo.RenderModel();
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -1289,12 +1344,12 @@ int main()
 
 		//Cuadrante 8 -----------------------------------------------------------------
 
-		model = glm::mat4(1.0);
+		/*model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1000.0f, 0.0f, 500.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 40.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pisoTexture.UseTexture();
-		meshList[2]->RenderMesh();
+		meshList[2]->RenderMesh();*/
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -1566,7 +1621,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		trickster.RenderModel();
 
-		///Terminan subcuadrante 2///
+		///Termina subcuadrante 2///
 
 		// subcuadrante 3 -------
 		//Jardinera 3
@@ -1753,7 +1808,23 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 0.51f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Duff.RenderModel();
-		///Terminan subcuadrante 4///
+		///Termina subcuadrante 4///
+
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(163.5f, 0.0f, -583.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo2.RenderModel();
+
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-156.5f, 0.0f, 583.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo2.RenderModel();
 
 		//Botes de basura //
 		model = glm::mat4(1.0);
@@ -1936,7 +2007,47 @@ int main()
 		CocheBen_RuedaTrasIzq.RenderModel();
 		model = modelauxMark10;
 		////////
+
+		//Barreras entre cuadrante 7 y 8 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(998.0f, 0.0f, 938.5f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1058.0f, 0.0f, 938.5f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1118.0f, 0.0f, 938.5f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+		//Terminan barreras 
 		
+		//Barreras entre cuadrante 1 y 2 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-998.0f, 0.0f, -938.5f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1058.0f, 0.0f, -938.5f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1118.0f, 0.0f, -938.5f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+		//Terminan barreras 
+
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();

@@ -120,6 +120,11 @@ Model BurbujaBismuto;
 Model BurbujaSquaridot;
 Model BurbujaJasper;
 Model GatoGalleta;
+Model Flor1;
+Model Flor2;
+Model Flor3;
+Model Flor4;
+Model Flor5;
 //Leon
 Model Leon;
 Model LeonPataDelDer;
@@ -137,6 +142,7 @@ Model PeridotPiernaDer;
 Model PeridotPiernaIzq;
 Model PeridotPieDer;
 Model PeridotPieIzq;
+
 //Gravity Falls -------------------------
 Model hongos1;
 Model hongos2;
@@ -160,7 +166,6 @@ Model dipperBD;
 Model dipperBI;
 Model dipperPD;
 Model dipperPI;
-Model huella;
 
 
 //Extras --------------------------------
@@ -518,9 +523,19 @@ int main()
 	BurbujaJasper.LoadModel("Models/Steven Universe/Burbuja Jasper.obj");
 	GatoGalleta = Model();
 	GatoGalleta.LoadModel("Models/Steven Universe/GatoGalleta.obj");
+	Flor1 = Model();
+	Flor1.LoadModel("Models/Steven Universe/Flor1.obj");
+	Flor2 = Model();
+	Flor2.LoadModel("Models/Steven Universe/Flor2.obj");
+	Flor3 = Model();
+	Flor3.LoadModel("Models/Steven Universe/Flor3.obj");
+	Flor4 = Model();
+	Flor4.LoadModel("Models/Steven Universe/Flor4.obj");
+	Flor5 = Model();
+	Flor5.LoadModel("Models/Steven Universe/Flor5.obj");
 	//Leon
 	Leon = Model();
-	LeonPataDelDer.LoadModel("Models/Steven Universe/Leon.obj");
+	Leon.LoadModel("Models/Steven Universe/Leon.obj");
 	LeonPataDelDer = Model();
 	LeonPataDelDer.LoadModel("Models/Steven Universe/Leon Pata DelDer.obj");
 	LeonPataDelIzq = Model();
@@ -596,9 +611,6 @@ int main()
 	dipperPD.LoadModel("Models/Gravity Falls/Dipper/Dipper PD.obj");
 	dipperPI = Model();
 	dipperPI.LoadModel("Models/Gravity Falls/Dipper/Dipper PI.obj");
-	huella = Model();
-	huella.LoadModel("Models/Gravity Falls/Huella/huella.obj");
-
 
 	//Extras --------------------------------
 	Piso = Model();
@@ -641,7 +653,6 @@ int main()
 	FilaPostes.LoadModel("Models/Extras/Poste_Fila.obj");
 	FilaPostes2 = Model();
 	FilaPostes2.LoadModel("Models/Extras/Poste_Fila2.obj");
-
 
 	//Lamparas
 	Candil = Model();
@@ -710,7 +721,7 @@ int main()
 		resta = contador - tiempoguardado;
 
 		//cambio de variables
-		if (resta >= 660) {
+		if (resta >= 60) {
 			if (dia == 1.0f) {
 				//Noche
 				dia = 0.0f;
@@ -852,11 +863,10 @@ int main()
 		glm::mat4 ModelAuxPeridot2(1.0);
 		glm::mat4 ModelAuxPeridot3(1.0);
 		glm::mat4 ModelAuxPeridot4(1.0);
+		glm::mat4 ModelAuxLeon(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 
@@ -921,6 +931,39 @@ int main()
 		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Coladera1.RenderModel();
+
+		//leon
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1600.0f, 10.0f, -200.0f));
+		model = glm::rotate(model, 75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		ModelAuxLeon = model;
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Leon.RenderModel();
+
+		model = ModelAuxLeon;
+		model = glm::translate(model, glm::vec3(1.3f, -3.4f, 1.7f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LeonPataDelDer.RenderModel();
+
+		model = ModelAuxLeon;
+		model = glm::translate(model, glm::vec3(-1.6f, -3.4f, 1.5f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LeonPataDelIzq.RenderModel();
+
+		model = ModelAuxLeon;
+		model = glm::translate(model, glm::vec3(1.5f, -2.4f,-5.2f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LeonPataTrasDer.RenderModel();
+
+		model = ModelAuxLeon;
+		model = glm::translate(model, glm::vec3(-1.6f, -2.6f, -5.2f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LeonPataTrasIzq.RenderModel();
 
 		//Cuadrante 2 Jared ------------------------------------------------------
 		//Sr Smoothie
@@ -1049,52 +1092,15 @@ int main()
 
 		//Letras
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(2240.0f, 10.5f, -1290.0f));
-		model = glm::scale(model, glm::vec3(23.0f, 24.5f, 23.0f));
+		model = glm::translate(model, glm::vec3(1700.0f, 4.5f, -800.0f));
+		model = glm::scale(model, glm::vec3(12.0f, 13.5f, 12.0f));
 		model = glm::rotate(model, -145 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Letras.RenderModel();
 
-		//Banca 1
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -310.0f));
-		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca2.RenderModel();
-
-		//Banca 2
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -510.0f));
-		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca2.RenderModel();
-
-		//Banca 3
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1300.0f, 0.0f, -1300.0f));
-		model = glm::scale(model, glm::vec3(15.0f, 15.5f, 15.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Banca2.RenderModel();
-
-		//Bote de Basura
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1750.0f, 0.0f, -410.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-
-		//Bote de Basura
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1250.0f, 0.0f, -1300.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-
 		//Jefe Gorgory
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1400.0f, -15.5f, -950.0f));
+		model = glm::translate(model, glm::vec3(1400.0f, -15.5f, -450.0f));
 		model = glm::scale(model, glm::vec3(0.52f, 0.52f, 0.52f));
 		model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1102,7 +1108,7 @@ int main()
 
 		//Khyber
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1700.0f, 0.0f, -300.0f));
+		model = glm::translate(model, glm::vec3(1600.0f, 0.0f, -200.0f));
 		model = glm::scale(model, glm::vec3(2.7f, 2.7f, 2.7f));
 		model = glm::rotate(model, 225 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1110,7 +1116,7 @@ int main()
 
 		//Escarabola---------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1450.0f, 0.0f, -350.0f));
+		model = glm::translate(model, glm::vec3(1350.0f, 0.0f, -250.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		//model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelauxEscarabola = model;
@@ -1141,12 +1147,11 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		EscarabolaPataTrasIzq.RenderModel();
-		model = modelauxEscarabola;
 		/////////////--------------------
 
 		//Crabdozer-------------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1350.0f, 0.1f, -600.0f));
+		model = glm::translate(model, glm::vec3(1250.0f, 0.1f, -500.0f));
 		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.3f, 1.3f, 1.3f));
 		modelauxCrab = model;
@@ -1188,8 +1193,75 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CrabdozerPataTrasIzq.RenderModel();
-		model = modelauxCrab;
 		//////--------------------
+
+		//Flores
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1475.0f, 20.0f, -525.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 45 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor4.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1460.0f, 90.0f, -630.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, -5 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 55 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor5.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1635.0f, 120.0f, -488.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 5 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 48 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor4.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1530.0f, 65.0f, -525.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 50 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -135 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor5.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1375.0f, 65.0f, -725.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, -25 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 60 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1475.0f, 175.0f, -725.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, -25 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 60 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, -27 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor4.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1630.0f, 70.0f, -450.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 10 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 50 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor5.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1590.0f, 155.0f, -560.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 20 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 70 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor2.RenderModel();
 
 		//Cuadrante 5 -------------------------------------------------------------------
 		//Lampara
@@ -1530,16 +1602,14 @@ int main()
 		glDisable(GL_BLEND);
 
 		// subcuadrante 1 -------
-		 
 		//Pato
 		glm::mat4 ModelAuxPato1(1.0);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-360.0f, 9.0f, -305.0f));
-		model = glm::scale(model, glm::vec3(90.0f, 90.0f, 90.0f));
+		model = glm::translate(model, glm::vec3(-360.0f, 5.0f, -305.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		ModelAuxPato1 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pato.RenderModel();
-
 		//Pierna delantera derecha
 		model = ModelAuxPato1;
 		model = glm::translate(model, glm::vec3(-0.04, -0.04, 0.047));
@@ -1565,7 +1635,6 @@ int main()
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		patoPTI.RenderModel();
-
 		
 		//Jardinera 2
 		model = glm::mat4(1.0);
@@ -1781,17 +1850,15 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
-
 		//Gompers
 		glm::mat4 ModelAuxGompers1(1.0);
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-360.0f, 18.0f, 300.0f));
-		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
+		model = glm::translate(model, glm::vec3(-360.0f, 10.0f, 450.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		ModelAuxGompers1 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompers.RenderModel();
-
-
 		//Pierna delantera izquierda
 		model = ModelAuxGompers1;
 		model = glm::translate(model, glm::vec3(-0.2f, -0.75, -0.015));
@@ -1816,8 +1883,6 @@ int main()
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompersPTI.RenderModel();
-
-
 		///Terminan subcuadrante 3///
 
 		// subcuadrante 4 -------

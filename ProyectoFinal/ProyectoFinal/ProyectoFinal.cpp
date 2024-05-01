@@ -55,6 +55,7 @@ Camera camera3;
 Camera* currentCamera;
 
 Texture estatua;
+Texture MesaLGR;
 
 Model Prueba_M; 
 //Ben10 ---------------------------------
@@ -115,6 +116,7 @@ Model BlimpDuff;
 
 //Steven Universe -----------------------
 Model LGR;
+Model LGRVid;
 Model Portal;
 Model BurbujaBismuto;
 Model BurbujaSquaridot;
@@ -184,6 +186,7 @@ Model FilaPostes;
 Model FilaPostes2;
 Model Coladera1;
 Model Coladera2;
+Model Arbusto;
 
 Model Semaforo;
 Model Semaforo2;
@@ -191,6 +194,7 @@ Model Barrera;
 Model Espectacular1;
 Model Espectacular2;
 
+Model Jetsky;
 //Lamparas 
 Model Candil; 
 Model Lampara1;
@@ -202,8 +206,7 @@ Model LamparaLago;
 DirectionalLight mainLight;
 //para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
-SpotLight spotLights[MAX_SPOT_LIGHTS]; //Incluye luz delantera del coche 
-SpotLight spotLights2[MAX_SPOT_LIGHTS]; //Tendra la luz trasera del coche
+SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 
 // Vertex Shader
@@ -292,12 +295,8 @@ void CreateObjects()
 	meshList.push_back(obj1);
 
 	Mesh *obj2 = new Mesh();
-	obj2->CreateMesh(vertices, indices, 32, 12);
+	obj2->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj2);
-
-	Mesh *obj3 = new Mesh();
-	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
-	meshList.push_back(obj3);
 
 	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
 
@@ -375,6 +374,129 @@ void CrearCubo()
 	meshList.push_back(cubo); 
 } 
 
+void CrearMesa()
+{
+	unsigned int mesaBajo_indices[] = {
+		//FrenteB
+		0, 1, 2,
+		2, 3, 0,
+		//DerechaB
+		4, 5, 6,
+		6, 7, 4,
+		//IzquierdaB
+		8, 9, 10,
+		10, 11, 8,
+		//AtrasB
+		12, 13, 14,
+		14, 15, 12,
+		//AbajoB
+		16, 17, 18,
+		18, 19, 16,
+		//ArribaB
+		44,45,46,
+		46,47,44,
+
+		//FrenteA
+		20, 21, 22,
+		22, 23, 20,
+		//DerechaA
+		24, 25, 26,
+		26, 27, 24,
+		//IzquierdaA
+		28, 29, 30,
+		30, 31, 28,
+		//AtrasA
+		32, 33, 34,
+		34, 35, 32,
+		//AbajoA
+		36, 37, 38,
+		38, 39, 36,
+		//ArribaA
+		40, 41, 42,
+		42, 43, 40,
+	};
+
+	GLfloat mesaBajo_vertices[] = {
+
+		//FrenteB
+		//x		y		z		S(H)	T(V)
+		-1.0f, 0.0f, 1.0f,		0.0f,   0.0f,		1.0f,	0.0f,	0.0f,	//0
+		-1.0f, 0.0f, -1.0f,		1.0f,	0.0f,		1.0f,	0.0f,	0.0f,	//1
+		-1.0f, 2.0f, -1.0f,		1.0f,	0.8f,		1.0f,	0.0f,	0.0f,	//2
+		-1.0f, 2.0f, 1.0f,		0.0f,	0.8f,		1.0f,	0.0f,	0.0f,	//3
+		//DerechaB
+		//x		y		z		S		T
+		-1.0f, 0.0f, -1.0f,	    0.0f,   0.0f,		0.0f,	0.0f,	1.0f,
+		1.0f, 0.0f, -1.0f,		1.0f,	0.0f,		0.0f,	0.0f,	1.0f,
+		1.0f, 2.0f, -1.0f,		1.0f,	0.8f,		0.0f,	0.0f,	1.0f,
+		-1.0f, 2.0f, -1.0f,	    0.0f,	0.8f,		0.0f,	0.0f,	1.0f,
+		//IzquierdaB
+		//x		y		z		S		T
+		1.0f, 0.0f, 1.0f,		0.0f,   0.0f,		0.0f,	0.0f,	-1.0f,
+		-1.0f, 0.0f, 1.0f,		1.0f,	0.0f,		0.0f,	0.0f,	-1.0f,
+		-1.0f, 2.0f, 1.0f,		1.0f,	0.8f,		0.0f,	0.0f,	-1.0f,
+		1.0f, 2.0f, 1.0f,		0.0f,	0.8f,		0.0f,	0.0f,	-1.0f,
+		//AtrasB
+		//x		y		z		S		T
+		1.0f, 0.0f, -1.0f,		0.0f,   0.0f,		-1.0f,	0.0f,	0.0f,
+		1.0f, 0.0f, 1.0f,		1.0f,	0.0f,		-1.0f,	0.0f,	0.0f,
+		1.0f, 2.0f, 1.0f,		1.0f,	0.8f,		-1.0f,	0.0f,	0.0f,
+		1.0f, 2.0f, -1.0f,		0.0f,	0.8f,		-1.0f,	0.0f,	0.0f,
+		//AbajoB
+		//x		y		z		S		T
+		-1.0f, 0.0f, 1.0f,		0.0f,   0.2f,		0.0f,	1.0f,	0.0f,
+		-1.0f, -0.0f, -1.0f,	1.0f,	0.2f,		0.0f,	1.0f,	0.0f,
+		1.0f, 0.0f, -1.0f,		1.0f,	0.8f,		0.0f,	1.0f,	0.0f,
+		1.0f, 0.0f, 1.0f,		0.0f,	0.8f,		0.0f,	1.0f,	0.0f,
+		//ArribaB
+		//x		y		z		S		T
+		-1.0f, 2.0f , 1.0f,		0.0f,   0.2f,		0.0f,	-1.0f,	0.0f,
+		-1.0f, 2.0f , -1.0f,	1.0f,	0.2f,		0.0f,	-1.0f,	0.0f,
+		1.0f, 2.0f, -1.0f,		1.0f,	0.8f,		0.0f,	-1.0f,	0.0f,
+		1.0f, 2.0f, 1.0f,		0.0f,	0.8f,		0.0f,	-1.0f,	0.0f,
+
+		//FrenteA
+		//x		y		z		S		T
+		-1.5f, 2.0f, 1.0f,		0.92f,  0.92f,		1.0f,	0.0f,	0.0f,
+		-1.5f, 2.0f, -1.5f,		0.92f,	0.92f,		1.0f,	0.0f,	0.0f,
+		-1.5f, 2.5f, -1.5f,		0.92f,	1.0f,		1.0f,	0.0f,	0.0f,
+		-1.5f, 2.5f, 1.0f,		0.92f,	1.0f,		1.0f,	0.0f,	0.0f,
+		//DerechaA
+		//x		y		z		S		T
+		-1.5f, 2.0f, -1.5f,	    0.92f,  0.92f,		0.0f,	0.0f,	1.0f,
+		1.5f, 2.0f, -1.5f,		0.92f,	0.92f,		0.0f,	0.0f,	1.0f,
+		1.5f, 2.5f, -1.5f,		0.92f,	1.0f,		0.0f,	0.0f,	1.0f,
+		-1.5f, 2.5f, -1.5f,	    0.92f,	1.0f,		0.0f,	0.0f,	1.0f,
+		//IzquierdaA
+		//x		y		z		S		T
+		1.5f, 2.0f, 1.0f,		0.92f,   0.92f,		0.0f,	0.0f,	-1.0f,
+		-1.5f, 2.0f, 1.0f,		0.92f,	0.92f,		0.0f,	0.0f,	-1.0f,
+		-1.5f, 2.5f, 1.0f,		0.92f,	1.0f,		0.0f,	0.0f,	-1.0f,
+		1.5f, 2.5f, 1.0f,		0.92f,	1.0f,		0.0f,	0.0f,	-1.0f,
+		//AtrasA
+		//x		y		z		S		T
+		1.5f, 2.0f, -1.5f,		0.92f,   0.92f,		-1.0f,	0.0f,	0.0f,
+		1.5f, 2.0f, 1.0f,		0.92f,	0.92f,		-1.0f,	0.0f,	0.0f,
+		1.5f, 2.5f, 1.0f,		0.92f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		1.5f, 2.5f, -1.5f,		0.92f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		//AbajoA
+		//x		y		z		S		T
+		-1.5f, 2.0f, 1.0f,		0.92f,   0.92f,		0.0f,	1.0f,	0.0f,
+		-1.5f, 2.0f, -1.5f,		1.0f,	0.92f,		0.0f,	1.0f,	0.0f,
+		1.5f, 2.0f, -1.5f,		1.0f,	0.92f,		0.0f,	1.0f,	0.0f,
+		1.5f, 2.0f, 1.0f,		0.92f,	0.92f,		0.0f,	1.0f,	0.0f,
+		//ArribaA
+		//x		y		z		S		T
+		-1.5f, 2.5f, 1.0f,		0.92f,   0.92f,		0.0f,	-1.0f,	0.0f,
+		-1.5f, 2.5f, -1.5f,		1.0f,	0.92f,		0.0f,	-1.0f,	0.0f,
+		1.5f, 2.5f, -1.5f,		1.0f,	0.92f,		0.0f,	-1.0f,	0.0f,
+		1.5f, 2.5f, 1.0f,		0.92f,	0.92f,		0.0f,	-1.0f,	0.0f,
+	};
+
+	Mesh* mesaBajo = new Mesh();
+	mesaBajo->CreateMesh(mesaBajo_vertices, mesaBajo_indices, 768, 72);
+	meshList.push_back(mesaBajo);
+}
 
 void CreateShaders()
 {
@@ -393,6 +515,7 @@ int main()
 	CreateObjects();
 	CreateShaders();
 	CrearCubo();
+	CrearMesa();
 
 	//Camara en 3ra persona
 	camera = Camera(glm::vec3(-300.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.5f, 2.5f);
@@ -404,6 +527,8 @@ int main()
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	estatua = Texture("Textures/daiza1.png");
 	estatua.LoadTextureA();
+	MesaLGR = Texture("Textures/MesaLGR.tga");
+	MesaLGR.LoadTextureA();
 
 	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	Prueba_M = Model();
@@ -513,6 +638,8 @@ int main()
 	//Steven Universe -----------------------
 	LGR = Model();
 	LGR.LoadModel("Models/Steven Universe/La Gran Rosquilla.obj");
+	LGRVid = Model();
+	LGRVid.LoadModel("Models/Steven Universe/La Gran Rosquilla V.obj");
 	Portal = Model();
 	Portal.LoadModel("Models/Steven Universe/Portal.obj");
 	BurbujaBismuto = Model();
@@ -653,7 +780,10 @@ int main()
 	FilaPostes.LoadModel("Models/Extras/Poste_Fila.obj");
 	FilaPostes2 = Model();
 	FilaPostes2.LoadModel("Models/Extras/Poste_Fila2.obj");
-
+	Jetsky = Model();
+	Jetsky.LoadModel("Models/Extras/Jetsky.obj");
+	Arbusto = Model();
+	Arbusto.LoadModel("Models/Extras/Arbusto.obj");
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -677,31 +807,50 @@ int main()
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
 
-
-	//luz direccional, sólo 1 y siempre debe de existir
-	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
-
-	unsigned int spotLightCount = 0;
-	//linterna
-	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		5.0f);
-	spotLightCount++;
-
 	////Luz puntual
 	unsigned int pointLightCount = 0;
-
-	pointLights[0] = PointLight(1.0f, 1.0f, 1.0f,
-		3.0f, 1.0f,
-		20.0f, 3.0f, 0.0f,
-		0.3f, 0.2f, 0.1f);
+	//luz del omnitrix
+	pointLights[0] = PointLight(0.0f, 1.0f, 0.0f,
+		//INTENSIDADES
+		5.0f, 5.0f,
+		//POSICION
+		620.0f, 15.0f, 0.0f,
+		//Con /Lin /Exp
+		1.0f, 0.005f, 0.005f);
 	pointLightCount++;
-	
+	//luz de la linterna de los barcos
+	//pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
+	//	//INTENSIDADES
+	//	3.0f, 3.0f,
+	//	//POSICION
+	//	390.0f, 140.0f, 1010.0f,
+	//	//Con /Lin /Exp
+	//	1.0f, 0.01f, 0.01f);
+	//pointLightCount++;
+	//luz del letrero kwik-e-mart (se prendera en la noche y se apagara en el dia)
+	pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
+		//INTENSIDADES
+		3.0f, 3.0f,
+		//POSICION
+		390.0f, 140.0f, 1010.0f,
+		//Con /Lin /Exp
+		1.0f, 0.01f, 0.01f);
+	pointLightCount++;
+
+	//Spothligth
+	unsigned int spotLightCount = 0;
+	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+		//INTENSIDADES
+		0.0f, 2.0f,
+		//POSICION
+		0.0f, 0.0f, 0.0f,
+		//VECTOR DE DIRECCION
+		0.0f, -1.0f, 0.0f,
+		//Con /Lin /Exp
+		1.0f, 0.0f, 0.0f,
+		//VALOR DEL CONO (TAMAÑO)
+		5.0f);
+	spotLightCount++;
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
@@ -1050,14 +1199,37 @@ int main()
 		Bote.RenderModel();
 
 		//Cuadrante 3 ------------------------------------------------------------------
+		//Mesa
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(411.0f, 1.0f, -1100.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 35.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaLGR.UseTexture();
+		meshList[3]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(431.0f, 1.0f, -1145.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 35.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaLGR.UseTexture();
+		meshList[3]->RenderMesh();
+		
 		//La gran rosquilla
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(450.0f, 50.0f, -1050.0f));
+		model = glm::translate(model, glm::vec3(450.0f, 51.0f, -1050.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LGR.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(450.0f, 51.0f, -1050.0f));
 		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		LGR.RenderModel();
+		LGRVid.RenderModel();
 		glDisable(GL_BLEND);
 
 		//Coladera
@@ -1263,7 +1435,23 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Flor2.RenderModel();
 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1510.0f, 105.0f, -580.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 55 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 152 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor4.RenderModel();
+
 		//Cuadrante 5 -------------------------------------------------------------------
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1300.0f, -10.0f, 220.0f));
+		model = glm::rotate(model, 105 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(18.0f, 18.0f, 18.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Jetsky.RenderModel();
+
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1265.5f, 0.0f, 192.0f));
@@ -1279,54 +1467,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Coladera1.RenderModel();
 
-		//Bote de basura
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-836.5f, 0.0f, 958.5f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Bote.RenderModel();
-
-		//KwikEmart
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(530.0f, -1.0f, 1116.6f));
-		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		KwikEmart.RenderModel();
-		glDisable(GL_BLEND);
-
-		//Letrero
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(390.0f, 0.3f, 1010.0f));
-		model = glm::scale(model, glm::vec3(15.5f, 16.0f, 15.5f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		LetreroKwik.RenderModel();
-
-		//Espectacular 
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(250.0f, 0.3f, 1300.0f));
-		model = glm::scale(model, glm::vec3(2.5f, 3.0f, 2.5f));
-		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
-			Espectacular1.RenderModel();
-		}
-		else if (contadorEspectacular > 600 && contadorEspectacular <= 1200) {
-			Espectacular2.RenderModel();
-		}
-		contadorEspectacular++;
-		if (contadorEspectacular > 1200) {
-			contadorEspectacular = 0; // Reiniciar el contador
-		}
-
-
-		//Cuadrante 7 ---------------------------------------------------------------------
-
 		//Cuadrante 6 -------------------------------------------------------------------
-
-		
 		//Mystery Shack
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-500.0f, 2.0f, 1120.0f));
@@ -1347,7 +1488,6 @@ int main()
 		ModelAuxDipper1 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dipper.RenderModel();
-
 
 		//Pierna delantera derecha
 		model = ModelAuxDipper1;
@@ -1421,7 +1561,6 @@ int main()
 
 
 		//Cuadrante 7 ---------------------------------------------------------------------
-		
 		//KwikEmart
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(530.0f, -1.0f, 1116.6f));
@@ -1439,7 +1578,6 @@ int main()
 		model = glm::scale(model, glm::vec3(15.5f, 17.0f, 15.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LetreroKwik.RenderModel();
-
 
 		//Semaforo
 		model = glm::mat4(1.0);
@@ -1478,7 +1616,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
-
 		//Apu 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(460.5f, 0.0f, 1000.5f));
@@ -1487,8 +1624,24 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Apu.RenderModel();
 
-		//Cuadrante 8 -----------------------------------------------------------------
+		//Espectacular 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(250.0f, 0.3f, 1300.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 3.0f, 2.5f));
+		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
+			Espectacular1.RenderModel();
+		}
+		else if (contadorEspectacular > 600 && contadorEspectacular <= 1200) {
+			Espectacular2.RenderModel();
+		}
+		contadorEspectacular++;
+		if (contadorEspectacular > 1200) {
+			contadorEspectacular = 0; // Reiniciar el contador
+		}
 
+		//Cuadrante 8 -----------------------------------------------------------------
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(806.5f, 0.0f, 118.5f));
@@ -1700,6 +1853,50 @@ int main()
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
+
+		//Estatua Bill
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(350.0f, 25.0f, -250.0f));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		estatuaBill.RenderModel();
+
+		//trickster
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(450.0f, 0.0f, -150.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		trickster.RenderModel();
+		
+		//Flores
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(600.0f, 2.0f, -400.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 152 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor5.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(750.0f, 2.0f, -300.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 62 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(250.0f, 1.0f, -500.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 152 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(200.0f, 2.0f, -275.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 34 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor4.RenderModel();
 		///Terminan subcuadrante 1///
 
 		// subcuadrante 2 --------
@@ -1768,21 +1965,40 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
 
-		//Estatua Bill
+		//Flores
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(350.0f, 25.0f, -250.0f));
-		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::translate(model, glm::vec3(-600.0f, 2.0f, -400.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 142 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		estatuaBill.RenderModel();
+		Flor5.RenderModel();
 
-		//trickster
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(450.0f, 0.0f, -150.0f));
+		model = glm::translate(model, glm::vec3(-750.0f, 2.0f, -300.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 42 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor3.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-250.0f, 1.0f, -490.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 192 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 2.0f, -275.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 48 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Flor4.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-470.0f, 2.0f, -315.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		trickster.RenderModel();
-
+		Flor1.RenderModel();
 		///Termina subcuadrante 2///
 
 		// subcuadrante 3 -------
@@ -1883,6 +2099,38 @@ int main()
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		gompersPTI.RenderModel();
+
+		//Arbustos
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-640.0f, -8.0f, 410.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 142 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-725.0f, -4.0f, 285.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 25 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 42 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-300.0f, -1.0f, 490.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 4 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 192 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, -2.0f, 255.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, -17 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 48 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
 		///Terminan subcuadrante 3///
 
 		// subcuadrante 4 -------
@@ -1957,11 +2205,51 @@ int main()
 		modelauxDuff = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		estatua.UseTexture();
-		meshList[3]->RenderMesh();
+		meshList[2]->RenderMesh();
 		//Estatua Duff
 		model = glm::translate(model, glm::vec3(0.0f, 0.51f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Duff.RenderModel();
+
+		//Arbustos
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(640.0f, -8.0f, 420.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 84 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(725.0f, -4.0f, 285.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 25 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 69 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(300.0f, -1.0f, 495.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 4 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 102 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(200.0f, -2.0f, 275.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 17 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 37 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(510.0f, 2.0f, 265.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 25 * toRadians, glm::vec3(1.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, 81 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arbusto.RenderModel();
 		///Termina subcuadrante 4///
 
 		//Semaforo

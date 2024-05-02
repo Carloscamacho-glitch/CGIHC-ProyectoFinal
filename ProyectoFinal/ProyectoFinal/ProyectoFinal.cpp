@@ -114,7 +114,6 @@ Model DonutVanLlanta01;
 Model DonutVanLlanta02;
 Model BlimpDuff;
 
-
 //Steven Universe -----------------------
 Model LGR;
 Model LGRVid;
@@ -128,6 +127,9 @@ Model Flor2;
 Model Flor3;
 Model Flor4;
 Model Flor5;
+Model Donas;
+Model Refri;
+Model Refri2;
 //Leon
 Model Leon;
 Model LeonPataDelDer;
@@ -668,6 +670,12 @@ int main()
 	Flor4.LoadModel("Models/Steven Universe/Flor4.obj");
 	Flor5 = Model();
 	Flor5.LoadModel("Models/Steven Universe/Flor5.obj");
+	Donas = Model();
+	Donas.LoadModel("Models/Steven Universe/Donas.obj");
+	Refri = Model();
+	Refri.LoadModel("Models/Steven Universe/Refri.obj");
+	Refri2 = Model();
+	Refri2.LoadModel("Models/Steven Universe/Refri2.obj");
 	//Leon
 	Leon = Model();
 	Leon.LoadModel("Models/Steven Universe/Leon.obj");
@@ -1473,20 +1481,64 @@ int main()
 		//Cuadrante 3 ------------------------------------------------------------------
 		//Mesa
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(411.0f, 1.0f, -1100.0f));
+		model = glm::translate(model, glm::vec3(406.2f, 1.0f, -1080.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 35.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 22.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		MesaLGR.UseTexture();
 		meshList[3]->RenderMesh();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(431.0f, 1.0f, -1145.0f));
+		model = glm::translate(model, glm::vec3(417.8f, 1.0f, -1109.2f));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 35.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 22.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		MesaLGR.UseTexture();
 		meshList[3]->RenderMesh();
+
+		//Refrigeradores
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(477.8f, -2.3f, -1109.5f));
+		/*model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
+		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Donas.RenderModel();
+
+		//Refri
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(426.0f, 24.0f, -1205.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(486.0f, 24.0f, -1205.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(538.0f, 24.0f, -1100.5f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(634.0f, 0.0f, -1155.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(634.0f, 0.0f, -1205.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri2.RenderModel();
 		
 		//La gran rosquilla
 		model = glm::mat4(1.0);
@@ -2127,28 +2179,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Invernadero.RenderModel();
 		glDisable(GL_BLEND);
-
-		//Vidrios
-		//SrSmoothy------
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-680.5, 0.5, -1112.5));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		SrSmoothyVid.RenderModel();
-		glDisable(GL_BLEND);
-
-		//La Gran Rosquilla
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(450.0f, 51.0f, -1050.0f));
-		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		LGRVid.RenderModel();
-		glDisable(GL_BLEND);
-		////-----------
 		
 		//Perimetro Postes
 		model = glm::mat4(1.0);
@@ -2928,6 +2958,28 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 		//Terminan barreras 
+
+		//Vidrios
+		//SrSmoothy------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-680.5, 0.5, -1112.5));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		SrSmoothyVid.RenderModel();
+		glDisable(GL_BLEND);
+
+		//La Gran Rosquilla
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(450.0f, 51.0f, -1050.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		LGRVid.RenderModel();
+		glDisable(GL_BLEND);
+		////-----------
 
 		glUseProgram(0);
 

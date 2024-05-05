@@ -117,7 +117,9 @@ Model BlimpDuff;
 //Steven Universe -----------------------
 Model LGR;
 Model LGRVid;
+Model Garnet;
 Model Portal;
+Model Burbuja;
 Model BurbujaBismuto;
 Model BurbujaSquaridot;
 Model BurbujaJasper;
@@ -130,6 +132,7 @@ Model Flor5;
 Model Donas;
 Model Refri;
 Model Refri2;
+Model Refri3;
 //Leon
 Model Leon;
 Model LeonPataDelDer;
@@ -650,10 +653,14 @@ int main()
 	LGR.LoadModel("Models/Steven Universe/La Gran Rosquilla.obj");
 	LGRVid = Model();
 	LGRVid.LoadModel("Models/Steven Universe/La Gran Rosquilla V.obj");
+	Garnet = Model();
+	Garnet.LoadModel("Models/Steven Universe/Garnet.obj");
 	Portal = Model();
 	Portal.LoadModel("Models/Steven Universe/Portal.obj");
+	Burbuja = Model();
+	Burbuja.LoadModel("Models/Steven Universe/Burbuja.obj");
 	BurbujaBismuto = Model();
-	BurbujaBismuto.LoadModel("Models/Steven Universe/Busbuja Bismuto.obj");
+	BurbujaBismuto.LoadModel("Models/Steven Universe/Burbuja Bismuto.obj");
 	BurbujaSquaridot = Model();
 	BurbujaSquaridot.LoadModel("Models/Steven Universe/Burbuja Squaridot.obj");
 	BurbujaJasper = Model();
@@ -676,6 +683,8 @@ int main()
 	Refri.LoadModel("Models/Steven Universe/Refri.obj");
 	Refri2 = Model();
 	Refri2.LoadModel("Models/Steven Universe/Refri2.obj");
+	Refri3 = Model();
+	Refri3.LoadModel("Models/Steven Universe/Refri3.obj");
 	//Leon
 	Leon = Model();
 	Leon.LoadModel("Models/Steven Universe/Leon.obj");
@@ -1037,6 +1046,10 @@ int main()
 		glm::mat4 ModelAuxPeridot3(1.0);
 		glm::mat4 ModelAuxPeridot4(1.0);
 		glm::mat4 ModelAuxLeon(1.0);
+		glm::mat4 ModelBB(1.0);
+		glm::mat4 ModelBJ(1.0);
+		glm::mat4 ModelBS(1.0);
+		glm::mat4 ModelBG(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0);
@@ -1539,6 +1552,28 @@ int main()
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Refri2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(406.2f, 19.0f, -1110.0f));
+		model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri3.RenderModel();
+
+		//Gatogalleta
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(420.0f, 21.0f, -1110.0f));
+		ModelBG = model;
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		GatoGalleta.RenderModel();
+
+		//Garnet
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(275.0f, 0.0f, -925.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Garnet.RenderModel();
 		
 		//La gran rosquilla
 		model = glm::mat4(1.0);
@@ -1546,6 +1581,21 @@ int main()
 		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LGR.RenderModel();
+
+		//Burbuja Gatogalleta
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(700.0f, 20.0f, -1050.0f));
+		ModelBG = model;
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		GatoGalleta.RenderModel();
+
+		//Burbuja Jasper
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(750.0f, 30.0f, -1100.0f));
+		ModelBJ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BurbujaJasper.RenderModel();
 
 		//Coladera
 		model = glm::mat4(1.0);
@@ -2179,6 +2229,20 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Invernadero.RenderModel();
 		glDisable(GL_BLEND);
+
+		//Burbuja Bismuto
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-685.0f, 15.0f, -62.0f));
+		ModelBB = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BurbujaBismuto.RenderModel();
+
+		//Burbuja Squaridot
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-715.0f, 35.0f, 48.0f));
+		ModelBS = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BurbujaSquaridot.RenderModel();
 		
 		//Perimetro Postes
 		model = glm::mat4(1.0);
@@ -2978,6 +3042,35 @@ int main()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		LGRVid.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Burbujas
+		model = ModelBG;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = ModelBB;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = ModelBS;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = ModelBJ;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
 		glDisable(GL_BLEND);
 		////-----------
 

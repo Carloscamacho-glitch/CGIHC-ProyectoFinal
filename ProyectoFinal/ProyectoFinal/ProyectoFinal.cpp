@@ -174,7 +174,8 @@ Model dipperBD;
 Model dipperBI;
 Model dipperPD;
 Model dipperPI;
-
+Model gorra;
+Model libros;
 
 //Extras --------------------------------
 Model Piso;
@@ -763,6 +764,11 @@ int main()
 	dipperPD.LoadModel("Models/Gravity Falls/Dipper/Dipper PD.obj");
 	dipperPI = Model();
 	dipperPI.LoadModel("Models/Gravity Falls/Dipper/Dipper PI.obj");
+	gorra = Model();
+	gorra.LoadModel("Models/Gravity Falls/Gorra Dipper/gorra dipper.obj");
+	libros = Model();
+	libros.LoadModel("Models/Gravity Falls/Libros/libros.obj");
+
 
 	//Extras --------------------------------
 	Piso = Model();
@@ -1986,6 +1992,24 @@ int main()
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		hongos3.RenderModel();
+
+
+		//Gorra
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1100.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gorra.RenderModel();
+
+		//Libros
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		libros.RenderModel();
+
 
 		//Pinos
 		model = glm::mat4(1.0);

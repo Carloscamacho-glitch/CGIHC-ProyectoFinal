@@ -44,6 +44,8 @@ time_t contador, contador2;
 double resta, tiempoguardado, resta2, tiempoguardado2;
 float dia = 0.0f, intensidad = 0.2f, direccionx = -1.0f, direcciony = 0.0f;
 int aux = 0;
+float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 450.5f;
+float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -56,6 +58,7 @@ Camera* currentCamera;
 
 Texture estatua;
 Texture MesaLGR;
+Texture pinoTex;
 
 Model Prueba_M; 
 //Ben10 ---------------------------------
@@ -114,11 +117,12 @@ Model DonutVanLlanta01;
 Model DonutVanLlanta02;
 Model BlimpDuff;
 
-
 //Steven Universe -----------------------
 Model LGR;
 Model LGRVid;
+Model Garnet;
 Model Portal;
+Model Burbuja;
 Model BurbujaBismuto;
 Model BurbujaSquaridot;
 Model BurbujaJasper;
@@ -128,6 +132,10 @@ Model Flor2;
 Model Flor3;
 Model Flor4;
 Model Flor5;
+Model Donas;
+Model Refri;
+Model Refri2;
+Model Refri3;
 //Leon
 Model Leon;
 Model LeonPataDelDer;
@@ -169,7 +177,8 @@ Model dipperBD;
 Model dipperBI;
 Model dipperPD;
 Model dipperPI;
-
+Model gorra;
+Model libros;
 
 //Extras --------------------------------
 Model Piso;
@@ -216,6 +225,7 @@ DirectionalLight mainLight;
 //para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
+SpotLight spotLights2[MAX_SPOT_LIGHTS];
 
 
 // Vertex Shader
@@ -507,6 +517,188 @@ void CrearMesa()
 	meshList.push_back(mesaBajo);
 }
 
+
+void crearPino()
+{
+	unsigned int pino_indices[] = {
+		//FrenteB
+		0, 1, 2,
+		2, 3, 0,
+		//DerechaB
+		4, 5, 6,
+		6, 7, 4,
+		//IzquierdaB
+		8, 9, 10,
+		10, 11, 8,
+		//AtrasB
+		12, 13, 14,
+		14, 15, 12,
+		//AbajoB
+		16, 17, 18,
+		18, 19, 16,
+		//ArribaB
+		44,45,46,
+		46,47,44,
+
+		//FrenteA
+		20, 21, 22,
+		22, 23, 20,
+		//DerechaA
+		24, 25, 26,
+		26, 27, 24,
+		//IzquierdaA
+		28, 29, 30,
+		30, 31, 28,
+		//AtrasA
+		32, 33, 34,
+		34, 35, 32,
+		//AbajoA
+		36, 37, 38,
+		38, 39, 36,
+		//ArribaA
+		40, 41, 42,
+		42, 43, 40,
+
+
+		//		//ArribaB
+				//44,45,46,
+				//46,47,44,
+
+				//Segundo Piso
+				//FrenteA
+				48, 49, 50,
+				50, 51, 48,
+				//DerechaA
+				52, 53, 54,
+				54, 55, 52,
+				//IzquierdaA
+				56, 57, 58,
+				58, 59, 56,
+				//AtrasA
+				60, 61, 62,
+				62, 63, 60,
+				//AbajoA
+				64, 65, 66,
+				66, 67, 64,
+				//ArribaA
+				68, 69, 70,
+				70, 71, 68,
+
+
+
+
+	};
+
+	GLfloat pino_vertices[] = {
+
+		//FrenteTronco
+		//x		y		z		S(H)	T(V)
+		-1.0f, 0.0f, 1.0f,		0.0f,   0.0f,		1.0f,	0.0f,	0.0f,	//0
+		-1.0f, 0.0f, -1.0f,		1.0f,	0.0f,		1.0f,	0.0f,	0.0f,	//1
+		-1.0f, 5.0f, -1.0f,		1.0f,	0.8f,		1.0f,	0.0f,	0.0f,	//2
+		-1.0f, 5.0f, 1.0f,		0.0f,	0.8f,		1.0f,	0.0f,	0.0f,	//3
+		////DerechaTronco
+		//x		y		z		S		T
+		-1.0f, 0.0f, -1.0f,	    0.0f,   0.0f,		0.0f,	0.0f,	1.0f,
+		1.0f, 0.0f, -1.0f,		1.0f,	0.0f,		0.0f,	0.0f,	1.0f,
+		1.0f, 5.0f, -1.0f,		1.0f,	0.8f,		0.0f,	0.0f,	1.0f,
+		-1.0f, 5.0f, -1.0f,	    0.0f,	0.8f,		0.0f,	0.0f,	1.0f,
+		//IzquierdaTronco
+		//x		y		z		S		T
+		1.0f, 0.0f, 1.0f,		0.0f,   0.0f,		0.0f,	0.0f,	-1.0f,
+		-1.0f, 0.0f, 1.0f,		1.0f,	0.0f,		0.0f,	0.0f,	-1.0f,
+		-1.0f, 5.0f, 1.0f,		1.0f,	0.8f,		0.0f,	0.0f,	-1.0f,
+		1.0f, 5.0f, 1.0f,		0.0f,	0.8f,		0.0f,	0.0f,	-1.0f,
+		//AtrasTronco
+		//x		y		z		S		T
+		1.0f, 0.0f, -1.0f,		0.0f,   0.0f,		-1.0f,	0.0f,	0.0f,
+		1.0f, 0.0f, 1.0f,		1.0f,	0.0f,		-1.0f,	0.0f,	0.0f,
+		1.0f, 5.0f, 1.0f,		1.0f,	0.8f,		-1.0f,	0.0f,	0.0f,
+		1.0f, 5.0f, -1.0f,		0.0f,	0.8f,		-1.0f,	0.0f,	0.0f,
+		//AbajoTronco
+		//x		y		z		S		T
+		-1.0f, 0.0f, 1.0f,		0.0f,   0.2f,		0.0f,	1.0f,	0.0f,
+		-1.0f, -0.0f, -1.0f,	1.0f,	0.2f,		0.0f,	1.0f,	0.0f,
+		1.0f, 0.0f, -1.0f,		1.0f,	0.8f,		0.0f,	1.0f,	0.0f,
+		1.0f, 0.0f, 1.0f,		0.0f,	0.8f,		0.0f,	1.0f,	0.0f,
+		//ArribaTronco
+		//x		y		z		S		T
+		-1.0f, 5.0f , 1.0f,		0.0f,   0.2f,		0.0f,	-1.0f,	0.0f,
+		-1.0f, 5.0f , -1.0f,	1.0f,	0.2f,		0.0f,	-1.0f,	0.0f,
+		1.0f, 5.0f, -1.0f,		1.0f,	0.8f,		0.0f,	-1.0f,	0.0f,
+		1.0f, 5.0f, 1.0f,		0.0f,	0.8f,		0.0f,	-1.0f,	0.0f,
+
+		//FrenteA
+		//x		y		z		S		T
+		-3.5f, 5.0f, 3.0f,		0.92f,  0.92f,		1.0f,	0.0f,	0.0f,
+		-3.5f, 5.0f, -3.5f,		0.92f,	0.92f,		1.0f,	0.0f,	0.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		1.0f,	0.0f,	0.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		1.0f,	0.0f,	0.0f,
+		//DerechaA
+		//x		y		z		S		T
+		-3.5f, 5.0f, -3.5f,	    0.92f,  0.92f,		0.0f,	0.0f,	1.0f,
+		3.5f, 5.0f, -3.5f,		0.92f,	0.92f,		0.0f,	0.0f,	1.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		0.0f,	0.0f,	1.0f,
+		0.0f, 10.0f, 0.0f,	    0.92f,	1.0f,		0.0f,	0.0f,	1.0f,
+		//IzquierdaA
+		//x		y		z		S		T
+		3.5f, 5.0f, 3.0f,		0.92f,   0.92f,		0.0f,	0.0f,	-1.0f,
+		-3.5f, 5.0f, 3.0f,		0.92f,	0.92f,		0.0f,	0.0f,	-1.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		0.0f,	0.0f,	-1.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		0.0f,	0.0f,	-1.0f,
+		//AtrasA
+		//x		y		z		S		T
+		3.5f, 5.0f, -3.5f,		0.92f,   0.92f,		-1.0f,	0.0f,	0.0f,
+		3.5f, 5.0f, 3.0f,		0.92f,	0.92f,		-1.0f,	0.0f,	0.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		0.0f, 10.0f, 0.0f,		0.92f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		//AbajoA
+		//x		y		z		S		T
+		-3.5f, 5.0f, 3.0f,		0.92f,   0.92f,		0.0f,	1.0f,	0.0f,
+		-3.5f, 5.0f, -3.5f,		1.0f,	0.92f,		0.0f,	1.0f,	0.0f,
+		3.5f, 5.0f, -3.5f,		1.0f,	0.92f,		0.0f,	1.0f,	0.0f,
+		3.5f, 5.0f, 3.0f,		0.92f,	0.92f,		0.0f,	1.0f,	0.0f,
+
+		//Segundo piso hojas
+		//FrenteA
+		//x		y		z		S		T
+		-3.5f, 8.0f, 3.0f,		0.92f,  0.92f,		1.0f,	0.0f,	0.0f,
+		-3.5f, 8.0f, -3.5f,		0.92f,	0.92f,		1.0f,	0.0f,	0.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		1.0f,	0.0f,	0.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		1.0f,	0.0f,	0.0f,
+		//DerechaA
+		//x		y		z		S		T
+		-3.5f, 8.0f, -3.5f,	    0.92f,  0.92f,		0.0f,	0.0f,	1.0f,
+		3.5f, 8.0f, -3.5f,		0.92f,	0.92f,		0.0f,	0.0f,	1.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		0.0f,	0.0f,	1.0f,
+		0.0f, 16.0f, 0.0f,	    0.92f,	1.0f,		0.0f,	0.0f,	1.0f,
+		//IzquierdaA
+		//x		y		z		S		T
+		3.5f, 8.0f, 3.0f,		0.92f,   0.92f,		0.0f,	0.0f,	-1.0f,
+		-3.5f, 8.0f, 3.0f,		0.92f,	0.92f,		0.0f,	0.0f,	-1.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		0.0f,	0.0f,	-1.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		0.0f,	0.0f,	-1.0f,
+		//AtrasA
+		//x		y		z		S		T
+		3.5f, 8.0f, -3.5f,		0.92f,   0.92f,		-1.0f,	0.0f,	0.0f,
+		3.5f, 8.0f, 3.0f,		0.92f,	0.92f,		-1.0f,	0.0f,	0.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		0.0f, 16.0f, 0.0f,		0.92f,	1.0f,		-1.0f,	0.0f,	0.0f,
+		//AbajoA
+		//x		y		z		S		T
+		-3.5f, 8.0f, 3.0f,		0.92f,   0.92f,		0.0f,	1.0f,	0.0f,
+		-3.5f, 8.0f, -3.5f,		1.0f,	0.92f,		0.0f,	1.0f,	0.0f,
+		3.5f, 8.0f, -3.5f,		1.0f,	0.92f,		0.0f,	1.0f,	0.0f,
+		3.5f, 8.0f, 3.0f,		0.92f,	0.92f,		0.0f,	1.0f,	0.0f,
+
+	};
+
+	Mesh* pino = new Mesh();
+	pino->CreateMesh(pino_vertices, pino_indices, 1268, 122);
+	meshList.push_back(pino);
+}
+
+
 void CreateShaders()
 {
 	Shader *shader1 = new Shader();
@@ -525,6 +717,7 @@ int main()
 	CreateShaders();
 	CrearCubo();
 	CrearMesa();
+	crearPino();
 
 	//Camara en 3ra persona
 	camera = Camera(glm::vec3(-300.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.5f, 2.5f);
@@ -542,7 +735,8 @@ int main()
 	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	Prueba_M = Model();
 	Prueba_M.LoadModel("Models/ModeloPrueba.obj");
-
+	pinoTex = Texture("Textures/pino.tga");
+	pinoTex.LoadTextureA();
 	//Ben 10 --------------------------------
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
@@ -651,10 +845,14 @@ int main()
 	LGR.LoadModel("Models/Steven Universe/La Gran Rosquilla.obj");
 	LGRVid = Model();
 	LGRVid.LoadModel("Models/Steven Universe/La Gran Rosquilla V.obj");
+	Garnet = Model();
+	Garnet.LoadModel("Models/Steven Universe/Garnet.obj");
 	Portal = Model();
 	Portal.LoadModel("Models/Steven Universe/Portal.obj");
+	Burbuja = Model();
+	Burbuja.LoadModel("Models/Steven Universe/Burbuja.obj");
 	BurbujaBismuto = Model();
-	BurbujaBismuto.LoadModel("Models/Steven Universe/Busbuja Bismuto.obj");
+	BurbujaBismuto.LoadModel("Models/Steven Universe/Burbuja Bismuto.obj");
 	BurbujaSquaridot = Model();
 	BurbujaSquaridot.LoadModel("Models/Steven Universe/Burbuja Squaridot.obj");
 	BurbujaJasper = Model();
@@ -671,6 +869,14 @@ int main()
 	Flor4.LoadModel("Models/Steven Universe/Flor4.obj");
 	Flor5 = Model();
 	Flor5.LoadModel("Models/Steven Universe/Flor5.obj");
+	Donas = Model();
+	Donas.LoadModel("Models/Steven Universe/Donas.obj");
+	Refri = Model();
+	Refri.LoadModel("Models/Steven Universe/Refri.obj");
+	Refri2 = Model();
+	Refri2.LoadModel("Models/Steven Universe/Refri2.obj");
+	Refri3 = Model();
+	Refri3.LoadModel("Models/Steven Universe/Refri3.obj");
 	//Leon
 	Leon = Model();
 	Leon.LoadModel("Models/Steven Universe/Leon.obj");
@@ -749,6 +955,11 @@ int main()
 	dipperPD.LoadModel("Models/Gravity Falls/Dipper/Dipper PD.obj");
 	dipperPI = Model();
 	dipperPI.LoadModel("Models/Gravity Falls/Dipper/Dipper PI.obj");
+	gorra = Model();
+	gorra.LoadModel("Models/Gravity Falls/Gorra Dipper/gorra dipper.obj");
+	libros = Model();
+	libros.LoadModel("Models/Gravity Falls/Libros/libros.obj");
+
 
 	//Extras --------------------------------
 	Piso = Model();
@@ -864,7 +1075,8 @@ int main()
 
 	//Spothligth
 	unsigned int spotLightCount = 0;
-	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+	//nave de xylene
+	spotLights[0] = SpotLight(0.0f, 1.0f, 0.0f,
 		//INTENSIDADES
 		0.0f, 2.0f,
 		//POSICION
@@ -874,7 +1086,33 @@ int main()
 		//Con /Lin /Exp
 		1.0f, 0.0f, 0.0f,
 		//VALOR DEL CONO (TAMAÑO)
-		5.0f);
+		15.0f);
+	spotLightCount++;
+	//Carro
+	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
+		//INTENSIDADES
+		0.0f, 2.0f,
+		//POSICION
+		0.0f, 0.0f, 0.0f,
+		//VECTOR DE DIRECCION
+		0.0f, 0.0f, 0.0f,
+		//Con /Lin /Exp
+		1.0f, 0.01f, 0.0f,
+		//VALOR DEL CONO (TAMAÑO)
+		10.0f);
+	spotLightCount++;
+	//Letras Springfield
+	spotLights[2] = SpotLight(1.0f, 1.0f, 1.0f,
+		//INTENSIDADES
+		0.0f, 2.0f,
+		//POSICION
+		1200.0f, 10.0f, -500.0f,
+		//VECTOR DE DIRECCION
+		1.0f, 1.0f, -1.0f,
+		//Con /Lin /Exp
+		1.0f, 0.0f, 0.0f,
+		//VALOR DEL CONO (TAMAÑO)
+		20.0f);
 	spotLightCount++;
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
@@ -1013,15 +1251,10 @@ int main()
 
 		/*std::cout << "Camera Position: (" << currentCamera->getCameraPosition().x << ", " << currentCamera->getCameraPosition().y << ", " << currentCamera->getCameraPosition().z << ")" << std::endl;*/
 
-		// luz ligada a la cámara de tipo flash
-		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
-		glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.3f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount); 
+
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
 		glm::mat4 model(1.0);
@@ -1038,6 +1271,10 @@ int main()
 		glm::mat4 ModelAuxPeridot3(1.0);
 		glm::mat4 ModelAuxPeridot4(1.0);
 		glm::mat4 ModelAuxLeon(1.0);
+		glm::mat4 ModelBB(1.0);
+		glm::mat4 ModelBJ(1.0);
+		glm::mat4 ModelBS(1.0);
+		glm::mat4 ModelBG(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0);
@@ -1482,20 +1719,86 @@ int main()
 		//Cuadrante 3 ------------------------------------------------------------------
 		//Mesa
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(411.0f, 1.0f, -1100.0f));
+		model = glm::translate(model, glm::vec3(406.2f, 1.0f, -1080.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 35.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 22.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		MesaLGR.UseTexture();
 		meshList[3]->RenderMesh();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(431.0f, 1.0f, -1145.0f));
+		model = glm::translate(model, glm::vec3(417.8f, 1.0f, -1109.2f));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 35.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.0f, 22.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		MesaLGR.UseTexture();
 		meshList[3]->RenderMesh();
+
+		//Refrigeradores
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(477.8f, -2.3f, -1109.5f));
+		/*model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
+		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Donas.RenderModel();
+
+		//Refri
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(426.0f, 24.0f, -1205.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(486.0f, 24.0f, -1205.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(538.0f, 24.0f, -1100.5f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(634.0f, 0.0f, -1155.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(634.0f, 0.0f, -1205.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri2.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(406.2f, 19.0f, -1110.0f));
+		model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Refri3.RenderModel();
+
+		//Gatogalleta
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(420.0f, 21.0f, -1110.0f));
+		ModelBG = model;
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		GatoGalleta.RenderModel();
+
+		//Garnet
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(275.0f, 0.0f, -925.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Garnet.RenderModel();
 		
 		//La gran rosquilla
 		model = glm::mat4(1.0);
@@ -1503,6 +1806,21 @@ int main()
 		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LGR.RenderModel();
+
+		//Burbuja Gatogalleta
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(700.0f, 20.0f, -1050.0f));
+		ModelBG = model;
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		GatoGalleta.RenderModel();
+
+		//Burbuja Jasper
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(750.0f, 30.0f, -1100.0f));
+		ModelBJ = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BurbujaJasper.RenderModel();
 
 		//Coladera
 		model = glm::mat4(1.0);
@@ -1931,6 +2249,308 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		hongos3.RenderModel();
 
+
+		//Gorra
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1100.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		gorra.RenderModel();
+
+		//Libros
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 900.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		libros.RenderModel();
+
+		//Pinos por código
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1000.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1700.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 160.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1600.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1500.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		pinoTex.UseTexture();
+		meshList[4]->RenderMesh();
+
 		//Pinos
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-270.0f, -3.0f, 1250.0f));
@@ -2128,9 +2748,11 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BlimpDuff.RenderModel();
 
+		spotLights[0].SetFlash(glm::vec3(posnaveX+70, posnaveY+25, posnaveZ+70), glm::vec3(0.0f, -1.0f, 0.0f));
+
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1335.0f, 27.0f, 660.0f));
+		model = glm::translate(model, glm::vec3(posnaveX, posnaveY, posnaveZ));
 		model = glm::rotate(model, -45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(5.5f, 5.5f, 5.5f));
 		modelauxShip = model;
@@ -2153,9 +2775,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Semaforo2.RenderModel();
 		////---------------
-
-		//Sun incinerator
-		/*model = glm::translate(model, glm::vec3(1435.0f, 15.0f, 1060.0f));*/
 		
 		//Centro ----------------------------------------------------------------------
 		//Piso
@@ -2182,21 +2801,17 @@ int main()
 		Invernadero.RenderModel();
 		glDisable(GL_BLEND);
 
-		//Vidrios
-		//SrSmoothy------
+		//Burbuja Bismuto
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-680.5, 0.5, -1112.5));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		model = glm::translate(model, glm::vec3(-685.0f, 15.0f, -62.0f));
+		ModelBB = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		SrSmoothyVid.RenderModel();
-		glDisable(GL_BLEND);
+		BurbujaBismuto.RenderModel();
 
-		//La Gran Rosquilla
+		//Burbuja Squaridot
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(450.0f, 51.0f, -1050.0f));
-		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		model = glm::translate(model, glm::vec3(-715.0f, 35.0f, 48.0f));
+		ModelBS = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -2213,6 +2828,9 @@ int main()
 		VidrioInvernadero.RenderModel();
 		glDisable(GL_BLEND);
 		////-----------
+
+		BurbujaSquaridot.RenderModel();
+
 		
 		//Perimetro Postes
 		model = glm::mat4(1.0);
@@ -2855,10 +3473,11 @@ int main()
 
 		//Carretera -----------------------------------
 
+		spotLights[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		//Rustbucket//////
-		//Carro 
+		//Carro posCarroX, posCarroY, posCarroZ
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1295.0f, 0.3f, 60.0f));
+		model = glm::translate(model, glm::vec3(posCarroX, posCarroY, posCarroZ));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
 		modelauxRust = model;
@@ -2932,7 +3551,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		DonutVanLlanta02.RenderModel();
 	
-
 		//DX Mark 10///////
 		//Carro 
 		model = glm::mat4(1.0);
@@ -3008,6 +3626,57 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 		//Terminan barreras 
+
+		//Vidrios
+		//SrSmoothy------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-680.5, 0.5, -1112.5));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		SrSmoothyVid.RenderModel();
+		glDisable(GL_BLEND);
+
+		//La Gran Rosquilla
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(450.0f, 51.0f, -1050.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		LGRVid.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Burbujas
+		model = ModelBG;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = ModelBB;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = ModelBS;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+
+		model = ModelBJ;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Burbuja.RenderModel();
+		glDisable(GL_BLEND);
+		////-----------
 
 		glUseProgram(0);
 

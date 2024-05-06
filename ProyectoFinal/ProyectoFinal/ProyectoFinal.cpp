@@ -44,6 +44,8 @@ time_t contador, contador2;
 double resta, tiempoguardado, resta2, tiempoguardado2;
 float dia = 0.0f, intensidad = 0.2f, direccionx = -1.0f, direcciony = 0.0f;
 int aux = 0;
+float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 450.5f;
+float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -220,6 +222,7 @@ DirectionalLight mainLight;
 //para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
+SpotLight spotLights2[MAX_SPOT_LIGHTS];
 
 
 // Vertex Shader
@@ -1063,7 +1066,8 @@ int main()
 
 	//Spothligth
 	unsigned int spotLightCount = 0;
-	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
+	//nave de xylene
+	spotLights[0] = SpotLight(0.0f, 1.0f, 0.0f,
 		//INTENSIDADES
 		0.0f, 2.0f,
 		//POSICION
@@ -1073,7 +1077,33 @@ int main()
 		//Con /Lin /Exp
 		1.0f, 0.0f, 0.0f,
 		//VALOR DEL CONO (TAMAÑO)
-		5.0f);
+		15.0f);
+	spotLightCount++;
+	//Carro
+	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
+		//INTENSIDADES
+		0.0f, 2.0f,
+		//POSICION
+		0.0f, 0.0f, 0.0f,
+		//VECTOR DE DIRECCION
+		0.0f, 0.0f, 0.0f,
+		//Con /Lin /Exp
+		1.0f, 0.01f, 0.0f,
+		//VALOR DEL CONO (TAMAÑO)
+		10.0f);
+	spotLightCount++;
+	//Letras Springfield
+	spotLights[2] = SpotLight(1.0f, 1.0f, 1.0f,
+		//INTENSIDADES
+		0.0f, 2.0f,
+		//POSICION
+		1200.0f, 10.0f, -500.0f,
+		//VECTOR DE DIRECCION
+		1.0f, 1.0f, -1.0f,
+		//Con /Lin /Exp
+		1.0f, 0.0f, 0.0f,
+		//VALOR DEL CONO (TAMAÑO)
+		20.0f);
 	spotLightCount++;
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
@@ -1212,15 +1242,10 @@ int main()
 
 		/*std::cout << "Camera Position: (" << currentCamera->getCameraPosition().x << ", " << currentCamera->getCameraPosition().y << ", " << currentCamera->getCameraPosition().z << ")" << std::endl;*/
 
-		// luz ligada a la cámara de tipo flash
-		//sirve para que en tiempo de ejecución (dentro del while) se cambien propiedades de la luz
-		glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.3f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount); 
+
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
 		glm::mat4 model(1.0);
@@ -2195,9 +2220,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		libros.RenderModel();
 
-
-
-
 		//Pinos por código
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1000.0f));
@@ -2483,8 +2505,6 @@ int main()
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
 
-
-
 		//Pinos
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-270.0f, -3.0f, 1250.0f));
@@ -2682,9 +2702,11 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BlimpDuff.RenderModel();
 
+		spotLights[0].SetFlash(glm::vec3(posnaveX+70, posnaveY+25, posnaveZ+70), glm::vec3(0.0f, -1.0f, 0.0f));
+
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1335.0f, 27.0f, 660.0f));
+		model = glm::translate(model, glm::vec3(posnaveX, posnaveY, posnaveZ));
 		model = glm::rotate(model, -45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(5.5f, 5.5f, 5.5f));
 		modelauxShip = model;
@@ -2699,9 +2721,6 @@ int main()
 		XyleneShip_Arco.RenderModel();
 		model = modelauxShip;
 		////---------------
-
-		//Sun incinerator
-		/*model = glm::translate(model, glm::vec3(1435.0f, 15.0f, 1060.0f));*/
 		
 		//Centro ----------------------------------------------------------------------
 		//Piso
@@ -3367,10 +3386,11 @@ int main()
 
 		//Carretera -----------------------------------
 
+		spotLights[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		//Rustbucket//////
-		//Carro 
+		//Carro posCarroX, posCarroY, posCarroZ
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1295.0f, 0.3f, 60.0f));
+		model = glm::translate(model, glm::vec3(posCarroX, posCarroY, posCarroZ));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(12.0f, 12.0f, 12.0f));
 		modelauxRust = model;
@@ -3444,7 +3464,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		DonutVanLlanta02.RenderModel();
 	
-
 		//DX Mark 10///////
 		//Carro 
 		model = glm::mat4(1.0);

@@ -176,6 +176,7 @@ Model Piso;
 Model Carriles;
 Model Agua;
 Model Invernadero;
+Model VidrioInvernadero;
 Model Pinos;
 Model Bote;
 Model Banca;
@@ -196,6 +197,8 @@ Model Espectacular1;
 Model Espectacular2;
 
 Model Jetsky;
+Model Lancha;
+Model LanchaCandil;
 
 Model ArbolSolo1;
 Model ArbolSolo2;
@@ -755,7 +758,9 @@ int main()
 	Agua = Model();
 	Agua.LoadModel("Models/Extras/Piso3.obj");
 	Invernadero = Model();
-	Invernadero.LoadModel("Models/Extras/Invernadero.obj");
+	Invernadero.LoadModel("Models/Extras/InvernaderoSinVidrio.obj");
+	VidrioInvernadero = Model();
+	VidrioInvernadero.LoadModel("Models/Extras/VidrioInvernadero.obj");
 	Banca = Model();
 	Banca.LoadModel("Models/Extras/bancajardin.obj");
 	Jardinera = Model();
@@ -790,6 +795,10 @@ int main()
 	FilaPostes2.LoadModel("Models/Extras/Poste_Fila2.obj");
 	Jetsky = Model();
 	Jetsky.LoadModel("Models/Extras/Jetsky.obj");
+	Lancha = Model();
+	Lancha.LoadModel("Models/Extras/Lancha.obj");
+	LanchaCandil = Model();
+	LanchaCandil.LoadModel("Models/Extras/LanchaCandil.obj");
 	Arbusto = Model();
 	Arbusto.LoadModel("Models/Extras/Arbusto.obj");
 	ArbolSolo1 = Model();
@@ -886,7 +895,7 @@ int main()
 		resta = contador - tiempoguardado;
 
 		//cambio de variables
-		if (resta >= 60) {
+		if (resta >= 660) {
 			if (dia == 1.0f) {
 				//Noche
 				dia = 0.0f;
@@ -1715,6 +1724,43 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Jetsky.RenderModel();
 
+		//Lanchas
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1400.0f, -17.0f, 250.0f));
+		model = glm::rotate(model, 195 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(18.0f, 18.0f, 18.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lancha.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1630.0f, -17.0f, 270.0f));
+		model = glm::rotate(model, 170 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(18.0f, 18.0f, 18.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lancha.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1750.0f, -17.0f, 260.0f));
+		model = glm::rotate(model, 185 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(18.0f, 18.0f, 18.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lancha.RenderModel();
+		//
+		//Lancha con Candil
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1510.0f, -15.0f, 300.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		LanchaCandil.RenderModel();
+
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1160.5f, 0.0f, 165.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo.RenderModel();
+
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1265.5f, 0.0f, 192.0f));
@@ -2098,6 +2144,14 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		XyleneShip_Arco.RenderModel();
 		model = modelauxShip;
+
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1210.5f, 0.0f, 160.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo2.RenderModel();
 		////---------------
 
 		//Sun incinerator
@@ -2147,6 +2201,16 @@ int main()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		LGRVid.RenderModel();
+		glDisable(GL_BLEND);
+
+		//Invernadero
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-700.0f, 1.0f, -30.0f));
+		model = glm::scale(model, glm::vec3(0.015f, 0.0135f, 0.015f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		VidrioInvernadero.RenderModel();
 		glDisable(GL_BLEND);
 		////-----------
 		
@@ -2703,6 +2767,22 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-156.5f, 0.0f, 583.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo2.RenderModel();
+
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(920.5f, 0.0f, 160.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Semaforo2.RenderModel();
+
+		//Semaforo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-920.5f, 0.0f, 160.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Semaforo2.RenderModel();

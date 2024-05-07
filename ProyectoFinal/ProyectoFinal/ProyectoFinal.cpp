@@ -47,6 +47,17 @@ int aux = 0;
 float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 450.5f;
 float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
 
+//Variables para animaciones
+//DX10------------
+float movDX10 = 0.0f;
+float movDX10Offset = 0.0f;
+float rotllanta = 0.0f;
+float rotllantaOffset = 0.0f;
+bool avanzaDX10;
+//-------
+
+
+
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -207,7 +218,6 @@ Model Espectacular2;
 
 Model Jetsky;
 Model Lancha;
-Model LanchaCandil;
 
 Model ArbolSolo1;
 Model ArbolSolo2;
@@ -1008,8 +1018,6 @@ int main()
 	Jetsky.LoadModel("Models/Extras/Jetsky.obj");
 	Lancha = Model();
 	Lancha.LoadModel("Models/Extras/Lancha.obj");
-	LanchaCandil = Model();
-	LanchaCandil.LoadModel("Models/Extras/LanchaCandil.obj");
 	Arbusto = Model();
 	Arbusto.LoadModel("Models/Extras/Arbusto.obj");
 	ArbolSolo1 = Model();
@@ -1120,6 +1128,13 @@ int main()
 	GLuint uniformColor = 0;
 	int contadorEspectacular = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
+
+	///Variables para animaciones
+	movDX10 = 0.0f;
+	movDX10Offset = 1.5f;
+	rotllanta = 0.0f;
+	rotllantaOffset = 5.0f;
+
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -1127,6 +1142,39 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
+		
+		std::cout << "Carro spawn if 0: (" << movDX10 << ")" << std::endl;
+		////////////////////// ANIMACIONES /////////////////////
+		//DX10------
+		if (avanzaDX10)
+		{
+			std::cout << "Carro spawn if 1: (" << movDX10 << ")" << std::endl;
+			if (movDX10 < 990.0f)
+			{
+				std::cout << "Carro spawn if 2: (" << movDX10 << ")" << std::endl;
+				movDX10 += movDX10Offset * deltaTime;
+				rotllanta += rotllantaOffset * deltaTime;
+				std::cout << "Carro spawn if 2 fin: (" << movDX10 << ")" << std::endl;
+				std::cout << "     " << std::endl;
+			}
+
+			else {
+				avanzaDX10 = !avanzaDX10;
+			}
+		}
+		else
+		{
+			if (movDX10 > -990.0f)
+			{
+				movDX10 -= movDX10Offset * deltaTime;
+				rotllanta -= rotllantaOffset * deltaTime;
+			}
+			else {
+				avanzaDX10 = !avanzaDX10;
+			}
+		}
+
+		
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -2067,9 +2115,16 @@ int main()
 		//Lancha con Candil
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-1510.0f, -15.0f, 300.0f));
-		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(18.0f, 18.0f, 18.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		LanchaCandil.RenderModel();
+		Lancha.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1510.0f, -5.0f, 290.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Candil.RenderModel();
 
 		//Semaforo
 		model = glm::mat4(1.0);
@@ -3554,7 +3609,7 @@ int main()
 		//DX Mark 10///////
 		//Carro 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(400.0f, 0.2f, 815.0f));
+		model = glm::translate(model, glm::vec3(movDX10, 0.2f, 815.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.5f, 10.5f, 10.5f));
 		modelauxMark10 = model;
@@ -3564,24 +3619,28 @@ int main()
 
 		//Llanta delantera derecha
 		model = glm::translate(model, glm::vec3(1.4f, 0.7f, 2.7f));
+		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaDelDer.RenderModel();
 		model = modelauxMark10;
 
 		//Llanta delantera izquierda
 		model = glm::translate(model, glm::vec3(-1.9f, 0.7f, 2.7f));
+		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaDelIzq.RenderModel();
 		model = modelauxMark10;
 
 		//Llanta trasera derecha
 		model = glm::translate(model, glm::vec3(1.4f, 0.7f, -1.7f));
+		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaTrasDer.RenderModel();
 		model = modelauxMark10;
 
 		//Llanta trasera izquierda
 		model = glm::translate(model, glm::vec3(-1.9f, 0.7f, -1.7f));
+		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaTrasIzq.RenderModel();
 		model = modelauxMark10;

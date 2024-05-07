@@ -14,6 +14,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	width = windowWidth;
 	height = windowHeight;
 	Camara = 1.0;
+	Lucesspot = 0.0;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -105,7 +106,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
-	//Ejemplo
+	//Cambio de camaras
 	if (key == GLFW_KEY_1)
 	{
 		theWindow->Camara = 1.0f;
@@ -117,6 +118,15 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_3)
 	{
 		theWindow->Camara = 3.0f;
+	}
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		if (theWindow->Lucesspot < 1.0f) {
+			theWindow->Lucesspot += 1.0f;
+		}
+		else {
+			theWindow->Lucesspot = 0.0f;
+		}
 	}
 	//if (key == GLFW_KEY_D)
 	//{

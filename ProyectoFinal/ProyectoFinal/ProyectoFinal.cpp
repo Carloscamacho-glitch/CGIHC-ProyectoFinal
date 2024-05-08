@@ -249,6 +249,8 @@ Model Espectacular2;
 Model Jetsky;
 Model Lancha;
 
+Model Reflector;
+
 Model ArbolSolo1;
 Model ArbolSolo2;
 Model ArbolSolo3;
@@ -760,7 +762,7 @@ int main()
 	crearPino();
 
 	//Camara en 3ra persona
-	camera = Camera(glm::vec3(-300.0f, 40.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f, 0.0f, 5.5f, 2.5f);
+	camera = Camera(glm::vec3(-300.0f, 30.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
 	//Camara aerea
 	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f);
 	//Camara libre temporal
@@ -1067,6 +1069,8 @@ int main()
 	Esfera.LoadModel("Models/Extras/Esfera.obj");
 	Esfera2 = Model();
 	Esfera2.LoadModel("Models/Extras/Esfera2.obj");
+	Reflector = Model();
+	Reflector.LoadModel("Models/Extras/Reflector.obj");
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -1102,16 +1106,16 @@ int main()
 		1.0f, 0.005f, 0.005f);
 	pointLightCount++;
 	//luz de la linterna de los barcos
-	//pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
-	//	//INTENSIDADES
-	//	3.0f, 3.0f,
-	//	//POSICION
-	//	390.0f, 140.0f, 1010.0f,
-	//	//Con /Lin /Exp
-	//	1.0f, 0.01f, 0.01f);
-	//pointLightCount++;
+	pointLights[1] = PointLight(1.0f, 0.5f, 0.0f,
+		//INTENSIDADES
+		1.0f, 1.0f,
+		//POSICION
+		-1510.0f, -5.0f, 290.0f,
+		//Con /Lin /Exp
+		0.5f, 0.001f, 0.001f);
+	pointLightCount++;
 	//luz del letrero kwik-e-mart (se prendera en la noche y se apagara en el dia)
-	pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
+	pointLights[2] = PointLight(1.0f, 0.0f, 0.0f,
 		//INTENSIDADES
 		3.0f, 3.0f,
 		//POSICION
@@ -1153,14 +1157,17 @@ int main()
 		//INTENSIDADES
 		0.0f, 2.0f,
 		//POSICION
-		1200.0f, 10.0f, -500.0f,
+		1150.0f, 8.0f, -495.0f,
 		//VECTOR DE DIRECCION
-		1.0f, 1.0f, -1.0f,
+		1.0f, 0.8f, -0.8f,
 		//Con /Lin /Exp
 		1.0f, 0.0f, 0.0f,
 		//VALOR DEL CONO (TAMAÑO)
 		20.0f);
 	spotLightCount++;
+
+	spotLights2[0] = spotLights[0];
+	spotLights2[1] = spotLights[1];
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
@@ -1210,7 +1217,7 @@ int main()
 			{
 				movDX10 += movDX10Offset;
 				rotllanta += rotllantaOffset;
-			}
+
 
 			else {
 				avanzaDX10 = !avanzaDX10;
@@ -1351,7 +1358,7 @@ int main()
 		resta = contador - tiempoguardado;
 
 		//cambio de variables
-		if (resta >= 660) {
+		if (resta >= 60) {
 			if (dia == 1.0f) {
 				//Noche
 				dia = 0.0f;
@@ -1467,13 +1474,30 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
 
-		/*std::cout << "Camera Position: (" << currentCamera->getCameraPosition().x << ", " << currentCamera->getCameraPosition().y << ", " << currentCamera->getCameraPosition().z << ")" << std::endl;*/
-
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
-		shaderList[0].SetPointLights(pointLights, pointLightCount);
 
-		shaderList[0].SetSpotLights(spotLights, spotLightCount);
+		if (dia == 0.0f) {
+			shaderList[0].SetPointLights(pointLights, pointLightCount);
+		}
+		else {
+			shaderList[0].SetPointLights(pointLights, pointLightCount-1);
+		}
+
+		if (mainWindow.getLucesspot() == 1.0f) {
+			shaderList[0].SetSpotLights(spotLights, spotLightCount);
+			//luz de la nave de xilene
+			spotLights[0].SetFlash(glm::vec3(posnaveX + 70, posnaveY + 25, posnaveZ + 70), glm::vec3(0.0f, -1.0f, 0.0f));
+			//luz del rustbucket
+			spotLights[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
+		}
+		else if (mainWindow.getLucesspot() == 0.0f) {
+			shaderList[0].SetSpotLights(spotLights2, spotLightCount);
+			//luz de la nave de xilene
+			spotLights2[0].SetFlash(glm::vec3(posnaveX + 70, posnaveY + 25, posnaveZ + 70), glm::vec3(0.0f, -1.0f, 0.0f));
+			//luz del rustbucket
+			spotLights2[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
+		}
 
 		glm::mat4 model(1.0);
 		glm::mat4 modelauxMark10(1.0);
@@ -2001,7 +2025,6 @@ int main()
 		//Refrigeradores
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(477.8f, -2.3f, -1109.5f));
-		/*model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));*/
 		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Donas.RenderModel();
@@ -2115,6 +2138,13 @@ int main()
 		model = glm::scale(model, glm::vec3(3.5f, 3.5f, 3.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Coladera1.RenderModel();
+
+		//Reflector
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(1190.0, 10.0, -535.0));
+		model = glm::rotate(model, -110 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Reflector.RenderModel();
 
 		//Letras
 		model = glm::mat4(1.0);
@@ -3011,8 +3041,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BlimpDuff.RenderModel();
 
-		spotLights[0].SetFlash(glm::vec3(posnaveX+70, posnaveY+25, posnaveZ+70), glm::vec3(0.0f, -1.0f, 0.0f));
-
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(posnaveX, posnaveY, posnaveZ));
@@ -3690,10 +3718,26 @@ int main()
 		Bote.RenderModel();
 		//Terminan botes de basura//
 
-		peridotPos = glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z);
-		//Peridot ---------------------------
+
+		/*std::cout << "Camera Position: (" << currentCamera->getCameraDirection().x << ", " << currentCamera->getCameraDirection().y << ", " << currentCamera->getCameraDirection().z << ")" << std::endl;*/
+
+		if (currentCamera->getCameraDirection().x > 0.5) {
+			peridotPos = glm::vec3(camera.getCameraPosition().x + 30.0f, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z);
+		}
+		else if (currentCamera->getCameraDirection().x < -0.5) {
+			peridotPos = glm::vec3(camera.getCameraPosition().x - 30.0f, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z);
+		}
+		else if (currentCamera->getCameraDirection().z > 0.5) {
+			peridotPos = glm::vec3(camera.getCameraPosition().x, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z + 30.0f);
+		}
+		else if (currentCamera->getCameraDirection().z < -0.5) {
+			peridotPos = glm::vec3(camera.getCameraPosition().x, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z - 30.0f);
+		}
+
+		
+		//Peridot --------------------------------------------------------------------------------------------------------------------------------------------------------------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(camera.getCameraPosition().x+30.0f, camera.getCameraPosition().y-28.0f, camera.getCameraPosition().z));
+		model = glm::translate(model, glm::vec3(peridotPos));
 		model = glm::scale(model, glm::vec3(1.6f, 1.6f, 1.6f));
 		ModelAuxPeridot1 = model;
 		ModelAuxPeridot2 = model;
@@ -3744,7 +3788,6 @@ int main()
 
 		//Carretera -----------------------------------
 
-		spotLights[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		//Rustbucket//////
 		//Carro posCarroX, posCarroY, posCarroZ
 		model = glm::mat4(1.0);

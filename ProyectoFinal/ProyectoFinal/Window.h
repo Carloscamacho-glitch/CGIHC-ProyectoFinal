@@ -14,6 +14,7 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getCamara() { return Camara; }
+	GLfloat getLucesspot() { return Lucesspot; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
@@ -28,7 +29,7 @@ public:
 private: 
 	GLFWwindow *mainWindow;
 	GLint width, height;
-	GLfloat Camara;
+	GLfloat Camara, Lucesspot;
 	bool keys[1024];
 	GLint bufferWidth, bufferHeight;
 	void createCallbacks();

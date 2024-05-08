@@ -18,7 +18,12 @@ public:
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
-	
+	//Transformacion
+	GLfloat getAlien1() { return Alien1; }
+	GLfloat getAlien2() { return Alien2; }
+	GLfloat getDestransformar(){ return Destransformar; }
+	GLfloat getAtaque() { return Ataque; }
+
 	~Window();
 private: 
 	GLFWwindow *mainWindow;
@@ -31,6 +36,8 @@ private:
 	GLfloat lastY;
 	GLfloat xChange;
 	GLfloat yChange;
+	//Transformacion
+	GLfloat Alien1, Alien2, Destransformar,Ataque;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);

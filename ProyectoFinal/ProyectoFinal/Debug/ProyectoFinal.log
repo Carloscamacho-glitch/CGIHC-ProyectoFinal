@@ -5,12 +5,11 @@ C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFin
 C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1148,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1150,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1201,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1236,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1266,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1285,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1286,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1252,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1254,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1573,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1608,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1638,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1657,49): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1658,51): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
   ProyectoFinal.vcxproj -> C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe

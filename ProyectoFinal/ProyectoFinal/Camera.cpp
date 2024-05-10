@@ -3,13 +3,14 @@
 
 Camera::Camera() {}
 
-Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed)
+Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed, glm::vec3 PeridotPos)
 {
 	position = startPosition;
 	worldUp = startUp;
 	yaw = startYaw;
 	pitch = startPitch;
 	front = glm::vec3(0.0f, 0.0f, -1.0f);
+	Pos = PeridotPos;
 
 	moveSpeed = startMoveSpeed;
 	turnSpeed = startTurnSpeed;
@@ -17,34 +18,32 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 	update();
 }
 
-void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime)
+void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime, glm::vec3 objectPosition)
 {
 	GLfloat velocity = moveSpeed * deltaTime;
 	glm::vec3 movXZ = glm::normalize(glm::vec3(front.x, 0.0f, front.z));
 
 	//Camara en 3ra persona
-	if (cameraID == 1.0f) {
+	if (cameraID == 1) {
 		if (keys[GLFW_KEY_W])
 		{
-			position += movXZ * velocity;
+			Pos += movXZ * velocity;
 		}
-
 		if (keys[GLFW_KEY_S])
 		{
-			position -= movXZ * velocity;
+			Pos -= movXZ * velocity;
 		}
-
 		if (keys[GLFW_KEY_A])
 		{
-			position -= right * velocity;
+			Pos -= right * velocity;
 		}
-
 		if (keys[GLFW_KEY_D])
 		{
-			position += right * velocity;
+			Pos += right * velocity;
 		}
-	//Camara aerea
-	}else if (cameraID == 2.0f) {
+		//Camara aerea
+	}
+	else if (cameraID == 2.0f) {
 		if (keys[GLFW_KEY_W] && position.z >= -1070.0f)
 		{
 			position += movXZ * velocity;
@@ -64,8 +63,9 @@ void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime)
 		{
 			position += right * velocity;
 		}
-	//Camara en libre
-	}else {
+		//Camara en libre
+	}
+	else {
 		if (keys[GLFW_KEY_W])
 		{
 			position += front * velocity;
@@ -86,34 +86,49 @@ void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime)
 			position += right * velocity;
 		}
 	}
-	
+
 }
 
-void Camera::mouseControl(int cameraID,  GLfloat xChange, GLfloat yChange)
+void Camera::mouseControl(int cameraID, GLfloat xChange, GLfloat yChange, glm::vec3 objectPosition)
 {
 	//Camara en 3ra persona
 	if (cameraID == 1.0f) {
 		xChange *= turnSpeed;
 		yChange *= turnSpeed;
 
+		// Actualizar los ángulos de yaw y pitch
 		yaw += xChange;
 		pitch += yChange;
 
-		if (pitch > 89.0f)
+		// Limitar el ángulo de pitch entre -89 y 89 grados
+		if (pitch > 14.0f)
 		{
-			pitch = 89.0f;
+			pitch = 14.0f;
+		}
+		if (pitch < -34.0f)
+		{
+			pitch = -34.0f;
 		}
 
-		if (pitch < -89.0f)
-		{
-			pitch = -89.0f;
-		}
-	//Camara aerea
-	}else if (cameraID == 2.0f) {
+		// Calcular la nueva posición de la cámara alrededor del objeto
+		// Considerando una distancia constante de 30 unidades
+		glm::vec3 newPosition;
+		newPosition.x = objectPosition.x - 30.0f * cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		newPosition.y = objectPosition.y - 30.0f * sin(glm::radians(pitch));
+		newPosition.z = objectPosition.z - 30.0f * sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+		// Actualizar la posición de la cámara
+		position.x = newPosition.x;
+		position.y = newPosition.y + 13;
+		position.z = newPosition.z;
+		//Camara aerea
+	}
+	else if (cameraID == 2.0f) {
 
 
-	//Camara en libre
-	}else {
+		//Camara en libre
+	}
+	else {
 		xChange *= turnSpeed;
 		yChange *= turnSpeed;
 
@@ -142,6 +157,11 @@ glm::mat4 Camera::calculateViewMatrix()
 glm::vec3 Camera::getCameraPosition()
 {
 	return position;
+}
+
+glm::vec3 Camera::getCameraPeridotPos()
+{
+	return Pos;
 }
 
 glm::vec3 Camera::getCameraDirection()

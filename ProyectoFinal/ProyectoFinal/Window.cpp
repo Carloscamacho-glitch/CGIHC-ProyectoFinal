@@ -19,13 +19,16 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	{
 		keys[i] = 0;
 	}
+	//Transformacion
+	Alien1 = Alien2 = Destransformar = Ataque = 0.0f;
+
 }
 int Window::Initialise()
 {
-	//Inicialización de GLFW
+	//InicializaciÃ³n de GLFW
 	if (!glfwInit())
 	{
-		printf("Falló inicializar GLFW");
+		printf("FallÃ³ inicializar GLFW");
 		glfwTerminate();
 		return 1;
 	}
@@ -45,7 +48,7 @@ int Window::Initialise()
 		glfwTerminate();
 		return 1;
 	}
-	//Obtener tamaño de Buffer
+	//Obtener tamaÃ±o de Buffer
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
 	//asignar el contexto
@@ -60,7 +63,7 @@ int Window::Initialise()
 
 	if (glewInit() != GLEW_OK)
 	{
-		printf("Falló inicialización de GLEW");
+		printf("FallÃ³ inicializaciÃ³n de GLEW");
 		glfwDestroyWindow(mainWindow);
 		glfwTerminate();
 		return 1;
@@ -71,7 +74,7 @@ int Window::Initialise()
 							 
 							 //Asignar Viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
-	//Callback para detectar que se está usando la ventana
+	//Callback para detectar que se estÃ¡ usando la ventana
 	glfwSetWindowUserPointer(mainWindow, this);
 }
 
@@ -132,11 +135,37 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	//{
 	//	theWindow->MovLR -= 1.0;
 	//}
+
 	if (key == GLFW_KEY_0) {
 		theWindow->IniciarBlimp = true;
 	}
 	if (key == GLFW_KEY_9) {
 		theWindow->IniciarBlimp = false;
+
+
+	//Transformacion
+	if (key == GLFW_KEY_J)
+	{
+		theWindow->Alien1 = 1.0f;
+		theWindow->Destransformar = 0.0;
+	}
+	if (key == GLFW_KEY_K)
+	{
+		theWindow->Alien2 = 1.0;
+		theWindow->Destransformar = 0.0;
+	}
+	if (key == GLFW_KEY_L)
+	{
+		if (theWindow->Alien2 == 1.0 || theWindow->Alien1 == 1.0) {
+			theWindow->Destransformar = 1.0;
+			theWindow->Alien1 = 0.0f;
+			theWindow->Alien2 = 0.0f;
+		}
+	}
+	if (key == GLFW_KEY_M)
+	{
+		theWindow->Ataque = 1.0;
+
 	}
 
 	if (key >= 0 && key < 1024)

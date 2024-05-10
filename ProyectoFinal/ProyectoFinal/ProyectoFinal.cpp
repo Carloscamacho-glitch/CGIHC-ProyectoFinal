@@ -37,7 +37,8 @@ Proyecto Final
 #include "Material.h"
 #include <time.h> //tiempo
 const float toRadians = 3.14159265f / 180.0f;
-glm::vec3 peridotPos = glm::vec3(0.0f, 0.0f, 0.0f);
+bool* keys;
+glm::vec3 peridotPos = glm::vec3(-200.0f, 12.0f, 0.0f);
 
 //variable para guardar y manejar el tiempo
 time_t contador, contador2;
@@ -53,10 +54,59 @@ float movDX10 = 0.0f;
 float movDX10Offset = 0.0f;
 float rotllanta = 0.0f;
 float rotllantaOffset = 0.0f;
-bool avanzaDX10;
+bool avanzaDX10=true;
 //-------
-
-
+//Ben-----
+float rotmano = 0.0f;
+float rotmanoOffset = 0.0f;
+float maxRotation = 0.0f;
+float minRotation = 0.0f;
+float escesferax = 0.0f;
+float escesferay = 0.0f;
+float escesferaz = 0.0f;
+float escesferax2 = 0.0f;
+float escesferay2 = 0.0f;
+float escesferaz2 = 0.0f;
+float escesferaOffset = 0.0f;
+float maxEscale = 0.0f;
+bool Dibujaresfera = false;
+float Transformar = 0.0f;
+bool Dibujaresfera2 = false;
+float rotmanoD = 0.0f;
+float rotbrazoD = 0.0f;
+float rotbrazoDOffset = 0.0f;
+float rotmanoDOffset = 0.0f;
+float movAtaque = 0.0f;
+float movAtaqueOffset = 0.0f;
+float maxTraslation = 0.0f;
+bool AtaqueDiamante = false;
+bool Revertir = false;
+bool Limite = true;
+//Jetsky------------
+float movJetskyXoffset = 0.0f;
+float movJetskyYoffset = 0.0f;
+float movJetskyZoffset = 0.0f;
+float movJetskyX = 0.0f;
+float movJetskyY = 0.0f;
+float movJetskyZ = 0.0f;
+float giroJetsky = 0.0f;
+float giroJetskyOffset = 0.0f;
+bool JetskyAni = true;
+bool controlJetsky = true;
+//Peridot-----------
+float rotPeridotPiernas = 0.0f;
+float rotPeridotPiernasOffset = 0.0f;
+float rotPeridotBrazos = 0.0f;
+float rotPeridotBrazosOffset = 0.0f;
+bool movPeridot = true;
+//Dona-----------
+float rotDona = 0.0f;
+float rotSoporte = 0.0f;
+float movSoporte = 0.0f;
+float rotDonaOffset = 0.0f;
+float rotSoporteOffset = 0.0f;
+float movSoporteOffset = 0.0f;
+bool DonaAni = true;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -75,15 +125,18 @@ Model Prueba_M;
 //Ben10 ---------------------------------
 Model SrSmoothy;
 Model SrSmoothyVid;
-Model Ben;
 Model Azmuth;
 Model Omnitrix;
 Model Khyber;
 Model EcoEco;
+//Ben
+Model Ben;
+Model BenAntebrazo;
 //Diamante
 Model Diamante;
 Model DiamanteBrazoIzq;
 Model DiamanteManoIzq;
+Model ADiamante;
 //Escarabola
 Model Escarabola;
 Model EscarabolaPataDelDer;
@@ -133,7 +186,8 @@ Model Helice2;
 //Steven Universe -----------------------
 Model LGR;
 Model LGRVid;
-Model Garnet;
+Model Dona;
+Model Soporte;
 Model Portal;
 Model Burbuja;
 Model BurbujaBismuto;
@@ -211,7 +265,8 @@ Model FilaPostes2;
 Model Coladera1;
 Model Coladera2;
 Model Arbusto;
-
+Model Esfera;
+Model Esfera2;
 Model Semaforo;
 Model Semaforo2;
 Model Barrera;
@@ -728,6 +783,7 @@ int main()
 
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
+	keys = mainWindow.getsKeys();
 
 	CreateObjects();
 	CreateShaders();
@@ -736,11 +792,11 @@ int main()
 	crearPino();
 
 	//Camara en 3ra persona
-	camera = Camera(glm::vec3(-300.0f, 30.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
+	camera = Camera(glm::vec3(-300.0f, 30.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
 	//Camara aerea
-	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f);
+	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f, peridotPos);
 	//Camara libre temporal
-	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f);
+	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
 
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	estatua = Texture("Textures/daiza1.png");
@@ -758,8 +814,6 @@ int main()
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
 	SrSmoothyVid = Model();
 	SrSmoothyVid.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieVidrios.obj");
-	Ben = Model();
-	Ben.LoadModel("Models/Ben10/Ben/Ben.obj");
 	Omnitrix = Model();
 	Omnitrix.LoadModel("Models/Ben10/Omnitrix/Omnitrix.obj");
 	Azmuth = Model();
@@ -768,6 +822,11 @@ int main()
 	Khyber.LoadModel("Models/Ben10/Khyber/Khyber.obj");
 	EcoEco = Model();
 	EcoEco.LoadModel("Models/Ben10/Ultimate_EcoEco/U_EcoEco.obj");
+	//Ben
+	Ben = Model();
+	Ben.LoadModel("Models/Ben10/Ben/Ben.obj");
+	BenAntebrazo = Model();
+	BenAntebrazo.LoadModel("Models/Ben10/Ben/Ben_Antebrazo.obj");
 	//Escarabola
 	Escarabola = Model();
 	Escarabola.LoadModel("Models/Ben10/ball-weevil/BallWeevil.obj");
@@ -801,6 +860,8 @@ int main()
 	DiamanteBrazoIzq.LoadModel("Models/Ben10/Diamondhead/Diamante_BrazoIzq.obj");
 	DiamanteManoIzq = Model();
 	DiamanteManoIzq.LoadModel("Models/Ben10/Diamondhead/Diamante_ManoIzq.obj");
+	ADiamante = Model();
+	ADiamante.LoadModel("Models/Ben10/Diamondhead/Diamante_Ataque.obj");
 	//DX Mark 10
 	CocheBen = Model();
 	CocheBen.LoadModel("Models/Ben10/DX Mark 10/DX Mark 10.obj");
@@ -865,8 +926,10 @@ int main()
 	LGR.LoadModel("Models/Steven Universe/La Gran Rosquilla.obj");
 	LGRVid = Model();
 	LGRVid.LoadModel("Models/Steven Universe/La Gran Rosquilla V.obj");
-	Garnet = Model();
-	Garnet.LoadModel("Models/Steven Universe/Garnet.obj");
+	Dona = Model();
+	Dona.LoadModel("Models/Steven Universe/Dona.obj");
+	Soporte = Model();
+	Soporte.LoadModel("Models/Steven Universe/Soporte.obj");
 	Portal = Model();
 	Portal.LoadModel("Models/Steven Universe/Portal.obj");
 	Burbuja = Model();
@@ -1042,6 +1105,10 @@ int main()
 	ArbolSolo3.LoadModel("Models/Extras/ArbolSolo3.obj");
 	ArbolSolo4 = Model();
 	ArbolSolo4.LoadModel("Models/Extras/ArbolSolo4.obj");
+	Esfera = Model();
+	Esfera.LoadModel("Models/Extras/Esfera.obj");
+	Esfera2 = Model();
+	Esfera2.LoadModel("Models/Extras/Esfera2.obj");
 	Reflector = Model();
 	Reflector.LoadModel("Models/Extras/Reflector.obj");
 	//Lamparas
@@ -1175,13 +1242,50 @@ int main()
 	GLuint uniformColor = 0;
 	int contadorEspectacular = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-
 	///Variables para animaciones
-	movDX10 = 0.0f;
-	movDX10Offset = 1.5f;
+	//DX10
+	movDX10 = 400.0f;
+	movDX10Offset = 1.0f;
 	rotllanta = 0.0f;
-	rotllantaOffset = 5.0f;
+	rotllantaOffset = 1.0f;
 
+
+	//Ben
+	rotmano = 0.0f;
+	rotmanoOffset = 0.6f;
+	maxRotation = 90.0f;
+	minRotation = 0.0f;
+	maxEscale = 200.0f;
+	escesferax = escesferay = escesferaz = 6.5f;
+	escesferax2 = escesferay2 = escesferaz2 = 6.5f;
+	escesferaOffset = 0.8f;
+	rotbrazoD = 0.0f;
+	rotbrazoDOffset = 0.6f;
+	rotmanoD = 0.0f;
+	rotmanoDOffset = 0.6f;
+	movAtaque = -35.0f;
+	movAtaqueOffset = 0.3f;
+	maxTraslation = 5.0f;
+	Revertir = false;
+	
+	//Jetsky
+	movJetskyXoffset = 3.0f;
+	movJetskyYoffset = 3.0f;
+	movJetskyZoffset = 3.0f;
+	giroJetsky = 0;
+	giroJetskyOffset = 0.8f;
+
+	//Peridot
+	rotPeridotPiernas = 0.0f;
+	rotPeridotPiernasOffset = 1.0f;
+	rotPeridotBrazos = 0.0f;
+	rotPeridotBrazosOffset = 1.0f;
+
+	//Dona
+	rotDonaOffset = 0.1f;
+	rotSoporteOffset = 0.1f;
+	movSoporteOffset = 0.0001f;
+	
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -1189,21 +1293,16 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-		
-		/*std::cout << "Carro spawn if 0: (" << movDX10 << ")" << std::endl;*/
+
 		////////////////////// ANIMACIONES /////////////////////
 		//DX10------
-		if (avanzaDX10)
+		/*if (avanzaDX10)
 		{
-			/*std::cout << "Carro spawn if 1: (" << movDX10 << ")" << std::endl;*/
 			if (movDX10 < 990.0f)
 			{
-				/*std::cout << "Carro spawn if 2: (" << movDX10 << ")" << std::endl;*/
-				movDX10 += movDX10Offset * deltaTime;
-				rotllanta += rotllantaOffset * deltaTime;
-				/*std::cout << "Carro spawn if 2 fin: (" << movDX10 << ")" << std::endl;
-				std::cout << "     " << std::endl;*/
-			}
+				movDX10 += movDX10Offset;
+				rotllanta += rotllantaOffset;
+
 
 			else {
 				avanzaDX10 = !avanzaDX10;
@@ -1213,15 +1312,288 @@ int main()
 		{
 			if (movDX10 > -990.0f)
 			{
-				movDX10 -= movDX10Offset * deltaTime;
-				rotllanta -= rotllantaOffset * deltaTime;
+				movDX10 -= movDX10Offset;
+				rotllanta -= rotllantaOffset;
 			}
 			else {
 				avanzaDX10 = !avanzaDX10;
 			}
+		}*/
+		//---------------
+		//Transformaciones----------
+		//Eco Eco
+		if (mainWindow.getAlien1() == 1.0f && Limite)
+		{
+			//Se activa animacion de mano
+			rotmano += rotmanoOffset;
+			//toca el reloj y comienza la transformacion
+			if (rotmano >= maxRotation) {
+				rotmano = maxRotation; 
+				//Dibuja la esfera y la escala
+				Dibujaresfera = true;
+				escesferax += escesferaOffset;
+				escesferay += escesferaOffset;
+				escesferaz += escesferaOffset;
+				//Llega al tope de crecimiento 
+				if (escesferax == escesferay == escesferaz >= maxEscale) {
+					escesferax = maxEscale;
+					escesferay = maxEscale;
+					escesferaz = maxEscale;
+					Transformar = 1.0f;
+					Dibujaresfera = false;
+					escesferax2 = 6.5;
+					escesferay2 = 6.5;
+					escesferaz2 = 6.5;
+					Limite = !Limite;
+				}
+			}
 		}
 
-		
+		////Diamante
+		else if (mainWindow.getAlien2() == 1.0f && Limite)
+		{
+				//Se activa animacion de mano
+				rotmano += rotmanoOffset;
+				//toca el reloj y comienza la transformacion
+				if (rotmano >= maxRotation) {
+					rotmano = maxRotation;
+					//Dibuja la esfera y la escala
+					Dibujaresfera = true;
+					escesferax += escesferaOffset;
+					escesferay += escesferaOffset;
+					escesferaz += escesferaOffset;
+					//Llega al tope de crecimiento 
+					if (escesferax == escesferay == escesferaz >= maxEscale) {
+						escesferax = maxEscale;
+						escesferay = maxEscale;
+						escesferaz = maxEscale;
+						Transformar = 2.0f;
+						Dibujaresfera = false;
+						if (Revertir == false) {
+							rotbrazoD += rotbrazoDOffset;
+							if (rotbrazoD >= maxRotation) {
+								rotbrazoD = maxRotation;
+								rotmanoD += rotmanoDOffset;
+								if (rotmanoD >= maxRotation) {
+									rotmanoD = maxRotation;
+									AtaqueDiamante = true;
+									movAtaque += movAtaqueOffset;
+									if (movAtaque >= maxTraslation) {
+										movAtaque = maxTraslation;
+										Revertir = true;
+									}
+								}
+							}
+						}
+						else {
+							rotmanoD -= rotmanoDOffset;
+							if (rotmanoD <= minRotation) {
+								rotmanoD = minRotation;
+								rotbrazoD -= rotbrazoDOffset;
+								if (rotbrazoD <= minRotation) {
+									rotbrazoD = minRotation;
+									AtaqueDiamante = false;
+									escesferax2 = 6.5;
+									escesferay2 = 6.5;
+									escesferaz2 = 6.5;
+									rotmanoD = 0.0;
+									rotbrazoD = 0.0;
+									movAtaque = -35.0;
+									Revertir = false;
+									Limite = !Limite;
+								}
+							}
+						}
+					}
+				}
+		}
+
+		//Destransformar
+		if (mainWindow.getDestransformar() == 1.0f)
+		{
+			//Dibuja la esfera y la escala
+			Dibujaresfera2 = true;
+			escesferax2 += escesferaOffset;
+			escesferay2 += escesferaOffset;
+			escesferaz2 += escesferaOffset;
+			//Llega al tope de crecimiento 
+			if (escesferax2 == escesferay2 == escesferaz2 >= maxEscale) {
+				escesferax2 = maxEscale;
+				escesferay2 = maxEscale;
+				escesferaz2 = maxEscale;
+				Transformar = 0.0f;
+				Dibujaresfera2 = false;
+				rotmano = rotmano - 90.0f;
+				if (rotmano <= minRotation) {
+					rotmano = minRotation;
+				}
+				escesferax = 6.5;
+				escesferay = 6.5;
+				escesferaz = 6.5;
+				Limite = true;
+			}
+		}
+
+		////--------------
+
+		//Jetsky------	
+		if (JetskyAni && controlJetsky) {
+			if (giroJetsky >= 360) {
+				giroJetsky = 0;
+			}
+			if (movJetskyYoffset > 360.0f) {
+				movJetskyYoffset = 0.0f;
+			}
+			if (movJetskyZ < 700.0f)
+			{
+				movJetskyY += movJetskyYoffset;
+				movJetskyZ += movJetskyZoffset;
+			}
+			else {
+				if (giroJetsky < 90) {
+					if (giroJetsky < 45) {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+						movJetskyZ += movJetskyZoffset;
+					}
+					else {
+						movJetskyX -= movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+				}
+				else {
+					if (movJetskyX > -250.0f)
+					{
+						movJetskyX -= movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+					}
+					else {
+						controlJetsky = !controlJetsky;
+					}
+				}
+			}
+		}
+		else if (JetskyAni && controlJetsky == false) {
+			if (movJetskyYoffset > 360.0f) {
+				movJetskyYoffset = 0.0f;
+			}
+			if (giroJetsky < 180) {
+				if (giroJetsky < 135) {
+					movJetskyX -= movJetskyXoffset;
+					movJetskyY += movJetskyYoffset;
+					giroJetsky += giroJetskyOffset;
+				}
+				else {
+					movJetskyY += movJetskyYoffset;
+					giroJetsky += giroJetskyOffset;
+					movJetskyZ -= movJetskyZoffset;
+				}
+			}
+			else {
+				if (movJetskyZ > 150.0f) {
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ -= movJetskyZoffset;
+				}
+				else {
+					if (giroJetsky < 270) {
+						if (giroJetsky < 225) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+							movJetskyZ -= movJetskyZoffset;
+						}
+						else {
+							movJetskyX += movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX < -100.0f)
+						{
+							movJetskyX += movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							JetskyAni = !JetskyAni;
+						}
+					}
+				}
+			}
+		}
+		else {
+			if (giroJetsky < 360) {
+				if (giroJetsky < 315) {
+					movJetskyX += movJetskyXoffset;
+					movJetskyY += movJetskyYoffset;
+					giroJetsky += giroJetskyOffset;
+				}
+				else {
+					movJetskyY += movJetskyYoffset;
+					giroJetsky += giroJetskyOffset;
+					movJetskyZ += movJetskyZoffset;
+				}
+			}
+			else {
+				controlJetsky = !controlJetsky;
+				JetskyAni = !JetskyAni;
+			}
+		}
+
+		//Caminata peridot------
+		//Hacia adelante y atras
+		if (keys[GLFW_KEY_W] && keys[GLFW_KEY_S]) {
+			rotPeridotPiernas = rotPeridotPiernas;
+			rotPeridotBrazos = rotPeridotBrazos;
+		}
+		else if (keys[GLFW_KEY_W] || keys[GLFW_KEY_S]) {
+			if (movPeridot) {
+				if (rotPeridotPiernas < 10.0f)
+				{
+					rotPeridotPiernas += rotPeridotPiernasOffset * deltaTime;
+					rotPeridotBrazos += rotPeridotBrazosOffset * deltaTime;
+				}
+				else {
+					movPeridot = !movPeridot;
+				}
+			}
+			else {
+				if (-10.0f < rotPeridotPiernas)
+				{
+					rotPeridotPiernas -= rotPeridotPiernasOffset * deltaTime;
+					rotPeridotBrazos -= rotPeridotBrazosOffset * deltaTime;
+				}
+				else {
+					movPeridot = !movPeridot;
+				}
+			}
+		}
+
+		//Dona
+		if (DonaAni) {
+			if (rotDona < 40) {
+				rotDona += rotDonaOffset;
+			}
+			if (rotSoporte < 40) {
+				rotSoporte += rotSoporteOffset;
+				movSoporte -= rotSoporteOffset;
+			}
+			else {
+				DonaAni = !DonaAni;
+			}
+		}
+		else {
+			if (rotDona > 0) {
+				rotDona -= rotDonaOffset;
+			}
+			if (rotSoporte > 0) {
+				rotSoporte -= rotSoporteOffset;
+				movSoporte += rotSoporteOffset;
+			}
+			else {
+				DonaAni = !DonaAni;
+			}
+		}
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -1322,8 +1694,8 @@ int main()
 		else {
 			currentCamera = &camera3;
 		}
-		currentCamera->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime);
-		currentCamera->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange());
+		currentCamera->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime, peridotPos);
+		currentCamera->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange(), peridotPos);
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -1335,7 +1707,7 @@ int main()
 		uniformView = shaderList[0].GetViewLocation();
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
-		
+
 		//información en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
@@ -1372,11 +1744,12 @@ int main()
 		glm::mat4 model(1.0);
 		glm::mat4 modelauxMark10(1.0);
 		glm::mat4 modelauxRust(1.0);
+		glm::mat4 modelauxBen(1.0);
 		glm::mat4 modelauxDiamante(1.0);
 		glm::mat4 modelauxEscarabola(1.0);
 		glm::mat4 modelauxCrab(1.0);
 		glm::mat4 modelauxShip(1.0);
-		glm::mat4 modelauxDuff(1.0); 
+		glm::mat4 modelauxDuff(1.0);
 		glm::mat4 modelauxDonutVan(1.0);
 		glm::mat4 ModelAuxPeridot1(1.0);
 		glm::mat4 ModelAuxPeridot2(1.0);
@@ -1391,15 +1764,7 @@ int main()
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-
-		//Dibujo de modelo de ejemplo
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Prueba_M.RenderModel();
 
 		//Cuadrante 1-------------------------------------------------
 		//Bancas//
@@ -1586,7 +1951,7 @@ int main()
 		Pinos.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1610.0f,-3.0f, -1117.0f));
+		model = glm::translate(model, glm::vec3(-1610.0f, -3.0f, -1117.0f));
 		model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -1676,7 +2041,7 @@ int main()
 		LeonPataDelIzq.RenderModel();
 
 		model = ModelAuxLeon;
-		model = glm::translate(model, glm::vec3(1.5f, -2.4f,-5.2f));
+		model = glm::translate(model, glm::vec3(1.5f, -2.4f, -5.2f));
 		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LeonPataTrasDer.RenderModel();
@@ -1695,13 +2060,102 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		SrSmoothy.RenderModel();
 
-		//Ben
+		////Transformaciones --------------
+		//Ben-------------
 		model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(200.0f, 0.2f, 545.0f));
 		model = glm::translate(model, glm::vec3(-525.0f, 0.0f, -1030.0f));
 		model = glm::scale(model, glm::vec3(6.5f, 6.5f, 6.5f));
+		modelauxBen = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Ben.RenderModel();
+		if (Transformar == 0.0f)
+		{
+			Ben.RenderModel();
+		}
+		//Antebrazo
+		model = modelauxBen;
+		model = glm::translate(model, glm::vec3(-0.609f, 3.507f, 0.307f));
+		model = glm::rotate(model, rotmano * toRadians, glm::vec3(0.0f, 0.0, -1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (Transformar == 0.0f)
+		{
+			BenAntebrazo.RenderModel();
+		}
+		
+		
+		//EcoEco---------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-525.0f, 0.0f, -1030.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if(Transformar==1.0f){
+			EcoEco.RenderModel();
+
+		}
+		
+		//Diamante ----------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-525.0f, 0.0f, -1030.0f));
+		model = glm::scale(model, glm::vec3(4.1f, 4.1f, 4.1f));
+		modelauxDiamante = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (Transformar == 2.0f) {
+			Diamante.RenderModel();
+		}
+		//Brazo Izq
+		model = modelauxDiamante;
+		model = glm::translate(model, glm::vec3(-1.413f, 8.041f, -0.54f));
+		model = glm::rotate(model, rotbrazoD * toRadians, glm::vec3(-1.0f, 0.0, 0.0f));
+		modelauxDiamante = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (Transformar == 2.0f) {
+			DiamanteBrazoIzq.RenderModel();
+		}
+		//Mano Izq
+		model = modelauxDiamante;
+		model = glm::translate(model, glm::vec3(-1.166f, -4.551f, 0.0f));
+		model = glm::rotate(model, rotmanoD * toRadians, glm::vec3(0.0f, 1.0, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (Transformar == 2.0f) {
+			DiamanteManoIzq.RenderModel();
+		}
+
+		//Ataque Diamante
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-525.0f, movAtaque, -920.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (AtaqueDiamante == true){
+			ADiamante.RenderModel();
+		}
+		//--------------------
+
+		//Esfera para transformacion
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-523.814f, 22.377f, -1026.459f));
+		model = glm::scale(model, glm::vec3(escesferax, escesferay, escesferaz));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (Dibujaresfera == true)
+		{
+			Esfera.RenderModel();
+		}
+
+		//Esfera para destransformacion
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-523.814f, 22.377f, -1026.459f));
+		model = glm::scale(model, glm::vec3(escesferax2, escesferay2, escesferaz2));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		if (Dibujaresfera2 == true)
+		{
+			Esfera2.RenderModel();
+		}
+		//////---------------
+
+		//Lampara
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-886.5f, 7.0f, -912.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lampara1.RenderModel();
 
 		//Semaforo
 		model = glm::mat4(1.0);
@@ -1710,42 +2164,6 @@ int main()
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Semaforo.RenderModel();
-
-
-		/////Transformaciones////----------------
-		////EcoEco
-		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-515.0f, 0.0f, -1030.0f));
-		//model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//EcoEco.RenderModel();
-
-		////Diamante 
-		//model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-490.0f, 0.0f, -1030.0f));
-		//model = glm::scale(model, glm::vec3(4.1f, 4.1f, 4.1f));
-		//modelauxDiamante = model;
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//Diamante.RenderModel();
-		//model = modelauxDiamante;
-		////Brazo Izq
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		//modelauxDiamante = model;
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//DiamanteBrazoIzq.RenderModel();
-		//model = modelauxDiamante;
-		////Mano Izq
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//DiamanteManoIzq.RenderModel();
-		/////--------------------
-
-		//Lampara
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-886.5f, 7.0f, -912.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.5f, 10.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Lampara1.RenderModel();
 
 		//Coladera
 		model = glm::mat4(1.0);
@@ -1904,13 +2322,6 @@ int main()
 		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		GatoGalleta.RenderModel();
-
-		//Garnet
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(275.0f, 0.0f, -925.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Garnet.RenderModel();
 		
 		//La gran rosquilla
 		model = glm::mat4(1.0);
@@ -1918,6 +2329,22 @@ int main()
 		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LGR.RenderModel();
+
+		//Dona
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(470.0f, 168.0f, -1040.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		model = glm::rotate(model, glm::radians(rotDona), glm::vec3(-1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Dona.RenderModel();
+
+		//Soporte
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(470.0f, 168.0f, -1072.0f + movSoporte));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		model = glm::rotate(model, glm::radians(rotSoporte), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Soporte.RenderModel();
 
 		//Burbuja Gatogalleta
 		model = glm::mat4(1.0);
@@ -2155,8 +2582,9 @@ int main()
 		//Cuadrante 5 -------------------------------------------------------------------
 		//Jetsky
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1300.0f, -10.0f, 220.0f));
-		model = glm::rotate(model, 105 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-1350.0f + movJetskyX, -10.0f + (4 * sin(glm::radians(movJetskyY))), 400.0f + movJetskyZ));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, giroJetsky * toRadians, glm::vec3(0.0f, -1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(18.0f, 18.0f, 18.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Jetsky.RenderModel();
@@ -2192,7 +2620,7 @@ int main()
 		Lancha.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1510.0f, -5.0f, 290.0f));
+		model = glm::translate(model, glm::vec3(-1510.0f, -5.0f, 287.0f));
 		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Candil.RenderModel();
@@ -2441,8 +2869,6 @@ int main()
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
 
-
-
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -2558,14 +2984,6 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1600.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pinoTex.UseTexture();
-		meshList[4]->RenderMesh();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 160.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -2691,7 +3109,7 @@ int main()
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pinos.RenderModel();
-		
+
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-168.0f, 0.0f, 912.0f));
@@ -2706,7 +3124,6 @@ int main()
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
-
 
 		//Cuadrante 7 ---------------------------------------------------------------------
 		//KwikEmart
@@ -2866,14 +3283,6 @@ int main()
 		ArbolSolo4.RenderModel();
 
 		//Cuadrante 8 -----------------------------------------------------------------
-		//Lampara
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(806.5f, 0.0f, 118.5f));
-		model = glm::scale(model, glm::vec3(3.5f, 4.0f, 3.5f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Lampara2.RenderModel();
-
 		//Coladera
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(1050.0, 0.0, 750.0));
@@ -3230,6 +3639,14 @@ int main()
 		model = glm::scale(model, glm::vec3(1.1f, 1.1f, 1.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Banca.RenderModel();
+		
+		//Azmuth
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-360.0f, 10.0f, -512.5f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 30.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Azmuth.RenderModel();
 
 		//Basura
 		model = glm::mat4(1.0);
@@ -3571,27 +3988,21 @@ int main()
 		Bote.RenderModel();
 		//Terminan botes de basura//
 
+		//asignacion de la posicion del modelo
+		peridotPos = glm::vec3(camera.getCameraPeridotPos().x, camera.getCameraPeridotPos().y, camera.getCameraPeridotPos().z);
 
-		/*std::cout << "Camera Position: (" << currentCamera->getCameraDirection().x << ", " << currentCamera->getCameraDirection().y << ", " << currentCamera->getCameraDirection().z << ")" << std::endl;*/
-
-		if (currentCamera->getCameraDirection().x > 0.5) {
-			peridotPos = glm::vec3(camera.getCameraPosition().x + 30.0f, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z);
-		}
-		else if (currentCamera->getCameraDirection().x < -0.5) {
-			peridotPos = glm::vec3(camera.getCameraPosition().x - 30.0f, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z);
-		}
-		else if (currentCamera->getCameraDirection().z > 0.5) {
-			peridotPos = glm::vec3(camera.getCameraPosition().x, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z + 30.0f);
-		}
-		else if (currentCamera->getCameraDirection().z < -0.5) {
-			peridotPos = glm::vec3(camera.getCameraPosition().x, camera.getCameraPosition().y - 18.0f, camera.getCameraPosition().z - 30.0f);
-		}
-
+		// Calcula el angulo de acuerdo a la direccion que apunta la camara
+		float angle = atan2(camera.getCameraDirection().z, camera.getCameraDirection().x);
 		
 		//Peridot --------------------------------------------------------------------------------------------------------------------------------------------------------------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(peridotPos));
 		model = glm::scale(model, glm::vec3(1.6f, 1.6f, 1.6f));
+
+		// Calcula la rotación del objeto para que siempre mire hacia donde mira la cámara
+		float objectAngle = angle + glm::radians(0.0f);
+		model = glm::rotate(model, -objectAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		ModelAuxPeridot1 = model;
 		ModelAuxPeridot2 = model;
 		ModelAuxPeridot3 = model;
@@ -3605,6 +4016,8 @@ int main()
 		//Brazo derecho
 		model = ModelAuxPeridot1;
 		model = glm::translate(model, glm::vec3(0.0f, 2.6f, -0.9f));
+		model = glm::rotate(model, -rotPeridotBrazos * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		/*model = glm::rotate(model, -rotPeridotBrazos2 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));*/
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PeridotBrazoDer.RenderModel();
 		//Mano derecha
@@ -3614,6 +4027,8 @@ int main()
 		//Brazo izquierdo
 		model = ModelAuxPeridot2;
 		model = glm::translate(model, glm::vec3(0.0f, 2.6f, 0.9f));
+		model = glm::rotate(model, rotPeridotBrazos * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		/*model = glm::rotate(model, rotPeridotBrazos2 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));*/
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PeridotBrazoIzq.RenderModel();
 		//Mano izquierda
@@ -3623,6 +4038,8 @@ int main()
 		//Pierna derecha
 		model = ModelAuxPeridot3;
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.35f));
+		model = glm::rotate(model, rotPeridotPiernas * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		/*model = glm::rotate(model, rotPeridotPiernas2 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));*/
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PeridotPiernaDer.RenderModel();
 		//Pie derecho
@@ -3632,6 +4049,8 @@ int main()
 		//Pierna izquierda
 		model = ModelAuxPeridot4;
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.35f));
+		model = glm::rotate(model, -rotPeridotPiernas * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		/*model = glm::rotate(model, -rotPeridotPiernas2 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));*/
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PeridotPiernaIzq.RenderModel();
 		//Pie izquierdo

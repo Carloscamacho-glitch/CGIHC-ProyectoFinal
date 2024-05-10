@@ -19,6 +19,9 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	{
 		keys[i] = 0;
 	}
+	//Transformacion
+	Alien1 = Alien2 = Destransformar = Ataque = 0.0f;
+
 }
 int Window::Initialise()
 {
@@ -67,9 +70,9 @@ int Window::Initialise()
 	}
 
 	glEnable(GL_DEPTH_TEST); //HABILITAR BUFFER DE PROFUNDIDAD
-							 // Asignar valores de la ventana y coordenadas
-							 
-							 //Asignar Viewport
+	// Asignar valores de la ventana y coordenadas
+
+	//Asignar Viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
 	//Callback para detectar que se está usando la ventana
 	glfwSetWindowUserPointer(mainWindow, this);
@@ -133,14 +136,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	//	theWindow->MovLR -= 1.0;
 	//}
 
-	if (key == GLFW_KEY_0) {
-		theWindow->IniciarBlimp = true;
-	}
-	if (key == GLFW_KEY_9) {
-		theWindow->IniciarBlimp = false;
-
-
-
 	//Transformacion
 	if (key == GLFW_KEY_J)
 	{
@@ -163,8 +158,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	if (key == GLFW_KEY_M)
 	{
 		theWindow->Ataque = 1.0;
-
-
 	}
 
 	if (key >= 0 && key < 1024)

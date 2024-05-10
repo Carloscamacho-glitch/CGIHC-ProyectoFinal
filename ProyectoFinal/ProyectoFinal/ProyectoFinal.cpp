@@ -99,7 +99,14 @@ float rotPeridotPiernasOffset = 0.0f;
 float rotPeridotBrazos = 0.0f;
 float rotPeridotBrazosOffset = 0.0f;
 bool movPeridot = true;
-
+//Dona-----------
+float rotDona = 0.0f;
+float rotSoporte = 0.0f;
+float movSoporte = 0.0f;
+float rotDonaOffset = 0.0f;
+float rotSoporteOffset = 0.0f;
+float movSoporteOffset = 0.0f;
+bool DonaAni = true;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -177,6 +184,8 @@ Model BlimpDuff;
 //Steven Universe -----------------------
 Model LGR;
 Model LGRVid;
+Model Dona;
+Model Soporte;
 Model Portal;
 Model Burbuja;
 Model BurbujaBismuto;
@@ -909,6 +918,10 @@ int main()
 	LGR.LoadModel("Models/Steven Universe/La Gran Rosquilla.obj");
 	LGRVid = Model();
 	LGRVid.LoadModel("Models/Steven Universe/La Gran Rosquilla V.obj");
+	Dona = Model();
+	Dona.LoadModel("Models/Steven Universe/Dona.obj");
+	Soporte = Model();
+	Soporte.LoadModel("Models/Steven Universe/Soporte.obj");
 	Portal = Model();
 	Portal.LoadModel("Models/Steven Universe/Portal.obj");
 	Burbuja = Model();
@@ -1227,6 +1240,11 @@ int main()
 	rotPeridotPiernasOffset = 1.0f;
 	rotPeridotBrazos = 0.0f;
 	rotPeridotBrazosOffset = 1.0f;
+
+	//Dona
+	rotDonaOffset = 0.1f;
+	rotSoporteOffset = 0.1f;
+	movSoporteOffset = 0.0001f;
 	
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -1511,6 +1529,31 @@ int main()
 			}
 		}
 
+		//Dona
+		if (DonaAni) {
+			if (rotDona < 40) {
+				rotDona += rotDonaOffset;
+			}
+			if (rotSoporte < 40) {
+				rotSoporte += rotSoporteOffset;
+				movSoporte -= rotSoporteOffset;
+			}
+			else {
+				DonaAni = !DonaAni;
+			}
+		}
+		else {
+			if (rotDona > 0) {
+				rotDona -= rotDonaOffset;
+			}
+			if (rotSoporte > 0) {
+				rotSoporte -= rotSoporteOffset;
+				movSoporte += rotSoporteOffset;
+			}
+			else {
+				DonaAni = !DonaAni;
+			}
+		}
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -2246,6 +2289,22 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		LGR.RenderModel();
 
+		//Dona
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(470.0f, 168.0f, -1040.0f));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		model = glm::rotate(model, glm::radians(rotDona), glm::vec3(-1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Dona.RenderModel();
+
+		//Soporte
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(470.0f, 168.0f, -1072.0f + movSoporte));
+		model = glm::scale(model, glm::vec3(50.0f, 50.0f, 50.0f));
+		model = glm::rotate(model, glm::radians(rotSoporte), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Soporte.RenderModel();
+
 		//Burbuja Gatogalleta
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(700.0f, 20.0f, -1050.0f));
@@ -2769,8 +2828,6 @@ int main()
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
 
-
-
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -2886,14 +2943,6 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1600.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		pinoTex.UseTexture();
-		meshList[4]->RenderMesh();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 160.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -3019,7 +3068,7 @@ int main()
 		model = glm::scale(model, glm::vec3(5.3f, 5.3f, 5.3f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pinos.RenderModel();
-		
+
 		//Lampara
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-168.0f, 0.0f, 912.0f));
@@ -3034,7 +3083,6 @@ int main()
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
-
 
 		//Cuadrante 7 ---------------------------------------------------------------------
 		//KwikEmart

@@ -19,11 +19,15 @@ public:
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
+	GLfloat getIniciarBlimp() { return IniciarBlimp; }
+	
+
 	//Transformacion
 	GLfloat getAlien1() { return Alien1; }
 	GLfloat getAlien2() { return Alien2; }
 	GLfloat getDestransformar(){ return Destransformar; }
 	GLfloat getAtaque() { return Ataque; }
+
 
 	~Window();
 private: 
@@ -42,6 +46,7 @@ private:
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
+	GLboolean IniciarBlimp = false;
 
 };
 

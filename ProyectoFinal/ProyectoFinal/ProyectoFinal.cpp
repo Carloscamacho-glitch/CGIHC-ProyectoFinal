@@ -180,6 +180,8 @@ Model DonutVan;
 Model DonutVanLlanta01;
 Model DonutVanLlanta02;
 Model BlimpDuff;
+Model Helice1;
+Model Helice2;
 
 //Steven Universe -----------------------
 Model LGR;
@@ -270,6 +272,8 @@ Model Semaforo2;
 Model Barrera;
 Model Espectacular1;
 Model Espectacular2;
+Model EspectacularCocinado1;
+Model EspectacularCocinado2;
 
 Model Jetsky;
 Model Lancha;
@@ -911,6 +915,10 @@ int main()
 	Apu.LoadModel("Models/Simpsons/Personajes/Apu.obj");
 	BlimpDuff = Model();
 	BlimpDuff.LoadModel("Models/Simpsons/Blimp/BlimpDuff.obj");
+	Helice1 = Model();
+	Helice1.LoadModel("Models/Simpsons/Blimp/Helice1.obj");
+	Helice2 = Model();
+	Helice2.LoadModel("Models/Simpsons/Blimp/Helice2.obj");
 
 
 	//Steven Universe -----------------------
@@ -1073,6 +1081,10 @@ int main()
 	Espectacular1.LoadModel("Models/Extras/Espectacular1.obj");
 	Espectacular2 = Model();
 	Espectacular2.LoadModel("Models/Extras/Espectacular2.obj");
+	EspectacularCocinado1 = Model();
+	EspectacularCocinado1.LoadModel("Models/Extras/EspectacularCocinado1.obj");
+	EspectacularCocinado2 = Model();
+	EspectacularCocinado2.LoadModel("Models/Extras/EspectacularCocinado2.obj");
 	Semaforo2 = Model();
 	Semaforo2.LoadModel("Models/Extras/Semaforo2.obj");
 	FilaPostes = Model();
@@ -1192,10 +1204,38 @@ int main()
 		1.0f, 0.0f, 0.0f,
 		//VALOR DEL CONO (TAMAÑO)
 		20.0f);
-	spotLightCount++;
+	spotLightCount++; 
+	 
+	//Luces cocinadas 
+	//spotLights[2] = SpotLight(1.0f, 0.0f, 0.0f,
+	//	//INTENSIDADES
+	//	4.0f, 2.0f,
+	//	//POSICION
+	//	-66.5f, 123.5f, -980.0f,
+	//	//VECTOR DE DIRECCION
+	//	0.0f, 0.0f, 1.780f,
+	//	//Con /Lin /Exp
+	//	1.0f, 0.01f, 0.0f,
+	//	//VALOR DEL CONO (TAMAÑO)
+	//	5.7f);
+	//spotLightCount++;
+	
+	//spotLights[3] = SpotLight(0.0f, 1.0f, 1.0f,
+	//	//INTENSIDADES
+	//	3.0f, 2.0f,
+	//	//POSICION
+	//	-10.5f, 250.0f, -1310.0f,
+	//	//VECTOR DE DIRECCION
+	//	0.0f, 0.0f, 1.0f,
+	//	//Con /Lin /Exp
+	//	1.0f, 0.01f, 0.0f,
+	//	//VALOR DEL CONO (TAMAÑO)
+	//	8.5f);
+	//spotLightCount++;
 
 	spotLights2[0] = spotLights[0];
 	spotLights2[1] = spotLights[1];
+
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
@@ -1716,6 +1756,7 @@ int main()
 		glm::mat4 ModelAuxPeridot3(1.0);
 		glm::mat4 ModelAuxPeridot4(1.0);
 		glm::mat4 ModelAuxLeon(1.0);
+		glm::mat4 modelauxBlimp(1.0);
 		glm::mat4 ModelBB(1.0);
 		glm::mat4 ModelBJ(1.0);
 		glm::mat4 ModelBS(1.0);
@@ -3152,18 +3193,33 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(250.0f, 0.3f, 1300.0f));
 		model = glm::scale(model, glm::vec3(2.5f, 3.0f, 2.5f));
-		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
-			Espectacular1.RenderModel();
+		if (dia == 1.0) {
+			if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
+				Espectacular1.RenderModel();
+			}
+			else if (contadorEspectacular > 600 && contadorEspectacular <= 1200) {
+				Espectacular2.RenderModel();
+			}
+			contadorEspectacular++;
+			if (contadorEspectacular > 1200) {
+				contadorEspectacular = 0; // Reiniciar el contador
+			}
 		}
-		else if (contadorEspectacular > 600 && contadorEspectacular <= 1200) {
-			Espectacular2.RenderModel();
+		else{
+			if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
+				EspectacularCocinado1.RenderModel();
+			}
+			else if (contadorEspectacular > 600 && contadorEspectacular <= 1200) {
+				EspectacularCocinado2.RenderModel();
+			}
+			contadorEspectacular++;
+			if (contadorEspectacular > 1200) {
+				contadorEspectacular = 0; // Reiniciar el contador
+			}
 		}
-		contadorEspectacular++;
-		if (contadorEspectacular > 1200) {
-			contadorEspectacular = 0; // Reiniciar el contador
-		}
+		
 
 		//Arboles Jardinera
 		model = glm::mat4(1.0);
@@ -3239,8 +3295,21 @@ int main()
 		model = glm::translate(model, glm::vec3(1650.5f, 0.0f, 450.5f));
 		model = glm::scale(model, glm::vec3(3.5f, 3.0f, 3.5f));
 		model = glm::rotate(model, -75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		modelauxBlimp = model; 
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BlimpDuff.RenderModel();
+		model = modelauxBlimp;
+
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Helice1.RenderModel();
+		model = modelauxBlimp;
+
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Helice2.RenderModel();
+		model = modelauxBlimp;
+
 
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
@@ -4110,19 +4179,19 @@ int main()
 
 		//Barreras entre cuadrante 7 y 8 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(998.0f, 0.0f, 938.5f));
+		model = glm::translate(model, glm::vec3(998.0f, 0.0f, -938.5f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1058.0f, 0.0f, 938.5f));
+		model = glm::translate(model, glm::vec3(1058.0f, 0.0f, -938.5f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1118.0f, 0.0f, 938.5f));
+		model = glm::translate(model, glm::vec3(1118.0f, 0.0f, -938.5f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
@@ -4130,20 +4199,28 @@ int main()
 		
 		//Barreras entre cuadrante 1 y 2 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-998.0f, 0.0f, -938.5f));
+		model = glm::translate(model, glm::vec3(-998.0f, 0.0f, 938.5f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1058.0f, 0.0f, -938.5f));
+		model = glm::translate(model, glm::vec3(-1058.0f, 0.0f, 938.5f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-1118.0f, 0.0f, -938.5f));
+		model = glm::translate(model, glm::vec3(-1118.0f, 0.0f, 938.5f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Barrera.RenderModel();
+
+		//Barrera RustBucket
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-1200.0f, 0.0f, 60.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Barrera.RenderModel();
 		//Terminan barreras 

@@ -51,10 +51,14 @@ float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
 //Variables para animaciones
 //DX10------------
 float movDX10 = 0.0f;
+float movDX10z = 0.0f;
 float movDX10Offset = 0.0f;
 float rotllanta = 0.0f;
 float rotllantaOffset = 0.0f;
-bool avanzaDX10=true;
+float giroDX10 = 0.0;
+float giroDX10Offset = 0.0f;
+bool avanzaDX10 = true;
+bool controlDX10 = true;
 //-------
 //Ben-----
 float rotmano = 0.0f;
@@ -1241,10 +1245,12 @@ int main()
 	///Variables para animaciones
 	//DX10
 	movDX10 = 400.0f;
+	movDX10z = 815.0f;
 	movDX10Offset = 1.0f;
 	rotllanta = 0.0f;
-	rotllantaOffset = 1.0f;
-
+	rotllantaOffset = 1.5f;
+	giroDX10 = 0.0f;
+	giroDX10Offset = 0.8;
 
 	//Ben
 	rotmano = 0.0f;
@@ -1291,147 +1297,104 @@ int main()
 		lastTime = now;
 
 		////////////////////// ANIMACIONES /////////////////////
+		// Vehiculos Motorizados Obligatorios//------------------
 		//DX10------
-		/*if (avanzaDX10)
-		{
+		if (avanzaDX10 && controlDX10) {
+			if (giroDX10 >= 360) {
+				giroDX10 = 0;
+			}
 			if (movDX10 < 990.0f)
 			{
 				movDX10 += movDX10Offset;
 				rotllanta += rotllantaOffset;
-
-
-			else {
-				avanzaDX10 = !avanzaDX10;
-			}
-		}
-		else
-		{
-			if (movDX10 > -990.0f)
-			{
-				movDX10 -= movDX10Offset;
-				rotllanta -= rotllantaOffset;
 			}
 			else {
-				avanzaDX10 = !avanzaDX10;
-			}
-		}*/
-		//---------------
-		//Transformaciones----------
-		//Eco Eco
-		if (mainWindow.getAlien1() == 1.0f && Limite)
-		{
-			//Se activa animacion de mano
-			rotmano += rotmanoOffset;
-			//toca el reloj y comienza la transformacion
-			if (rotmano >= maxRotation) {
-				rotmano = maxRotation; 
-				//Dibuja la esfera y la escala
-				Dibujaresfera = true;
-				escesferax += escesferaOffset;
-				escesferay += escesferaOffset;
-				escesferaz += escesferaOffset;
-				//Llega al tope de crecimiento 
-				if (escesferax == escesferay == escesferaz >= maxEscale) {
-					escesferax = maxEscale;
-					escesferay = maxEscale;
-					escesferaz = maxEscale;
-					Transformar = 1.0f;
-					Dibujaresfera = false;
-					escesferax2 = 6.5;
-					escesferay2 = 6.5;
-					escesferaz2 = 6.5;
-					Limite = !Limite;
+				if (giroDX10 < 90) {
+					if (giroDX10 < 45) {
+						giroDX10 += giroDX10Offset;
+						movDX10 += movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
+					else {
+						movDX10z += movDX10Offset;
+						rotllanta += rotllantaOffset;
+						giroDX10 += giroDX10Offset;
+					}
+				}
+				else {
+					if (movDX10z < 2500.0f)
+					{
+						movDX10z += movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
+					else {
+						controlDX10 = !controlDX10;
+					}
 				}
 			}
 		}
-
-		////Diamante
-		else if (mainWindow.getAlien2() == 1.0f && Limite)
-		{
-				//Se activa animacion de mano
-				rotmano += rotmanoOffset;
-				//toca el reloj y comienza la transformacion
-				if (rotmano >= maxRotation) {
-					rotmano = maxRotation;
-					//Dibuja la esfera y la escala
-					Dibujaresfera = true;
-					escesferax += escesferaOffset;
-					escesferay += escesferaOffset;
-					escesferaz += escesferaOffset;
-					//Llega al tope de crecimiento 
-					if (escesferax == escesferay == escesferaz >= maxEscale) {
-						escesferax = maxEscale;
-						escesferay = maxEscale;
-						escesferaz = maxEscale;
-						Transformar = 2.0f;
-						Dibujaresfera = false;
-						if (Revertir == false) {
-							rotbrazoD += rotbrazoDOffset;
-							if (rotbrazoD >= maxRotation) {
-								rotbrazoD = maxRotation;
-								rotmanoD += rotmanoDOffset;
-								if (rotmanoD >= maxRotation) {
-									rotmanoD = maxRotation;
-									AtaqueDiamante = true;
-									movAtaque += movAtaqueOffset;
-									if (movAtaque >= maxTraslation) {
-										movAtaque = maxTraslation;
-										Revertir = true;
-									}
-								}
-							}
+		else if (avanzaDX10 && controlDX10 == false) {
+			if (giroDX10 < 180) {
+				if (giroDX10 < 135) {
+					movDX10 -= movDX10Offset;
+					rotllanta += rotllantaOffset;
+					giroDX10 += giroDX10Offset;
+				}
+				else {
+					giroDX10 += giroDX10Offset;
+					movDX10z -= movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+			}
+			else {
+				if (movDX10 > 120.0f) {
+					movDX10 -= movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (giroDX10 < 270) {
+						if (giroDX10 < 225) {
+							giroDX10 += giroDX10Offset;
+							movDX10 -= movDX10Offset;
+							rotllanta += rotllantaOffset;
 						}
 						else {
-							rotmanoD -= rotmanoDOffset;
-							if (rotmanoD <= minRotation) {
-								rotmanoD = minRotation;
-								rotbrazoD -= rotbrazoDOffset;
-								if (rotbrazoD <= minRotation) {
-									rotbrazoD = minRotation;
-									AtaqueDiamante = false;
-									escesferax2 = 6.5;
-									escesferay2 = 6.5;
-									escesferaz2 = 6.5;
-									rotmanoD = 0.0;
-									rotbrazoD = 0.0;
-									movAtaque = -35.0;
-									Revertir = false;
-									Limite = !Limite;
-								}
-							}
+							movDX10z += movDX10Offset;
+							rotllanta += rotllantaOffset;
+							giroDX10 += giroDX10Offset;
+						}
+					}
+					else {
+						if (movDX10z > 815.0f)
+						{
+							movDX10z -= movDX10Offset;
+							rotllanta += rotllantaOffset;
+						}
+						else {
+							avanzaDX10 = !avanzaDX10;
 						}
 					}
 				}
-		}
-
-		//Destransformar
-		if (mainWindow.getDestransformar() == 1.0f)
-		{
-			//Dibuja la esfera y la escala
-			Dibujaresfera2 = true;
-			escesferax2 += escesferaOffset;
-			escesferay2 += escesferaOffset;
-			escesferaz2 += escesferaOffset;
-			//Llega al tope de crecimiento 
-			if (escesferax2 == escesferay2 == escesferaz2 >= maxEscale) {
-				escesferax2 = maxEscale;
-				escesferay2 = maxEscale;
-				escesferaz2 = maxEscale;
-				Transformar = 0.0f;
-				Dibujaresfera2 = false;
-				rotmano = rotmano - 90.0f;
-				if (rotmano <= minRotation) {
-					rotmano = minRotation;
-				}
-				escesferax = 6.5;
-				escesferay = 6.5;
-				escesferaz = 6.5;
-				Limite = true;
 			}
 		}
-
-		////--------------
-
+		else {
+			if (giroDX10 < 360) {
+				if (giroDX10 < 315) {
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+					giroDX10 += giroDX10Offset;
+				}
+				else {
+					giroDX10 += giroDX10Offset;
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+			}
+			else {
+				controlDX10 = !controlDX10;
+				avanzaDX10 = !avanzaDX10;
+			}
+		}
 		//Jetsky------	
 		if (JetskyAni && controlJetsky) {
 			if (giroJetsky >= 360) {
@@ -1535,7 +1498,126 @@ int main()
 				JetskyAni = !JetskyAni;
 			}
 		}
+		
+		//Duuf Blimp
 
+
+		////// Fin Animaciones Obligatorias de vehiculos--------
+
+		//Transformaciones----------
+		//Eco Eco
+		if (mainWindow.getAlien1() == 1.0f && Limite)
+		{
+			//Se activa animacion de mano
+			rotmano += rotmanoOffset;
+			//toca el reloj y comienza la transformacion
+			if (rotmano >= maxRotation) {
+				rotmano = maxRotation; 
+				//Dibuja la esfera y la escala
+				Dibujaresfera = true;
+				escesferax += escesferaOffset;
+				escesferay += escesferaOffset;
+				escesferaz += escesferaOffset;
+				//Llega al tope de crecimiento 
+				if (escesferax == escesferay == escesferaz >= maxEscale) {
+					escesferax = maxEscale;
+					escesferay = maxEscale;
+					escesferaz = maxEscale;
+					Transformar = 1.0f;
+					Dibujaresfera = false;
+					escesferax2 = 6.5;
+					escesferay2 = 6.5;
+					escesferaz2 = 6.5;
+					Limite = !Limite;
+				}
+			}
+		}
+
+		////Diamante (ANIMACION COMPLEJA)
+		else if (mainWindow.getAlien2() == 1.0f && Limite)
+		{
+				//Se activa animacion de mano
+				rotmano += rotmanoOffset;
+				//toca el reloj y comienza la transformacion
+				if (rotmano >= maxRotation) {
+					rotmano = maxRotation;
+					//Dibuja la esfera y la escala
+					Dibujaresfera = true;
+					escesferax += escesferaOffset;
+					escesferay += escesferaOffset;
+					escesferaz += escesferaOffset;
+					//Llega al tope de crecimiento 
+					if (escesferax == escesferay == escesferaz >= maxEscale) {
+						escesferax = maxEscale;
+						escesferay = maxEscale;
+						escesferaz = maxEscale;
+						Transformar = 2.0f;
+						Dibujaresfera = false;
+						if (Revertir == false) {
+							rotbrazoD += rotbrazoDOffset;
+							if (rotbrazoD >= maxRotation) {
+								rotbrazoD = maxRotation;
+								rotmanoD += rotmanoDOffset;
+								if (rotmanoD >= maxRotation) {
+									rotmanoD = maxRotation;
+									AtaqueDiamante = true;
+									movAtaque += movAtaqueOffset;
+									if (movAtaque >= maxTraslation) {
+										movAtaque = maxTraslation;
+										Revertir = true;
+									}
+								}
+							}
+						}
+						else {
+							rotmanoD -= rotmanoDOffset;
+							if (rotmanoD <= minRotation) {
+								rotmanoD = minRotation;
+								rotbrazoD -= rotbrazoDOffset;
+								if (rotbrazoD <= minRotation) {
+									rotbrazoD = minRotation;
+									AtaqueDiamante = false;
+									escesferax2 = 6.5;
+									escesferay2 = 6.5;
+									escesferaz2 = 6.5;
+									rotmanoD = 0.0;
+									rotbrazoD = 0.0;
+									movAtaque = -35.0;
+									Revertir = false;
+									Limite = !Limite;
+								}
+							}
+						}
+					}
+				}
+		}
+
+		//Destransformar
+		if (mainWindow.getDestransformar() == 1.0f)
+		{
+			//Dibuja la esfera y la escala
+			Dibujaresfera2 = true;
+			escesferax2 += escesferaOffset;
+			escesferay2 += escesferaOffset;
+			escesferaz2 += escesferaOffset;
+			//Llega al tope de crecimiento 
+			if (escesferax2 == escesferay2 == escesferaz2 >= maxEscale) {
+				escesferax2 = maxEscale;
+				escesferay2 = maxEscale;
+				escesferaz2 = maxEscale;
+				Transformar = 0.0f;
+				Dibujaresfera2 = false;
+				rotmano = rotmano - 90.0f;
+				if (rotmano <= minRotation) {
+					rotmano = minRotation;
+				}
+				escesferax = 6.5;
+				escesferay = 6.5;
+				escesferaz = 6.5;
+				Limite = true;
+			}
+		}
+		////// ANIMACION AVATAR /////////-----------------
 		//Caminata peridot------
 		//Hacia adelante y atras
 		if (keys[GLFW_KEY_W] && keys[GLFW_KEY_S]) {
@@ -1564,7 +1646,9 @@ int main()
 				}
 			}
 		}
-
+		//////////////--------------
+		
+		///////////// ANIMACIONES BASICAS //////////////--------
 		//Dona
 		if (DonaAni) {
 			if (rotDona < 40) {
@@ -1590,6 +1674,16 @@ int main()
 				DonaAni = !DonaAni;
 			}
 		}
+		// Animal
+		
+
+		////////---------------
+		
+		////// Animaciones de Vehiculos motorizados para punto extra ////////////-----
+
+
+
+		///////// Fin animaciones punto extra /////////--------
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -2820,7 +2914,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1000.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.5f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2828,7 +2922,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1000.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.2f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2836,7 +2930,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1000.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.85f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2844,7 +2938,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 1000.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.9f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2852,7 +2946,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1000.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.7f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2860,7 +2954,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1000.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.1f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2868,7 +2962,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.42f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2876,7 +2970,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.12f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2884,7 +2978,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.45f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2892,7 +2986,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.966f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2900,7 +2994,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.8f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2908,7 +3002,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.856f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2916,7 +3010,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.6f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2924,7 +3018,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2932,7 +3026,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1700.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.56f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2941,7 +3035,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 6.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2949,7 +3043,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.8f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2957,7 +3051,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.23f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2965,7 +3059,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.56f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2973,7 +3067,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.389f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2981,7 +3075,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2989,7 +3083,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.189f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -2997,7 +3091,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1600.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.9f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3005,7 +3099,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.45f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3013,7 +3107,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-270.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.65f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3021,7 +3115,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-340.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.89f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3029,7 +3123,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.78f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3037,7 +3131,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 6.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3046,7 +3140,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-410.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.63f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3054,7 +3148,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-480.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.365f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3062,7 +3156,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-550.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.8f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3070,7 +3164,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-620.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 4.9f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3078,7 +3172,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-690.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 6.0f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -3086,7 +3180,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-760.0f, 3.0f, 1500.0f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 9.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 5.31f, 7.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		pinoTex.UseTexture();
 		meshList[4]->RenderMesh();
@@ -4133,11 +4227,12 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		DonutVanLlanta02.RenderModel();
 	
-		//DX Mark 10///////
+		//DX Mark 10 Inicio ///////
 		//Carro 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(movDX10, 0.2f, 815.0f));
+		model = glm::translate(model, glm::vec3(movDX10, 0.2f, movDX10z));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, giroDX10 * toRadians, glm::vec3(0.0f, -1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(10.5f, 10.5f, 10.5f));
 		modelauxMark10 = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -4171,7 +4266,7 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaTrasIzq.RenderModel();
 		model = modelauxMark10;
-		////////
+		////////////////-------------------
 
 		//Barreras entre cuadrante 7 y 8 
 		model = glm::mat4(1.0);

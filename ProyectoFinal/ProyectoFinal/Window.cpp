@@ -132,8 +132,12 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	//{
 	//	theWindow->MovLR -= 1.0;
 	//}
-
-
+	if (key == GLFW_KEY_0) {
+		theWindow->IniciarBlimp = true;
+	}
+	if (key == GLFW_KEY_9) {
+		theWindow->IniciarBlimp = false;
+	}
 
 	if (key >= 0 && key < 1024)
 	{

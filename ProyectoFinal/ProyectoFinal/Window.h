@@ -21,6 +21,15 @@ public:
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
 	GLfloat getIniciarBlimp() { return IniciarBlimp; }
 	
+
+	//Transformacion
+	GLfloat getAlien1() { return Alien1; }
+	GLfloat getAlien2() { return Alien2; }
+	GLfloat getDestransformar(){ return Destransformar; }
+	GLfloat getAtaque() { return Ataque; }
+
+
+
 	~Window();
 private: 
 	GLFWwindow *mainWindow;

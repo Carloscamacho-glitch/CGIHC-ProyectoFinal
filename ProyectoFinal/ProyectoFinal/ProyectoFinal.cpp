@@ -45,7 +45,7 @@ time_t contador, contador2;
 double resta, tiempoguardado, resta2, tiempoguardado2;
 float dia = 0.0f, intensidad = 0.2f, direccionx = -1.0f, direcciony = 0.0f;
 int aux = 0;
-float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 450.5f;
+float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 900.5f;
 float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
 
 //Variables para animaciones
@@ -126,6 +126,27 @@ bool giro1 = false;
 bool regresa = false;
 bool giro2 =  false;
 bool baja = false;
+//Xylene------------
+float movXyleneXoffset = 0.0f;
+float movXyleneYoffset = 0.0f;
+float movXyleneZoffset = 0.0f;
+float movXyleneX = 0.0f;
+float movXyleneY = 0.0f;
+float movXyleneZ = 0.0f;
+float giroXylene = 0.0f;
+float giroXyleneOffset = 0.0f;
+float movXyleneAspY = 0.0f;
+float movXyleneAspYoffset = 0.0f;
+float giroXyleneAsp = 0.0f;
+float giroXyleneAspOffset = 0.0f;
+float movXyleneLuzX = 0.0f;
+float movXyleneLuzZ = 0.0f;
+float movXyleneLuzXoffset = 0.0f;
+float movXyleneLuzZoffset = 0.0f;
+bool XyleneAni = true;
+bool XyleneLuz = true;
+bool ControlXylene = true;
+bool ControlAereo = true;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -134,13 +155,12 @@ std::vector<Shader> shaderList;
 Camera camera;
 Camera camera2;
 Camera camera3;
-Camera* currentCamera;
+Camera* CamaraActual;
 
 Texture estatua;
 Texture MesaLGR;
 Texture pinoTex;
 
-Model Prueba_M; 
 //Ben10 ---------------------------------
 Model SrSmoothy;
 Model SrSmoothyVid;
@@ -323,8 +343,8 @@ static const char* vShader = "shaders/shader_light.vert";
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
 
-
 Skybox skybox;
+Skybox skybox2;
 
 //materiales
 Material Material_brillante;
@@ -817,12 +837,10 @@ int main()
 	estatua.LoadTextureA();
 	MesaLGR = Texture("Textures/MesaLGR.tga");
 	MesaLGR.LoadTextureA();
-
-	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
-	Prueba_M = Model();
-	Prueba_M.LoadModel("Models/ModeloPrueba.obj");
 	pinoTex = Texture("Textures/pino.tga");
 	pinoTex.LoadTextureA();
+
+	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	//Ben 10 --------------------------------
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
@@ -1134,14 +1152,23 @@ int main()
 	LamparaLago.LoadModel("Models/Lamparas/LamparaLago.obj");
 
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_dn.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_up.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_RT.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_IF.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_DN.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_UP.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_BK.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_FT.tga");
+
+	std::vector<std::string> skyboxFaces2;
+	skyboxFaces2.push_back("Textures/Skybox/Noche_RT.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_IF.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_DN.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_UP.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_BK.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_FT.tga");
 
 	skybox = Skybox(skyboxFaces);
+	skybox2 = Skybox(skyboxFaces2);
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
@@ -1187,9 +1214,9 @@ int main()
 		//VECTOR DE DIRECCION
 		0.0f, -1.0f, 0.0f,
 		//Con /Lin /Exp
-		1.0f, 0.0f, 0.0f,
+		1.0f, 0.005f, 0.0f,
 		//VALOR DEL CONO (TAMAÑO)
-		15.0f);
+		35.0f);
 	spotLightCount++;
 	//Carro
 	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
@@ -1304,7 +1331,17 @@ int main()
 	rotHeliceOffset = 20.0f;
 	subeBlimpOffset = 0.5f;
 	giroBlimpOffset = 0.6;
-	movBlimpXOffset = 1.7f;
+	movBlimpXOffset = 1.4f;
+
+	//Xylene
+	movXyleneXoffset = 2.0f;
+	movXyleneYoffset = 2.0f;
+	movXyleneZoffset = 2.0f;
+	giroXyleneOffset = 1.0f;
+	movXyleneAspYoffset = 0.04f;
+	giroXyleneAspOffset = 1.0;
+	movXyleneLuzXoffset = 2.0f;
+	movXyleneLuzZoffset = 2.0f;
 	
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -1321,7 +1358,7 @@ int main()
 			if (giroDX10 >= 360) {
 				giroDX10 = 0;
 			}
-			if (movDX10 < 990.0f)
+			if (movDX10 < 940.0f)
 			{
 				movDX10 += movDX10Offset;
 				rotllanta += rotllantaOffset;
@@ -1413,6 +1450,7 @@ int main()
 				avanzaDX10 = !avanzaDX10;
 			}
 		}
+
 		//Jetsky------	
 		if (JetskyAni && controlJetsky) {
 			if (giroJetsky >= 360) {
@@ -1517,56 +1555,157 @@ int main()
 			}
 		}
 		
-		//Duuf Blimp
-		if (sube && subeBlimp <= 200.0f) {
-			subeBlimp += subeBlimpOffset;
-			rotHelice -= rotHeliceOffset;
+		//Aereas
+		if (ControlAereo) {
+			//Duuf Blimp
+			if (sube && subeBlimp <= 200.0f) {
+				subeBlimp += subeBlimpOffset;
+				rotHelice -= rotHeliceOffset;
+			}
+			else if (sube) {
+				avanza = !avanza;
+				sube = !sube;
+			}
+			else if (avanza && movBlimpX >= -2500.0f) {
+				movBlimpX -= movBlimpXOffset;
+				rotHelice -= rotHeliceOffset;
+			}
+			else if (avanza) {
+				giro1 = !giro1;
+				avanza = !avanza;
+			}
+			else if (giro1 && giroBlimp <= 180.0f) {
+				giroBlimp += giroBlimpOffset;
+				rotHelice -= rotHeliceOffset;
+			}
+			else if (giro1) {
+				regresa = !regresa;
+				giro1 = !giro1;
+			}
+			else if (regresa && movBlimpX <= 3.0f) {
+				movBlimpX += movBlimpXOffset;
+				rotHelice -= rotHeliceOffset;
+			}
+			else if (regresa) {
+				regresa = !regresa;
+				giro2 = !giro2;
+			}
+			else if (giro2 && giroBlimp >= 0.0f) {
+				giroBlimp -= giroBlimpOffset;
+				rotHelice -= rotHeliceOffset;
+			}
+			else if (giro2) {
+				baja = !baja;
+				giro2 = !giro2;
+			}
+			else if (baja && subeBlimp >= 8.2f) {
+				subeBlimp -= subeBlimpOffset;
+				rotHelice -= rotHeliceOffset;
+			}
+			else if (baja) {
+				sube = !sube;
+				baja = !baja;
+				ControlAereo = !ControlAereo;
+			}
+			////// Fin Animaciones Obligatorias de vehiculos--------
 		}
-		else if (sube) {
-			avanza = !avanza;
-			sube = !sube;
+		else {
+			//Xylene
+			if (XyleneAni && ControlXylene) {
+				if (movXyleneY < 50) {
+					movXyleneY += movXyleneYoffset;
+					movXyleneAspY -= movXyleneAspYoffset;
+					if (giroXyleneAsp < 32) {
+						giroXyleneAsp += giroXyleneAspOffset;
+					}
+					else {
+						giroXyleneAsp = 32.5f;
+					}
+				}
+				else if (movXyleneY >= 50 && movXyleneY <= 250) {
+					movXyleneY += movXyleneYoffset;
+				}
+				else {
+					if (movXyleneX > -1500 && movXyleneZ > -1500) {
+						movXyleneX -= movXyleneXoffset;
+						movXyleneZ -= movXyleneZoffset;
+					}
+					else {
+						if (giroXylene < 89) {
+							movXyleneLuzZ -= movXyleneLuzZoffset;
+							giroXylene += giroXyleneOffset;
+						}
+						else {
+							ControlXylene = !ControlXylene;
+						}
+					}
+				}
+			}
+			else if (XyleneAni && ControlXylene == false) {
+				if (movXyleneX > -3000 && movXyleneZ < 0) {
+					giroXylene = 90.0f;
+					movXyleneLuzZ = 0.0f;
+					movXyleneX -= movXyleneXoffset;
+					movXyleneZ += movXyleneZoffset;
+				}
+				else {
+					if (giroXylene < 224) {
+						giroXylene += giroXyleneOffset;
+						if (giroXylene < 180) {
+							movXyleneLuzX -= movXyleneLuzXoffset;
+						}
+						else {
+							movXyleneLuzZ += movXyleneLuzZoffset;
+						}
+					}
+					else {
+						if (movXyleneX < 0) {
+							giroXylene = 225.0f;
+							movXyleneLuzX = 0.0f;
+							movXyleneLuzZ = 0.0f;
+							movXyleneX += movXyleneXoffset;
+						}
+						else {
+							XyleneAni = !XyleneAni;
+						}
+					}
+				}
+			}
+			else {
+				if (giroXylene < 360) {
+					giroXylene += giroXyleneOffset;
+					if (giroXylene < 269) {
+						movXyleneLuzZ += movXyleneLuzZoffset;
+					}
+					else {
+						movXyleneLuzX += movXyleneLuzXoffset;
+					}
+				}
+				else {
+					if (movXyleneY > 50) {
+						giroXylene = 360;
+						movXyleneY -= movXyleneYoffset;
+					}
+					else if (movXyleneY <= 50 && movXyleneY > 0) {
+						movXyleneY -= movXyleneYoffset;
+						movXyleneAspY += movXyleneAspYoffset;
+					}
+					else if (giroXyleneAsp > 0) {
+						giroXyleneAsp -= giroXyleneAspOffset;
+					}
+					else {
+						movXyleneLuzX = 0.0f;
+						movXyleneLuzZ = 0.0f;
+						giroXylene = 0;
+						giroXyleneAsp = 0.0f;
+						movXyleneY = 0.0f;
+						ControlXylene = !ControlXylene;
+						XyleneAni = !XyleneAni;
+						ControlAereo = !ControlAereo;
+					}
+				}
+			}
 		}
-		else if (avanza && movBlimpX >= -2500.0f) {
-			movBlimpX -= movBlimpXOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (avanza) {
-			giro1 = !giro1;
-			avanza = !avanza;
-		}
-		else if (giro1 && giroBlimp <= 180.0f) {
-			giroBlimp += giroBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (giro1) {
-			regresa = !regresa;
-			giro1 = !giro1;
-		}
-		else if (regresa && movBlimpX <= 3.0f) {
-			movBlimpX += movBlimpXOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (regresa) {
-			regresa = !regresa;
-			giro2 = !giro2;
-		}
-		else if (giro2 && giroBlimp >= 0.0f) {
-			giroBlimp -= giroBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (giro2) {
-			baja = !baja;
-			giro2 = !giro2;
-		}
-		else if (baja && subeBlimp >= 8.2f) {
-			subeBlimp -= subeBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (baja) {
-			sube = !sube;
-			baja = !baja;
-		}
-
 
 		////// Fin Animaciones Obligatorias de vehiculos--------
 
@@ -1846,21 +1985,25 @@ int main()
 		//Recibir eventos del usuario
 		glfwPollEvents();
 		if (mainWindow.getCamara() == 1.0f) {
-			currentCamera = &camera;
+			CamaraActual = &camera;
 		}
 		else if (mainWindow.getCamara() == 2.0f) {
-			currentCamera = &camera2;
+			CamaraActual = &camera2;
 		}
-		else {
-			currentCamera = &camera3;
-		}
-		currentCamera->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime, peridotPos);
-		currentCamera->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange(), peridotPos);
+		CamaraActual->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime, peridotPos);
+		CamaraActual->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange(), peridotPos);
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		skybox.DrawSkybox(currentCamera->calculateViewMatrix(), projection);
+		
+		if (dia == 1.0f) {
+			skybox.DrawSkybox(CamaraActual->calculateViewMatrix(), projection);
+		}
+		else {
+			skybox2.DrawSkybox(CamaraActual->calculateViewMatrix(), projection);
+		}
+
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
@@ -1875,8 +2018,8 @@ int main()
 		uniformShininess = shaderList[0].GetShininessLocation();
 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
-		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(CamaraActual->calculateViewMatrix()));
+		glUniform3f(uniformEyePosition, CamaraActual->getCameraPosition().x, CamaraActual->getCameraPosition().y, CamaraActual->getCameraPosition().z);
 
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
@@ -1891,14 +2034,30 @@ int main()
 		if (mainWindow.getLucesspot() == 1.0f) {
 			shaderList[0].SetSpotLights(spotLights, spotLightCount);
 			//luz de la nave de xilene
-			spotLights[0].SetFlash(glm::vec3(posnaveX + 70, posnaveY + 25, posnaveZ + 70), glm::vec3(0.0f, -1.0f, 0.0f));
+			if (giroXylene < 90) {
+				spotLights[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else if (giroXylene < 225) {
+				spotLights[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ - 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else {
+				spotLights[0].SetFlash(glm::vec3(posnaveX - 100 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
 			//luz del rustbucket
 			spotLights[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		}
 		else if (mainWindow.getLucesspot() == 0.0f) {
 			shaderList[0].SetSpotLights(spotLights2, spotLightCount);
 			//luz de la nave de xilene
-			spotLights2[0].SetFlash(glm::vec3(posnaveX + 70, posnaveY + 25, posnaveZ + 70), glm::vec3(0.0f, -1.0f, 0.0f));
+			if (giroXylene < 90) {
+				spotLights2[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else if (giroXylene < 225) {
+				spotLights2[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ - 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else {
+				spotLights2[0].SetFlash(glm::vec3(posnaveX - 100 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
 			//luz del rustbucket
 			spotLights2[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		}
@@ -3478,8 +3637,8 @@ int main()
 
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(posnaveX, posnaveY, posnaveZ));
-		model = glm::rotate(model, -45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(posnaveX + movXyleneX, posnaveY + movXyleneY, posnaveZ + movXyleneZ));
+		model = glm::rotate(model, (-45 + giroXylene) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(5.5f, 5.5f, 5.5f));
 		modelauxShip = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -3487,8 +3646,8 @@ int main()
 		model = modelauxShip;
 
 		//Arco
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -32.5f * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f + movXyleneAspY, 0.0f));
+		model = glm::rotate(model, (-32.5f + giroXyleneAsp) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		XyleneShip_Arco.RenderModel();
 		model = modelauxShip;

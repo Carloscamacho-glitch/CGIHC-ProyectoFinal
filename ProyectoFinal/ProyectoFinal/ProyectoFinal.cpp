@@ -111,6 +111,14 @@ float rotDonaOffset = 0.0f;
 float rotSoporteOffset = 0.0f;
 float movSoporteOffset = 0.0f;
 bool DonaAni = true;
+//Pajaro
+float rotAlaDer = 0.0;
+float rotAlaIzq = 0.0;
+float rotAlasOffset = 0.0;
+float movCuerpo = 0.0;
+float movCuerpoOffset = 0.08;
+float maxRotationAlas = 0;
+bool Vuelo = true;
 //BlimpDuff---------
 float rotHelice = 0.0f;
 float rotHeliceOffset = 0.0f;
@@ -147,6 +155,11 @@ bool XyleneAni = true;
 bool XyleneLuz = true;
 bool ControlXylene = true;
 bool ControlAereo = true;
+//Trickster------------- (Animacion De Chill)
+float rotbrazoT = 0.0f;
+float rotbrazoTOffset = 0.0f;
+bool SaludoT = true;
+float maxSaludo = 0.0f;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -270,6 +283,8 @@ Model gompersPTI;
 Model gompers;
 Model estatuaBill;
 Model trickster;
+Model tricksterBrazo;
+Model tricksterMano;
 Model mysteryShack;
 Model pato;
 Model patoPDD;
@@ -312,16 +327,16 @@ Model Espectacular1;
 Model Espectacular2;
 Model EspectacularCocinado1;
 Model EspectacularCocinado2;
-
 Model Jetsky;
 Model Lancha;
-
 Model Reflector;
-
 Model ArbolSolo1;
 Model ArbolSolo2;
 Model ArbolSolo3;
 Model ArbolSolo4;
+Model Pajaro;
+Model AlaDer;
+Model AlaIzq;
 //Lamparas 
 Model Candil; 
 Model Lampara1;
@@ -1044,6 +1059,10 @@ int main()
 	estatuaBill.LoadModel("Models/Gravity Falls/Estatua Bill/Estatua Bill.obj");
 	trickster = Model();
 	trickster.LoadModel("Models/Gravity Falls/Trickster/trickster.obj");
+	tricksterBrazo = Model();
+	tricksterBrazo.LoadModel("Models/Gravity Falls/Trickster/trickster_brazo.obj");
+	tricksterMano = Model();
+	tricksterMano.LoadModel("Models/Gravity Falls/Trickster/trickster_mano.obj");
 	mysteryShack = Model();
 	mysteryShack.LoadModel("Models/Gravity Falls/Mystery Shack/Mystery Shack.obj");
 	pato = Model();
@@ -1141,6 +1160,12 @@ int main()
 	Esfera2.LoadModel("Models/Extras/Esfera2.obj");
 	Reflector = Model();
 	Reflector.LoadModel("Models/Extras/Reflector.obj");
+	Pajaro = Model();
+	Pajaro.LoadModel("Models/Extras/Bird.obj");
+	AlaDer = Model();
+	AlaDer.LoadModel("Models/Extras/alaDerecha.obj");
+	AlaIzq = Model();
+	AlaIzq.LoadModel("Models/Extras/alaIzquierda.obj");
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -1342,6 +1367,19 @@ int main()
 	giroXyleneAspOffset = 1.0;
 	movXyleneLuzXoffset = 2.0f;
 	movXyleneLuzZoffset = 2.0f;
+
+	//Pajaro
+	rotAlaDer = 0.0;
+	rotAlaIzq = 0.0;
+	rotAlasOffset = 1.2;
+	movCuerpo = 31.5;
+	movCuerpoOffset = 0.08;
+	maxRotationAlas = 45;
+
+	//Trickster
+	rotbrazoT = 0.0f;
+	rotbrazoTOffset = 0.6f;
+	maxSaludo = 160.f;
 	
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -1554,7 +1592,7 @@ int main()
 				JetskyAni = !JetskyAni;
 			}
 		}
-		
+
 		//Aereas
 		if (ControlAereo) {
 			//Duuf Blimp
@@ -1717,7 +1755,7 @@ int main()
 			rotmano += rotmanoOffset;
 			//toca el reloj y comienza la transformacion
 			if (rotmano >= maxRotation) {
-				rotmano = maxRotation; 
+				rotmano = maxRotation;
 				//Dibuja la esfera y la escala
 				Dibujaresfera = true;
 				escesferax += escesferaOffset;
@@ -1741,60 +1779,60 @@ int main()
 		////Diamante (ANIMACION COMPLEJA)
 		else if (mainWindow.getAlien2() == 1.0f && Limite)
 		{
-				//Se activa animacion de mano
-				rotmano += rotmanoOffset;
-				//toca el reloj y comienza la transformacion
-				if (rotmano >= maxRotation) {
-					rotmano = maxRotation;
-					//Dibuja la esfera y la escala
-					Dibujaresfera = true;
-					escesferax += escesferaOffset;
-					escesferay += escesferaOffset;
-					escesferaz += escesferaOffset;
-					//Llega al tope de crecimiento 
-					if (escesferax == escesferay == escesferaz >= maxEscale) {
-						escesferax = maxEscale;
-						escesferay = maxEscale;
-						escesferaz = maxEscale;
-						Transformar = 2.0f;
-						Dibujaresfera = false;
-						if (Revertir == false) {
-							rotbrazoD += rotbrazoDOffset;
-							if (rotbrazoD >= maxRotation) {
-								rotbrazoD = maxRotation;
-								rotmanoD += rotmanoDOffset;
-								if (rotmanoD >= maxRotation) {
-									rotmanoD = maxRotation;
-									AtaqueDiamante = true;
-									movAtaque += movAtaqueOffset;
-									if (movAtaque >= maxTraslation) {
-										movAtaque = maxTraslation;
-										Revertir = true;
-									}
-								}
-							}
-						}
-						else {
-							rotmanoD -= rotmanoDOffset;
-							if (rotmanoD <= minRotation) {
-								rotmanoD = minRotation;
-								rotbrazoD -= rotbrazoDOffset;
-								if (rotbrazoD <= minRotation) {
-									rotbrazoD = minRotation;
-									AtaqueDiamante = false;
-									escesferax2 = 6.5;
-									escesferay2 = 6.5;
-									escesferaz2 = 6.5;
-									rotmanoD = 0.0;
-									rotbrazoD = 0.0;
-									movAtaque = -35.0;
-									Revertir = false;
-									Limite = !Limite;
+			//Se activa animacion de mano
+			rotmano += rotmanoOffset;
+			//toca el reloj y comienza la transformacion
+			if (rotmano >= maxRotation) {
+				rotmano = maxRotation;
+				//Dibuja la esfera y la escala
+				Dibujaresfera = true;
+				escesferax += escesferaOffset;
+				escesferay += escesferaOffset;
+				escesferaz += escesferaOffset;
+				//Llega al tope de crecimiento 
+				if (escesferax == escesferay == escesferaz >= maxEscale) {
+					escesferax = maxEscale;
+					escesferay = maxEscale;
+					escesferaz = maxEscale;
+					Transformar = 2.0f;
+					Dibujaresfera = false;
+					if (Revertir == false) {
+						rotbrazoD += rotbrazoDOffset;
+						if (rotbrazoD >= maxRotation) {
+							rotbrazoD = maxRotation;
+							rotmanoD += rotmanoDOffset;
+							if (rotmanoD >= maxRotation) {
+								rotmanoD = maxRotation;
+								AtaqueDiamante = true;
+								movAtaque += movAtaqueOffset;
+								if (movAtaque >= maxTraslation) {
+									movAtaque = maxTraslation;
+									Revertir = true;
 								}
 							}
 						}
 					}
+					else {
+						rotmanoD -= rotmanoDOffset;
+						if (rotmanoD <= minRotation) {
+							rotmanoD = minRotation;
+							rotbrazoD -= rotbrazoDOffset;
+							if (rotbrazoD <= minRotation) {
+								rotbrazoD = minRotation;
+								AtaqueDiamante = false;
+								escesferax2 = 6.5;
+								escesferay2 = 6.5;
+								escesferaz2 = 6.5;
+								rotmanoD = 0.0;
+								rotbrazoD = 0.0;
+								movAtaque = -35.0;
+								Revertir = false;
+								Limite = !Limite;
+							}
+						}
+					}
 				}
+			}
 		}
 
 		//Destransformar
@@ -1853,7 +1891,6 @@ int main()
 			}
 		}
 		//////////////--------------
-		
 		///////////// ANIMACIONES BASICAS //////////////--------
 		//Dona
 		if (DonaAni) {
@@ -1880,19 +1917,59 @@ int main()
 				DonaAni = !DonaAni;
 			}
 		}
-		// Animal
-		
-
+		//Pajaro
+		if (Vuelo) {
+			rotAlaDer += rotAlasOffset;
+			rotAlaIzq += rotAlasOffset;
+			movCuerpo += movCuerpoOffset;
+			if (movCuerpo >= 34.5) {
+				movCuerpo = 34.5;
+				if (rotAlaDer >= maxRotationAlas && rotAlaIzq >= maxRotationAlas) {
+					rotAlaDer = maxRotationAlas;
+					rotAlaIzq = maxRotationAlas;
+					Vuelo = !Vuelo;
+				}
+			}
+		}
+		else {
+			if (rotAlaDer > 0 && rotAlaIzq > 0) {
+				rotAlaDer -= rotAlasOffset;
+				rotAlaIzq -= rotAlasOffset;
+				movCuerpo -= movCuerpoOffset;
+				if (movCuerpo <= 31.5) {
+					movCuerpo = 31.5;
+					if (rotAlaDer >= -45 && rotAlaIzq >= -45) {
+						rotAlaDer = -45;
+						rotAlaIzq = -45;
+						Vuelo = !Vuelo;
+					}
+				}
+			}
+		}
 		////////---------------
-		
-		////// Animaciones de Vehiculos motorizados para punto extra ////////////-----
+
+		//////////"Animacion" extra de Chill porque ya se habia trabajado y se queda para no desperdiciarla////////
+		// Trickster
+		if (SaludoT) {
+			rotbrazoT += rotbrazoTOffset;
+			if (rotbrazoT >= maxSaludo) {
+				rotbrazoT = maxSaludo;
+				SaludoT = !SaludoT;
+			}
+		}
+		else {
+			if (rotbrazoT > 0) {
+				rotbrazoT -= rotbrazoTOffset;
+				if (rotbrazoT <= 0)
+				{
+					rotbrazoT = 0.0f;
+					SaludoT = !SaludoT;
+				}
+			}
+		}
 
 
 
-		///////// Fin animaciones punto extra /////////--------
-
-		
- 
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -1996,7 +2073,7 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+
 		if (dia == 1.0f) {
 			skybox.DrawSkybox(CamaraActual->calculateViewMatrix(), projection);
 		}
@@ -2011,7 +2088,7 @@ int main()
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
 
-	
+
 
 		//información en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
@@ -2028,7 +2105,7 @@ int main()
 			shaderList[0].SetPointLights(pointLights, pointLightCount);
 		}
 		else {
-			shaderList[0].SetPointLights(pointLights, pointLightCount-1);
+			shaderList[0].SetPointLights(pointLights, pointLightCount - 1);
 		}
 
 		if (mainWindow.getLucesspot() == 1.0f) {
@@ -2066,6 +2143,8 @@ int main()
 		glm::mat4 modelauxMark10(1.0);
 		glm::mat4 modelauxRust(1.0);
 		glm::mat4 modelauxBen(1.0);
+		glm::mat4 modelauxPajaro(1.0);
+		glm::mat4 modelauxTrickster(1.0);
 		glm::mat4 modelauxDiamante(1.0);
 		glm::mat4 modelauxEscarabola(1.0);
 		glm::mat4 modelauxCrab(1.0);
@@ -3868,12 +3947,52 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		estatuaBill.RenderModel();
 
-		//trickster
+		//trickster--------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(450.0f, 0.0f, -150.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		modelauxTrickster = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		trickster.RenderModel();
+
+		//Brazo 
+		model = modelauxTrickster;
+		model = glm::translate(model, glm::vec3(-0.458f, 1.541f, -0.014f));
+		model = glm::rotate(model, rotbrazoT * toRadians, glm::vec3(0.0f, 0.0, -1.0f));
+		modelauxTrickster = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tricksterBrazo.RenderModel();
+
+		//Mano
+		model = modelauxTrickster;
+		model = glm::translate(model, glm::vec3(-0.034f, -0.418f, 0.042f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tricksterMano.RenderModel();
+
+		/////------------
+
+		//Pajaro---------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(456.5f, movCuerpo, -150.0f));
+		model = glm::scale(model, glm::vec3(17.0f, 17.0f, 17.0f));
+		modelauxPajaro = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pajaro.RenderModel();
+
+		//Ala derecha
+		model = modelauxPajaro;
+		model = glm::translate(model, glm::vec3(0.053f, 0.073f, 0.05f));
+		model = glm::rotate(model, rotAlaDer * toRadians, glm::vec3(0.0f, 0.0, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		AlaDer.RenderModel();
+
+		//Ala Izquierda
+		model = modelauxPajaro;
+		model = glm::translate(model, glm::vec3(-0.053f, 0.073f, 0.05f));
+		model = glm::rotate(model, rotAlaIzq * toRadians, glm::vec3(0.0f, 0.0, -1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		AlaIzq.RenderModel();
+		/////----------------
 		
 		//Flores
 		model = glm::mat4(1.0);
@@ -4499,7 +4618,6 @@ int main()
 		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaTrasIzq.RenderModel();
-		model = modelauxMark10;
 		////////////////-------------------
 
 		//Barreras entre cuadrante 7 y 8 

@@ -118,10 +118,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->Camara = 2.0f;
 	}
-	if (key == GLFW_KEY_3)
-	{
-		theWindow->Camara = 3.0f;
-	}
 	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
 	{
 		if (theWindow->Lucesspot < 1.0f) {

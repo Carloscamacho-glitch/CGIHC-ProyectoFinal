@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
-# File Created: 09.05.2024 09:39:11
+# File Created: 10.05.2024 13:26:25
 
 mtllib Helice1.mtl
 
@@ -7,14 +7,14 @@ mtllib Helice1.mtl
 # object Helice2
 #
 
-v  -8.5414 5.3909 -1.5832
-v  -6.3084 6.3158 -1.5849
-v  -4.0755 5.3909 -1.5867
-v  -9.4664 3.1579 -1.5824
-v  -8.5414 0.9249 -1.5832
-v  -6.3084 0.0000 -1.5849
-v  -4.0755 0.9249 -1.5867
-v  -3.1505 3.1579 -1.5875
+v  -2.2329 2.2330 0.0017
+v  0.0001 3.1579 0.0000
+v  2.2330 2.2330 -0.0017
+v  -3.1579 0.0000 0.0026
+v  -2.2329 -2.2330 0.0017
+v  0.0001 -3.1579 0.0000
+v  2.2330 -2.2330 -0.0017
+v  3.1580 0.0000 -0.0026
 # 8 vertices
 
 vn -0.0008 0.0000 -1.0000
@@ -37,7 +37,7 @@ vt 1.0017 0.7815 0.0000
 
 o Helice2
 g Helice2
-usemtl BlimpDuff_DTZ3_Duff_blimpShape_blimp_m
+usemtl Helice1_BlimpDuff_DTZ3_Duff_blimpShape_blimp_m
 s 1
 f 1/1/1 2/2/2 3/3/1 
 f 1/1/1 3/3/1 4/4/1 

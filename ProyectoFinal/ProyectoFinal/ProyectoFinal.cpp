@@ -107,6 +107,21 @@ float rotDonaOffset = 0.0f;
 float rotSoporteOffset = 0.0f;
 float movSoporteOffset = 0.0f;
 bool DonaAni = true;
+//BlimpDuff---------
+float rotHelice = 0.0f;
+float rotHeliceOffset = 0.0f;
+float subeBlimp = 0.0f;
+float subeBlimpOffset = 0.0f;
+float giroBlimp = 0.0f;
+float giroBlimpOffset = 0.0f;
+float movBlimpX = 0.0f;
+float movBlimpXOffset = 0.0f;
+bool sube = true;
+bool avanza = false;
+bool giro1 = false;
+bool regresa = false;
+bool giro2 =  false;
+bool baja = false;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -181,7 +196,6 @@ Model DonutVanLlanta01;
 Model DonutVanLlanta02;
 Model BlimpDuff;
 Model Helice1;
-Model Helice2;
 
 //Steven Universe -----------------------
 Model LGR;
@@ -317,7 +331,6 @@ Material Material_opaco;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 static double limitFPS = 1.0 / 60.0;
-
 
 
 //función de calculo de normales por promedio de vértices 
@@ -790,6 +803,7 @@ int main()
 	CrearCubo();
 	CrearMesa();
 	crearPino();
+	
 
 	//Camara en 3ra persona
 	camera = Camera(glm::vec3(-300.0f, 30.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
@@ -917,8 +931,6 @@ int main()
 	BlimpDuff.LoadModel("Models/Simpsons/Blimp/BlimpDuff.obj");
 	Helice1 = Model();
 	Helice1.LoadModel("Models/Simpsons/Blimp/Helice1.obj");
-	Helice2 = Model();
-	Helice2.LoadModel("Models/Simpsons/Blimp/Helice2.obj");
 
 
 	//Steven Universe -----------------------
@@ -1285,6 +1297,12 @@ int main()
 	rotDonaOffset = 0.1f;
 	rotSoporteOffset = 0.1f;
 	movSoporteOffset = 0.0001f;
+
+	//Blimp Duff
+	rotHeliceOffset = 20.0f;
+	subeBlimpOffset = 0.5f;
+	giroBlimpOffset = 0.6;
+	movBlimpXOffset = 1.7f;
 	
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -1540,6 +1558,8 @@ int main()
 			}
 		}
 
+		 
+
 		//Caminata peridot------
 		//Hacia adelante y atras
 		if (keys[GLFW_KEY_W] && keys[GLFW_KEY_S]) {
@@ -1594,6 +1614,57 @@ int main()
 				DonaAni = !DonaAni;
 			}
 		}
+
+		//BlimpDuff
+		if (sube && subeBlimp <= 200.0f) {
+			subeBlimp += subeBlimpOffset;
+			rotHelice -= rotHeliceOffset;
+		}
+		else if (sube) {
+			avanza = !avanza;
+			sube = !sube;
+		}
+		else if (avanza && movBlimpX >= -2500.0f) {
+			movBlimpX -= movBlimpXOffset;
+			rotHelice -= rotHeliceOffset;
+		}
+		else if (avanza) {
+			giro1 = !giro1;
+			avanza = !avanza;
+		}
+		else if (giro1 && giroBlimp <= 180.0f) {
+			giroBlimp += giroBlimpOffset;
+			rotHelice -= rotHeliceOffset;
+		}
+		else if (giro1) {
+			regresa = !regresa;
+			giro1 = !giro1;
+		}
+		else if (regresa && movBlimpX <= 3.0f) {
+			movBlimpX += movBlimpXOffset;
+			rotHelice -= rotHeliceOffset;
+		}
+		else if (regresa) {
+			regresa = !regresa;
+			giro2 = !giro2;
+		}
+		else if (giro2 && giroBlimp >= 0.0f) {
+			giroBlimp -= giroBlimpOffset;
+			rotHelice -= rotHeliceOffset;
+		}
+		else if (giro2) {
+			baja = !baja;
+			giro2 = !giro2;
+		}
+		else if (baja && subeBlimp >= 8.2f) {
+			subeBlimp -= subeBlimpOffset;
+			rotHelice -= rotHeliceOffset;
+		}
+		else if (baja) {
+			sube = !sube;
+			baja = !baja;
+		}
+ 
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -1707,6 +1778,8 @@ int main()
 		uniformView = shaderList[0].GetViewLocation();
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
+
+	
 
 		//información en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
@@ -3292,22 +3365,25 @@ int main()
 
 		//Blimp Duff
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1650.5f, 0.0f, 450.5f));
+		model = glm::translate(model, glm::vec3(1650 + movBlimpX, subeBlimp, 450.5f));
 		model = glm::scale(model, glm::vec3(3.5f, 3.0f, 3.5f));
 		model = glm::rotate(model, -75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, giroBlimp * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelauxBlimp = model; 
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BlimpDuff.RenderModel();
 		model = modelauxBlimp;
 
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-6.0f, 3.0f, -1.8f));
+		model = glm::rotate(model, rotHelice * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Helice1.RenderModel();
 		model = modelauxBlimp;
 
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(6.0f, 3.0f, -1.8f));
+		model = glm::rotate(model, rotHelice * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Helice2.RenderModel();
+		Helice1.RenderModel();
 		model = modelauxBlimp;
 
 

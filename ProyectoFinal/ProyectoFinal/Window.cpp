@@ -20,7 +20,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 		keys[i] = 0;
 	}
 	//Transformacion
-	Alien1 = Alien2 = Destransformar = Ataque = 0.0f;
+	Alien1 = Alien2 = Destransformar = 0.0f;
 
 }
 int Window::Initialise()
@@ -150,10 +150,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			theWindow->Alien1 = 0.0f;
 			theWindow->Alien2 = 0.0f;
 		}
-	}
-	if (key == GLFW_KEY_M)
-	{
-		theWindow->Ataque = 1.0;
 	}
 
 	if (key >= 0 && key < 1024)

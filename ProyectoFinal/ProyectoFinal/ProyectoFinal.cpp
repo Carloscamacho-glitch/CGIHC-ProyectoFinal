@@ -680,10 +680,6 @@ void crearPino()
 		42, 43, 40,
 
 
-		//		//ArribaB
-				//44,45,46,
-				//46,47,44,
-
 				//Segundo Piso
 				//FrenteA
 				48, 49, 50,

@@ -17,15 +17,12 @@ Proyecto Final
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
-//para probar el importer
-//#include<assimp/Importer.hpp>
 
 #include "Window.h"
 #include "Mesh.h"
 #include "Shader_light.h"
 #include "Camera.h"
 #include "Texture.h"
-#include "Sphere.h"
 #include "Model.h"
 #include "Skybox.h"
 
@@ -3133,10 +3130,7 @@ int main()
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8.8f, 8.8f, 8.8f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		mysteryShack.RenderModel();
-		glDisable(GL_BLEND);
 
 		//Dipper
 		glm::mat4 ModelAuxDipper1(1.0);

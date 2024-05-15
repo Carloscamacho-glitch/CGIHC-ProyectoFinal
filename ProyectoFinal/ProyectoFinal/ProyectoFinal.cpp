@@ -33,6 +33,13 @@ Proyecto Final
 #include "SpotLight.h"
 #include "Material.h"
 #include <time.h> //tiempo
+
+//Para audio 
+#include<iostream>
+#include <irrKlang.h>
+using namespace irrklang;
+//#pragma comment(lib, “irrKlang.lib”)
+
 const float toRadians = 3.14159265f / 180.0f;
 bool* keys;
 glm::vec3 peridotPos = glm::vec3(-200.0f, 12.0f, 0.0f);
@@ -1189,6 +1196,55 @@ int main()
 	skyboxFaces2.push_back("Textures/Skybox/Noche_BK.tga");
 	skyboxFaces2.push_back("Textures/Skybox/Noche_FT.tga");
 
+	//Audio
+	//vec3df pos3d2(450, 51, -1050);
+	ISoundEngine* engine = createIrrKlangDevice();
+	ISoundEngine* engine2 = createIrrKlangDevice();
+	//ISoundEngine* engine3 = createIrrKlangDevice();
+	//ISoundEngine* engine4 = createIrrKlangDevice();
+	//ISoundEngine* engine4 = createIrrKlangDevice();
+	//engine->play2D("Media/Gravity Falls - Opening Theme Song.mp3", true);
+	engine2->play3D("Media/Steven Universe-Rosquillas.mp3", vec3df(50,0,0),true);
+	
+	//Prueba con bandera ------------------
+	//bool posicional = false;
+	//if (posicional == false)
+	//{
+	//	engine->play2D("Media/Gravity Falls - Opening Theme Song.mp3", true);
+	//	if ((peridotPos.x, peridotPos.y, peridotPos.z) >= (420, 0, -900)) {
+	//		posicional = !posicional;
+	//	}
+	//}
+	//else {
+	//	/*ISoundSource* shootSound = engine->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
+	//	shootSound->setDefaultVolume(0.05f);
+	//	engine->play2D(shootSound, true);*/
+
+	//	ISound* snd = engine2->play3D("Media/Steven Universe-Rosquillas.mp3", vec3df(450, 0, -1050), true); if (snd) {
+	//		snd->setVolume(5.0f);
+	//		//snd->setMinDistance(20.0f);
+	//	}
+	//	if ((peridotPos.x, peridotPos.y, peridotPos.z) <= (420, 0, -900)) {
+	//		posicional = !posicional;
+	//	}
+	//}
+	//----------------------
+	
+	/*else if((peridotPos.x, peridotPos.y, peridotPos.z) = (450, 0, -1030))*/
+	
+
+	/*ISoundSource* shootSound2 = engine2->addSoundSourceFromFile("Media/Steven Universe-Rosquillas.mp3");
+	shootSound2->setDefaultVolume(1000.0f);
+	shootSound2->setDefaultMinDistance(20.0f);
+	engine2->play3D(shootSound2, vec3df(450, 0, -1030), true);*/
+
+	ISoundSource* shootSound = engine2->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
+	shootSound->setDefaultVolume(0.09f);
+	engine2->play2D(shootSound, true);
+
+	//engine2->play3D("Media/Gravity Falls - Opening Theme Song.mp3", vec3df (50,3,0), true);
+	
+
 	skybox = Skybox(skyboxFaces);
 	skybox2 = Skybox(skyboxFaces2);
 
@@ -1385,6 +1441,10 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
+
+		//Audio 
+		//vec3df pos3d(peridotPos.x, peridotPos.y, peridotPos.z);
+
 
 		////////////////////// ANIMACIONES /////////////////////
 		// Vehiculos Motorizados Obligatorios//------------------
@@ -1861,11 +1921,14 @@ int main()
 		////// ANIMACION AVATAR /////////-----------------
 		//Caminata peridot------
 		//Hacia adelante y atras
+		
+
 		if (keys[GLFW_KEY_W] && keys[GLFW_KEY_S]) {
 			rotPeridotPiernas = rotPeridotPiernas;
 			rotPeridotBrazos = rotPeridotBrazos;
 		}
 		else if (keys[GLFW_KEY_W] || keys[GLFW_KEY_S]) {
+			//engine3->play3D("Media/Sonido de pasos.mp3", vec3df(pos3d), true);
 			if (movPeridot) {
 				if (rotPeridotPiernas < 10.0f)
 				{

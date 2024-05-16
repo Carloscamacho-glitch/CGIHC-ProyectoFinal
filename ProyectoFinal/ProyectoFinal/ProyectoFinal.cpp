@@ -51,6 +51,7 @@ float dia = 0.0f, intensidad = 0.2f, direccionx = -1.0f, direcciony = 0.0f;
 int aux = 0;
 float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 900.5f;
 float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
+int nada = 0, nada2 = 0;
 
 //Variables para animaciones
 //DX10------------
@@ -63,6 +64,7 @@ float giroDX10 = 0.0;
 float giroDX10Offset = 0.0f;
 bool avanzaDX10 = true;
 bool controlDX10 = true;
+int NoAniDX10 = 1;
 //-------
 //Ben-----
 float rotmano = 0.0f;
@@ -101,6 +103,8 @@ float giroJetsky = 0.0f;
 float giroJetskyOffset = 0.0f;
 bool JetskyAni = true;
 bool controlJetsky = true;
+bool controlJetsky2 = true;
+int NoAniJetsky = 1;
 //Peridot-----------
 float rotPeridotPiernas = 0.0f;
 float rotPeridotPiernasOffset = 0.0f;
@@ -1358,7 +1362,7 @@ int main()
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	int contadorEspectacular = 0;
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 3000.0f);
 	///Variables para animaciones
 	//DX10
 	movDX10 = 400.0f;
@@ -1449,63 +1453,176 @@ int main()
 		////////////////////// ANIMACIONES /////////////////////
 		// Vehiculos Motorizados Obligatorios//------------------
 		//DX10------
-		if (avanzaDX10 && controlDX10) {
-			if (giroDX10 >= 360) {
-				giroDX10 = 0;
-			}
-			if (movDX10 < 940.0f)
-			{
-				movDX10 += movDX10Offset;
-				rotllanta += rotllantaOffset;
-			}
-			else {
-				if (giroDX10 < 90) {
-					if (giroDX10 < 45) {
-						giroDX10 += giroDX10Offset;
-						movDX10 += movDX10Offset;
-						rotllanta += rotllantaOffset;
+		if (NoAniDX10 == 0) {
+			if (avanzaDX10 && controlDX10) {
+				if (giroDX10 >= 360) {
+					giroDX10 = 0;
+				}
+				if (movDX10 < 990.0f)
+				{
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (-90 < giroDX10) {
+						if (-45 < giroDX10) {
+							rotllanta += rotllantaOffset;
+							giroDX10 -= giroDX10Offset;
+							movDX10 += movDX10Offset;
+						}
+						else {
+							rotllanta += rotllantaOffset;
+							giroDX10 -= giroDX10Offset;
+							movDX10z -= giroDX10Offset;
+						}
 					}
 					else {
-						movDX10z += movDX10Offset;
+						if (-685.0f < movDX10z){
+							movDX10z -= movDX10Offset;
+							rotllanta += rotllantaOffset;
+						}
+						else {
+							if (-180 < giroDX10) {
+								if (-135 < giroDX10) {
+									rotllanta += rotllantaOffset;
+									giroDX10 -= giroDX10Offset;
+									movDX10z -= movDX10Offset;
+								}
+								else {
+									rotllanta += rotllantaOffset;
+									movDX10 -= movDX10Offset;
+									giroDX10 -= giroDX10Offset;
+								}
+							}
+							else {
+								controlDX10 = !controlDX10;
+							}
+						}
+					}
+				}
+			}
+			else if (avanzaDX10 && controlDX10 == false) {
+				if (120.0f < movDX10)
+				{
+					movDX10 -= movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (giroDX10 < -90) {
+						if (giroDX10 < -135) {
+							rotllanta += rotllantaOffset;
+							giroDX10 += giroDX10Offset;
+							movDX10 -= movDX10Offset;
+						}
+						else {
+							rotllanta += rotllantaOffset;
+							giroDX10 += giroDX10Offset;
+							movDX10z -= giroDX10Offset;
+						}
+					}
+					else {
+						if (-2500.0f < movDX10z) {
+							movDX10z -= movDX10Offset;
+							rotllanta += rotllantaOffset;
+						}
+						else {
+							controlDX10 = !controlDX10;
+							avanzaDX10 = !avanzaDX10;
+						}
+					}
+				}
+			}
+			else if (avanzaDX10 == false && controlDX10) {
+				if (-180 < giroDX10) {
+					if (-135 < giroDX10) {
 						rotllanta += rotllantaOffset;
-						giroDX10 += giroDX10Offset;
+						giroDX10 -= giroDX10Offset;
+						movDX10z -= movDX10Offset;
+					}
+					else {
+						rotllanta += rotllantaOffset;
+						movDX10 -= movDX10Offset;
+						giroDX10 -= giroDX10Offset;
 					}
 				}
 				else {
-					if (movDX10z < 2500.0f)
+					if (-920.0f < movDX10)
 					{
-						movDX10z += movDX10Offset;
+						movDX10 -= movDX10Offset;
 						rotllanta += rotllantaOffset;
 					}
 					else {
+						if (-270 < giroDX10) {
+							if (-225 < giroDX10) {
+								rotllanta += rotllantaOffset;
+								giroDX10 -= giroDX10Offset;
+								movDX10 -= movDX10Offset;
+							}
+							else {
+								rotllanta += rotllantaOffset;
+								movDX10z += movDX10Offset;
+								giroDX10 -= giroDX10Offset;
+							}
+						}
+						else {
+							if (movDX10z < 760.0f) {
+								movDX10z += movDX10Offset;
+								rotllanta += rotllantaOffset;
+							}
+							else {
+								if (-360 < giroDX10) {
+									if (-315 < giroDX10) {
+										rotllanta += rotllantaOffset;
+										giroDX10 -= giroDX10Offset;
+										movDX10z += movDX10Offset;
+									}
+									else {
+										rotllanta += rotllantaOffset;
+										movDX10 += movDX10Offset;
+										giroDX10 -= giroDX10Offset;
+									}
+								}
+								else {
+									controlDX10 = !controlDX10;
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				if (movDX10 < 400.0f) {
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (nada < 1000) {
+						nada += 1;
+					}
+					else {
 						controlDX10 = !controlDX10;
+						avanzaDX10 = !avanzaDX10;
+						NoAniDX10 = 1;
+						nada = 0;
 					}
 				}
 			}
 		}
-		else if (avanzaDX10 && controlDX10 == false) {
-			if (giroDX10 < 180) {
-				if (giroDX10 < 135) {
-					movDX10 -= movDX10Offset;
-					rotllanta += rotllantaOffset;
-					giroDX10 += giroDX10Offset;
+		else {
+			if (avanzaDX10 && controlDX10) {
+				if (giroDX10 <= -360) {
+					giroDX10 = 0;
 				}
-				else {
-					giroDX10 += giroDX10Offset;
-					movDX10z -= movDX10Offset;
-					rotllanta += rotllantaOffset;
-				}
-			}
-			else {
-				if (movDX10 > 120.0f) {
-					movDX10 -= movDX10Offset;
+				if (movDX10 < 940.0f)
+				{
+					movDX10 += movDX10Offset;
 					rotllanta += rotllantaOffset;
 				}
 				else {
-					if (giroDX10 < 270) {
-						if (giroDX10 < 225) {
+					if (giroDX10 < 90) {
+						if (giroDX10 < 45) {
 							giroDX10 += giroDX10Offset;
-							movDX10 -= movDX10Offset;
+							movDX10 += movDX10Offset;
 							rotllanta += rotllantaOffset;
 						}
 						else {
@@ -1515,138 +1632,408 @@ int main()
 						}
 					}
 					else {
-						if (movDX10z > 815.0f)
+						if (movDX10z < 2500.0f)
 						{
-							movDX10z -= movDX10Offset;
+							movDX10z += movDX10Offset;
 							rotllanta += rotllantaOffset;
 						}
 						else {
-							avanzaDX10 = !avanzaDX10;
+							controlDX10 = !controlDX10;
 						}
 					}
 				}
 			}
-		}
-		else {
-			if (giroDX10 < 360) {
-				if (giroDX10 < 315) {
-					movDX10 += movDX10Offset;
-					rotllanta += rotllantaOffset;
-					giroDX10 += giroDX10Offset;
+			else if (avanzaDX10 && controlDX10 == false) {
+				if (giroDX10 < 180) {
+					if (giroDX10 < 135) {
+						movDX10 -= movDX10Offset;
+						rotllanta += rotllantaOffset;
+						giroDX10 += giroDX10Offset;
+					}
+					else {
+						giroDX10 += giroDX10Offset;
+						movDX10z -= movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
 				}
 				else {
-					giroDX10 += giroDX10Offset;
-					movDX10 += movDX10Offset;
-					rotllanta += rotllantaOffset;
+					if (movDX10 > 120.0f) {
+						movDX10 -= movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
+					else {
+						if (giroDX10 < 270) {
+							if (giroDX10 < 225) {
+								giroDX10 += giroDX10Offset;
+								movDX10 -= movDX10Offset;
+								rotllanta += rotllantaOffset;
+							}
+							else {
+								movDX10z += movDX10Offset;
+								rotllanta += rotllantaOffset;
+								giroDX10 += giroDX10Offset;
+							}
+						}
+						else {
+							if (movDX10z > 815.0f)
+							{
+								movDX10z -= movDX10Offset;
+								rotllanta += rotllantaOffset;
+							}
+							else {
+								avanzaDX10 = !avanzaDX10;
+								controlDX10 = !controlDX10;
+							}
+						}
+					}
+				}
+			}
+			else if (avanzaDX10 == false && controlDX10) {
+				if (giroDX10 < 360) {
+					if (giroDX10 < 315) {
+						movDX10 += movDX10Offset;
+						rotllanta += rotllantaOffset;
+						giroDX10 += giroDX10Offset;
+					}
+					else {
+						giroDX10 += giroDX10Offset;
+						movDX10 += movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
+				}
+				else {
+					controlDX10 = !controlDX10;
 				}
 			}
 			else {
-				controlDX10 = !controlDX10;
-				avanzaDX10 = !avanzaDX10;
+				if (movDX10 < 400.0f) {
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (nada < 1000) {
+						nada += 1;
+					}
+					else {
+						avanzaDX10 = !avanzaDX10;
+						controlDX10 = !controlDX10;
+						NoAniDX10 = 0;
+						nada = 0;
+					}
+				}
 			}
 		}
 
-		//Jetsky------	
-		if (JetskyAni && controlJetsky) {
-			if (giroJetsky >= 360) {
-				giroJetsky = 0;
+		//Jetsky------
+		if (NoAniJetsky == 0) {
+			if (JetskyAni && controlJetsky && controlJetsky2) {
+				if (giroJetsky >= 360) {
+					giroJetsky = 0;
+				}
+				if (movJetskyYoffset > 360.0f) {
+					movJetskyYoffset = 0.0f;
+				}
+				if (movJetskyZ < 300.0f)
+				{
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ += movJetskyZoffset;
+				}
+				else {
+					if (giroJetsky < 90) {
+						if (giroJetsky < 45) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+							movJetskyZ += movJetskyZoffset;
+						}
+						else {
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX > -250.0f)
+						{
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							controlJetsky = !controlJetsky;
+						}
+					}
+				}
 			}
-			if (movJetskyYoffset > 360.0f) {
-				movJetskyYoffset = 0.0f;
+			else if (JetskyAni && controlJetsky == false && controlJetsky2) {
+				if (0 < giroJetsky) {
+					if (45 < giroJetsky) {
+						movJetskyX -= movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky -= giroJetskyOffset;
+					}
+					else {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky -= giroJetskyOffset;
+						movJetskyZ += movJetskyZoffset;
+					}
+				}
+				else {
+					if (movJetskyZ < 750.0f) {
+						movJetskyY += movJetskyYoffset;
+						movJetskyZ += movJetskyZoffset;
+					}
+					else {
+						if (-90 < giroJetsky) {
+							if (-45 < giroJetsky) {
+								movJetskyY += movJetskyYoffset;
+								giroJetsky -= giroJetskyOffset;
+								movJetskyZ += movJetskyZoffset;
+							}
+							else {
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+								giroJetsky -= giroJetskyOffset;
+							}
+						}
+						else {
+							if (movJetskyX < -100.0f)
+							{
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+							}
+							else {
+								if (-180 < giroJetsky) {
+									if (-135 < giroJetsky) {
+										movJetskyY += movJetskyYoffset;
+										giroJetsky -= giroJetskyOffset;
+										movJetskyX += movJetskyZoffset;
+									}
+									else {
+										movJetskyZ -= movJetskyXoffset;
+										movJetskyY += movJetskyYoffset;
+										giroJetsky -= giroJetskyOffset;
+									}
+								}
+								else {
+									JetskyAni = !JetskyAni;
+									controlJetsky = !controlJetsky;
+								}
+							}
+						}
+					}
+				}
 			}
-			if (movJetskyZ < 700.0f)
-			{
-				movJetskyY += movJetskyYoffset;
-				movJetskyZ += movJetskyZoffset;
+			else if (JetskyAni == false && controlJetsky && controlJetsky2) {
+				if (500.0f < movJetskyZ) {
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ -= movJetskyZoffset;
+				}
+				else {
+					if (-270 < giroJetsky) {
+						if (-225 < giroJetsky) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky -= giroJetskyOffset;
+							movJetskyZ -= movJetskyXoffset;
+						}
+						else {
+							movJetskyX -= movJetskyZoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky -= giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX > -250.0f)
+						{
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							controlJetsky = !controlJetsky;
+						}
+					}
+				}
+			}
+			else if (JetskyAni == false && controlJetsky == false && controlJetsky2) {
+				if (giroJetsky < -180) {
+					if (giroJetsky < -225) {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+						movJetskyX -= movJetskyXoffset;
+					}
+					else {
+						movJetskyZ -= movJetskyZoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+				}
+				else {
+					if (movJetskyZ > 300.0f)
+					{
+						movJetskyZ -= movJetskyZoffset;
+						movJetskyY += movJetskyYoffset;
+					}
+					else {
+						if (giroJetsky < -90) {
+							if (giroJetsky < -135) {
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+								movJetskyZ -= movJetskyXoffset;
+							}
+							else {
+								movJetskyX += movJetskyZoffset;
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+							}
+						}
+						else {
+							if (movJetskyX < -100.0f)
+							{
+								movJetskyX += movJetskyZoffset;
+								movJetskyY += movJetskyYoffset;
+							}
+							else {
+								if (giroJetsky < 0) {
+									if (giroJetsky < -45) {
+										movJetskyY += movJetskyYoffset;
+										giroJetsky += giroJetskyOffset;
+										movJetskyX += movJetskyXoffset;
+									}
+									else {
+										movJetskyZ += movJetskyZoffset;
+										movJetskyY += movJetskyYoffset;
+										giroJetsky += giroJetskyOffset;
+									}
+								}
+								else {
+									controlJetsky2 = !controlJetsky2;
+								}
+							}
+						}
+					}
+				}
 			}
 			else {
-				if (giroJetsky < 90) {
-					if (giroJetsky < 45) {
+				if (nada2 < 1000) {
+					nada2 += 1;
+				}
+				else {
+					controlJetsky2 = !controlJetsky2;
+					JetskyAni = !JetskyAni;
+					controlJetsky = !controlJetsky;
+					NoAniJetsky = 1;
+					nada2 = 0;
+				}
+			}
+		}
+		else {
+			if (JetskyAni && controlJetsky) {
+				if (movJetskyYoffset > 360.0f) {
+					movJetskyYoffset = 0.0f;
+				}
+				if (movJetskyZ < 700.0f)
+				{
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ += movJetskyZoffset;
+				}
+				else {
+					if (giroJetsky < 90) {
+						if (giroJetsky < 45) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+							movJetskyZ += movJetskyZoffset;
+						}
+						else {
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX > -250.0f)
+						{
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							controlJetsky = !controlJetsky;
+						}
+					}
+				}
+			}
+			else if (JetskyAni && controlJetsky == false) {
+				if (movJetskyYoffset > 360.0f) {
+					movJetskyYoffset = 0.0f;
+				}
+				if (giroJetsky < 180) {
+					if (giroJetsky < 135) {
+						movJetskyX -= movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+					else {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+						movJetskyZ -= movJetskyZoffset;
+					}
+				}
+				else {
+					if (movJetskyZ > 150.0f) {
+						movJetskyY += movJetskyYoffset;
+						movJetskyZ -= movJetskyZoffset;
+					}
+					else {
+						if (giroJetsky < 270) {
+							if (giroJetsky < 225) {
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+								movJetskyZ -= movJetskyZoffset;
+							}
+							else {
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+							}
+						}
+						else {
+							if (movJetskyX < -100.0f)
+							{
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+							}
+							else {
+								JetskyAni = !JetskyAni;
+								controlJetsky = !controlJetsky;
+							}
+						}
+					}
+				}
+			}
+			else if (JetskyAni == false && controlJetsky) {
+				if (giroJetsky < 360) {
+					if (giroJetsky < 315) {
+						movJetskyX += movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+					else {
 						movJetskyY += movJetskyYoffset;
 						giroJetsky += giroJetskyOffset;
 						movJetskyZ += movJetskyZoffset;
 					}
-					else {
-						movJetskyX -= movJetskyXoffset;
-						movJetskyY += movJetskyYoffset;
-						giroJetsky += giroJetskyOffset;
-					}
 				}
 				else {
-					if (movJetskyX > -250.0f)
-					{
-						movJetskyX -= movJetskyXoffset;
-						movJetskyY += movJetskyYoffset;
-					}
-					else {
-						controlJetsky = !controlJetsky;
-					}
-				}
-			}
-		}
-		else if (JetskyAni && controlJetsky == false) {
-			if (movJetskyYoffset > 360.0f) {
-				movJetskyYoffset = 0.0f;
-			}
-			if (giroJetsky < 180) {
-				if (giroJetsky < 135) {
-					movJetskyX -= movJetskyXoffset;
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-				}
-				else {
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-					movJetskyZ -= movJetskyZoffset;
+					controlJetsky = !controlJetsky;
 				}
 			}
 			else {
-				if (movJetskyZ > 150.0f) {
-					movJetskyY += movJetskyYoffset;
-					movJetskyZ -= movJetskyZoffset;
+				if (nada2 < 1000) {
+					nada2 += 1;
 				}
 				else {
-					if (giroJetsky < 270) {
-						if (giroJetsky < 225) {
-							movJetskyY += movJetskyYoffset;
-							giroJetsky += giroJetskyOffset;
-							movJetskyZ -= movJetskyZoffset;
-						}
-						else {
-							movJetskyX += movJetskyXoffset;
-							movJetskyY += movJetskyYoffset;
-							giroJetsky += giroJetskyOffset;
-						}
-					}
-					else {
-						if (movJetskyX < -100.0f)
-						{
-							movJetskyX += movJetskyXoffset;
-							movJetskyY += movJetskyYoffset;
-						}
-						else {
-							JetskyAni = !JetskyAni;
-						}
-					}
+					controlJetsky = !controlJetsky;
+					JetskyAni = !JetskyAni;
+					NoAniJetsky = 0;
+					nada2 = 0;
 				}
-			}
-		}
-		else {
-			if (giroJetsky < 360) {
-				if (giroJetsky < 315) {
-					movJetskyX += movJetskyXoffset;
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-				}
-				else {
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-					movJetskyZ += movJetskyZoffset;
-				}
-			}
-			else {
-				controlJetsky = !controlJetsky;
-				JetskyAni = !JetskyAni;
 			}
 		}
 

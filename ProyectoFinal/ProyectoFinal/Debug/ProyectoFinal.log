@@ -1,21 +1,20 @@
 ﻿  ProyectoFinal.cpp
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
   (compilando archivo de origen "ProyectoFinal.cpp")
   
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(123,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1370,19): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1411,20): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1427,18): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1429,20): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1440,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1442,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2049,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2084,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2114,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2130,48): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2131,50): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
-  ProyectoFinal.vcxproj -> C:\Users\jared\OneDrive\Documentos\Visual Studio 2022\CGIH\ProyectoFinal\Debug\ProyectoFinal.exe
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(127,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1374,19): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1415,20): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1431,18): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1433,20): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1444,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1446,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2436,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2471,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2501,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2517,48): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2518,50): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+  ProyectoFinal.vcxproj -> C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe

@@ -136,12 +136,17 @@ float giroBlimp = 0.0f;
 float giroBlimpOffset = 0.0f;
 float movBlimpX = 0.0f;
 float movBlimpXOffset = 0.0f;
+float movBlimpZ = 0.0f;
+float movBlimpZOffset = 0.0f;
 bool sube = true;
 bool avanza = false;
 bool giro1 = false;
 bool regresa = false;
 bool giro2 =  false;
 bool baja = false;
+bool BlimpAni = true;
+bool ControlBlimp = true;
+int NoAniBlimp = 1;
 //Xylene------------
 float movXyleneXoffset = 0.0f;
 float movXyleneYoffset = 0.0f;
@@ -1414,6 +1419,7 @@ int main()
 	subeBlimpOffset = 0.5f;
 	giroBlimpOffset = 0.6;
 	movBlimpXOffset = 1.4f;
+	movBlimpZOffset = 1.4f;
 
 	//Xylene
 	movXyleneXoffset = 2.0f;
@@ -2040,54 +2046,148 @@ int main()
 		//Aereas
 		if (ControlAereo) {
 			//Duuf Blimp
-			if (sube && subeBlimp <= 200.0f) {
-				subeBlimp += subeBlimpOffset;
-				rotHelice -= rotHeliceOffset;
+			if (NoAniBlimp == 0) {
+				if (BlimpAni && ControlBlimp) {
+					if (sube && subeBlimp <= 280.0f) {
+						subeBlimp += subeBlimpOffset;
+						rotHelice -= rotHeliceOffset;
+					}
+					else if (sube) {
+						sube = !sube;
+						baja = !baja;
+					}
+					else {
+						if (-55.0f <= giroBlimp) {
+							giroBlimp -= giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							if (movBlimpX > -1500.0f && movBlimpZ > -1500) {
+								movBlimpZ -= movBlimpZOffset;
+								movBlimpX -= movBlimpXOffset;
+								rotHelice -= rotHeliceOffset;
+							}
+							else {
+								if (-190.0f <= giroBlimp) {
+									giroBlimp -= giroBlimpOffset;
+									rotHelice -= rotHeliceOffset;
+								}
+								else {
+									ControlBlimp = !ControlBlimp;
+								}
+							}
+						}
+					}
+				}
+				else if (BlimpAni && ControlBlimp == false) {
+					if (movBlimpX < -300.0f) {
+						movBlimpX += movBlimpXOffset;
+						rotHelice -= rotHeliceOffset;
+					}else{
+						if (-325.0f <= giroBlimp) {
+							giroBlimp -= giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							ControlBlimp = !ControlBlimp;
+							BlimpAni = !BlimpAni;
+						}
+					}
+				}
+				else if (BlimpAni == false && ControlBlimp) {
+					if (movBlimpX > -1800.0f && movBlimpZ < 0) {
+						movBlimpX -= movBlimpXOffset;
+						movBlimpZ += movBlimpZOffset;
+						rotHelice -= rotHeliceOffset;
+					}
+					else {
+						if (giroBlimp <= -190) {
+							giroBlimp += giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							ControlBlimp = !ControlBlimp;
+						}
+					}
+				}
+				else {
+					if (movBlimpX < 0) {
+						movBlimpX += movBlimpXOffset;
+						rotHelice -= rotHeliceOffset;
+					}
+					else {
+						if (giroBlimp <= 0) {
+							giroBlimp += giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							if (baja && subeBlimp >= 8.2f) {
+								subeBlimp -= subeBlimpOffset;
+								rotHelice -= rotHeliceOffset;
+							}
+							else if (baja) {
+								sube = !sube;
+								baja = !baja;
+								ControlBlimp = !ControlBlimp;
+								BlimpAni = !BlimpAni;
+								NoAniBlimp = 1;
+								ControlAereo = !ControlAereo;
+							}
+						}
+					}
+				}
 			}
-			else if (sube) {
-				avanza = !avanza;
-				sube = !sube;
-			}
-			else if (avanza && movBlimpX >= -2500.0f) {
-				movBlimpX -= movBlimpXOffset;
-				rotHelice -= rotHeliceOffset;
-			}
-			else if (avanza) {
-				giro1 = !giro1;
-				avanza = !avanza;
-			}
-			else if (giro1 && giroBlimp <= 180.0f) {
-				giroBlimp += giroBlimpOffset;
-				rotHelice -= rotHeliceOffset;
-			}
-			else if (giro1) {
-				regresa = !regresa;
-				giro1 = !giro1;
-			}
-			else if (regresa && movBlimpX <= 3.0f) {
-				movBlimpX += movBlimpXOffset;
-				rotHelice -= rotHeliceOffset;
-			}
-			else if (regresa) {
-				regresa = !regresa;
-				giro2 = !giro2;
-			}
-			else if (giro2 && giroBlimp >= 0.0f) {
-				giroBlimp -= giroBlimpOffset;
-				rotHelice -= rotHeliceOffset;
-			}
-			else if (giro2) {
-				baja = !baja;
-				giro2 = !giro2;
-			}
-			else if (baja && subeBlimp >= 8.2f) {
-				subeBlimp -= subeBlimpOffset;
-				rotHelice -= rotHeliceOffset;
-			}
-			else if (baja) {
-				sube = !sube;
-				baja = !baja;
-				ControlAereo = !ControlAereo;
+			else {
+				if (sube && subeBlimp <= 200.0f) {
+					subeBlimp += subeBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (sube) {
+					avanza = !avanza;
+					sube = !sube;
+				}
+				else if (avanza && movBlimpX >= -2500.0f) {
+					movBlimpX -= movBlimpXOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (avanza) {
+					giro1 = !giro1;
+					avanza = !avanza;
+				}
+				else if (giro1 && giroBlimp <= 180.0f) {
+					giroBlimp += giroBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (giro1) {
+					regresa = !regresa;
+					giro1 = !giro1;
+				}
+				else if (regresa && movBlimpX <= 3.0f) {
+					movBlimpX += movBlimpXOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (regresa) {
+					regresa = !regresa;
+					giro2 = !giro2;
+				}
+				else if (giro2 && giroBlimp >= 0.0f) {
+					giroBlimp -= giroBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (giro2) {
+					baja = !baja;
+					giro2 = !giro2;
+				}
+				else if (baja && subeBlimp >= 8.2f) {
+					subeBlimp -= subeBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (baja) {
+					sube = !sube;
+					baja = !baja;
+					ControlAereo = !ControlAereo;
+					NoAniBlimp = 0;
+				}
 			}
 			////// Fin Animaciones Obligatorias de vehiculos--------
 		}
@@ -4136,7 +4236,7 @@ int main()
 
 		//Blimp Duff
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1650 + movBlimpX, subeBlimp, 450.5f));
+		model = glm::translate(model, glm::vec3(1650 + movBlimpX, subeBlimp, 450.5f + movBlimpZ));
 		model = glm::scale(model, glm::vec3(3.5f, 3.0f, 3.5f));
 		model = glm::rotate(model, -75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, giroBlimp * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));

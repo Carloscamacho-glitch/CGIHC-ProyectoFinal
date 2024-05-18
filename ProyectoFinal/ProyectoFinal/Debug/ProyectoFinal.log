@@ -6,15 +6,15 @@ C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFin
   (compilando archivo de origen "ProyectoFinal.cpp")
   
 C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(127,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1374,19): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1415,20): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1431,18): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1433,20): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1444,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1446,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2436,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2471,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2501,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2517,48): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
-C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2518,50): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1379,19): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1420,20): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1437,18): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1439,20): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1450,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(1452,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2536,21): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2571,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2601,23): warning C4244: '=': conversión de 'time_t' a 'double'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2617,48): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
+C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\ProyectoFinal\ProyectoFinal.cpp(2618,50): warning C4244: 'argumento': conversión de 'GLfloat' a 'int'; posible pérdida de datos
   ProyectoFinal.vcxproj -> C:\Users\PCReboot\Documents\Github\CGIHC-ProyectoFinal\ProyectoFinal\Debug\ProyectoFinal.exe

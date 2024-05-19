@@ -176,7 +176,7 @@ bool SaludoT = true;
 float maxSaludo = 0.0f;
 
 //Sonido
-ISoundEngine* Pocicional = createIrrKlangDevice();
+ISoundEngine* Posicional = createIrrKlangDevice();
 ISoundEngine* Fondo = createIrrKlangDevice();
 ISoundEngine* Efecto1 = createIrrKlangDevice();
 ISoundEngine* Efecto2 = createIrrKlangDevice();
@@ -896,7 +896,7 @@ void Oyente(float x, float y, float z, float lookX, float lookY, float lookZ) {
 	vec3df PosJugador(x, y, z);
 	vec3df listenerLookDir(lookX, lookY, lookZ);
 
-	Pocicional->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
+	Posicional->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
 }
 
 int main()
@@ -1266,7 +1266,7 @@ int main()
 	//Audio
 	PeridotAudio->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
 	
-	ISound* sound = Pocicional->play3D("Media/Steven Universe-Rosquillas.mp3", PosSonido, true, false, true);
+	ISound* sound = Posicional->play3D("Media/Steven Universe-Rosquillas.mp3", PosSonido, true, false, true);
 	if (sound) {
 		// Puedes ajustar la atenuación y el radio de influencia del sonido
 		sound->setMinDistance(30.0f); // Distancia mínima a partir de la cual el sonido empieza a atenuarse
@@ -1275,7 +1275,7 @@ int main()
 
 	ISoundSource* shootSound = Fondo->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
 	shootSound->setDefaultVolume(0.5f);
-	/*Fondo->play2D(shootSound, true);*/
+	Fondo->play2D(shootSound, true);
 	
 	//Skybox
 	skybox = Skybox(skyboxFaces);
@@ -2441,7 +2441,6 @@ int main()
 			rotPeridotBrazos = rotPeridotBrazos;
 		}
 		else if (keys[GLFW_KEY_W] || keys[GLFW_KEY_S]) {
-			//engine3->play3D("Media/Sonido de pasos.mp3", vec3df(pos3d), true);
 			if (movPeridot) {
 				if (rotPeridotPiernas < 10.0f)
 				{

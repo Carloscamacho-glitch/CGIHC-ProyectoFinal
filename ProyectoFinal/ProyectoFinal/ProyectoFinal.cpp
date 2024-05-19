@@ -2580,7 +2580,7 @@ int main()
 		resta = contador - tiempoguardado;
 
 		//cambio de variables
-		if (resta >= 660) {
+		if (resta >= 60) {
 			if (dia == 1.0f) {
 				//Noche
 				dia = 0.0f;

@@ -92,6 +92,7 @@ float maxTraslation = 0.0f;
 bool AtaqueDiamante = false;
 bool Revertir = false;
 bool Limite = true;
+bool LimiteFX = true;
 //Jetsky------------
 float movJetskyXoffset = 0.0f;
 float movJetskyYoffset = 0.0f;
@@ -173,6 +174,28 @@ float rotbrazoT = 0.0f;
 float rotbrazoTOffset = 0.0f;
 bool SaludoT = true;
 float maxSaludo = 0.0f;
+
+//Sonido
+ISoundEngine* Pocicional = createIrrKlangDevice();
+ISoundEngine* Fondo = createIrrKlangDevice();
+ISoundEngine* Efecto1 = createIrrKlangDevice();
+ISoundEngine* Efecto2 = createIrrKlangDevice();
+ISoundEngine* Efecto3 = createIrrKlangDevice();
+ISound* currentSound = nullptr; // Puntero para mantener la pista actual
+bool isSoundPlaying = false; // Estado para rastrear si el sonido está en reproducción
+int auxAudio = 0;
+
+ISoundEngine* PeridotAudio = createIrrKlangDevice();
+// Posición del oyente
+vec3df PosJugador(0, 0, 0);
+// Dirección a la que mira el oyente
+vec3df listenerLookDir(0, 0, 1);
+// Vector up del oyente (normalmente (0, 1, 0) para un mundo con el eje Y hacia arriba)
+vec3df listenerUpVector(0, 1, 0);
+// Velocidad del oyente (puede ser (0, 0, 0) si está quieto)
+vec3df Velocidad(0, 0, 0);
+//posicion del sonido
+vec3df PosSonido(477.8f, 0.0f, -1109.5f);
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -838,6 +861,43 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 }
 
+void Efectos(bool* keys) {
+	if ((keys[GLFW_KEY_J] == true || keys[GLFW_KEY_K] == true) && LimiteFX) {
+		LimiteFX = !LimiteFX;
+		Efecto1->play2D("Media/Ben 10 Omnitrix Tra.mp3", false);
+	}
+	else if (keys[GLFW_KEY_L] == true && LimiteFX == false) {
+		LimiteFX = !LimiteFX;
+		Efecto2->play2D("Media/Ben 10 Omnitrix Des.mp3", false);
+	}
+
+	if ((keys[GLFW_KEY_W] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D] || keys[GLFW_KEY_A]) && auxAudio == 0) {
+		if (!currentSound) {
+			// Reproduce el sonido solo si no hay ningún sonido en reproducción
+			currentSound = Efecto3->play3D("Media/Sonido de pasos.mp3", vec3df(0, -1, 0), true, false, true);
+			isSoundPlaying = true;
+		}
+		else if (currentSound->getIsPaused()) {
+			// Reanuda el sonido si estaba pausado
+			currentSound->setIsPaused(false);
+			isSoundPlaying = true;
+		}
+	}
+	else {
+		if (currentSound && isSoundPlaying) {
+			// Pausa el sonido si ninguna tecla está presionada
+			currentSound->setIsPaused(true);
+			isSoundPlaying = false;
+		}
+	}
+}
+
+void Oyente(float x, float y, float z, float lookX, float lookY, float lookZ) {
+	vec3df PosJugador(x, y, z);
+	vec3df listenerLookDir(lookX, lookY, lookZ);
+
+	Pocicional->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
+}
 
 int main()
 {
@@ -857,8 +917,6 @@ int main()
 	camera = Camera(glm::vec3(-300.0f, 30.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
 	//Camara aerea
 	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f, peridotPos);
-	//Camara libre temporal
-	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
 
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	estatua = Texture("Textures/daiza1.png");
@@ -1206,54 +1264,20 @@ int main()
 	skyboxFaces2.push_back("Textures/Skybox/Noche_FT.tga");
 
 	//Audio
-	//vec3df pos3d2(450, 51, -1050);
-	ISoundEngine* engine = createIrrKlangDevice();
-	ISoundEngine* engine2 = createIrrKlangDevice();
-	//ISoundEngine* engine3 = createIrrKlangDevice();
-	//ISoundEngine* engine4 = createIrrKlangDevice();
-	//ISoundEngine* engine4 = createIrrKlangDevice();
-	//engine->play2D("Media/Gravity Falls - Opening Theme Song.mp3", true);
-	engine2->play3D("Media/Steven Universe-Rosquillas.mp3", vec3df(50,0,0),true);
+	PeridotAudio->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
 	
-	//Prueba con bandera ------------------
-	//bool posicional = false;
-	//if (posicional == false)
-	//{
-	//	engine->play2D("Media/Gravity Falls - Opening Theme Song.mp3", true);
-	//	if ((peridotPos.x, peridotPos.y, peridotPos.z) >= (420, 0, -900)) {
-	//		posicional = !posicional;
-	//	}
-	//}
-	//else {
-	//	/*ISoundSource* shootSound = engine->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
-	//	shootSound->setDefaultVolume(0.05f);
-	//	engine->play2D(shootSound, true);*/
+	ISound* sound = Pocicional->play3D("Media/Steven Universe-Rosquillas.mp3", PosSonido, true, false, true);
+	if (sound) {
+		// Puedes ajustar la atenuación y el radio de influencia del sonido
+		sound->setMinDistance(30.0f); // Distancia mínima a partir de la cual el sonido empieza a atenuarse
+		sound->setMaxDistance(100000.0f); // Distancia máxima a la que se oye el sonido
+	}
 
-	//	ISound* snd = engine2->play3D("Media/Steven Universe-Rosquillas.mp3", vec3df(450, 0, -1050), true); if (snd) {
-	//		snd->setVolume(5.0f);
-	//		//snd->setMinDistance(20.0f);
-	//	}
-	//	if ((peridotPos.x, peridotPos.y, peridotPos.z) <= (420, 0, -900)) {
-	//		posicional = !posicional;
-	//	}
-	//}
-	//----------------------
+	ISoundSource* shootSound = Fondo->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
+	shootSound->setDefaultVolume(0.5f);
+	/*Fondo->play2D(shootSound, true);*/
 	
-	/*else if((peridotPos.x, peridotPos.y, peridotPos.z) = (450, 0, -1030))*/
-	
-
-	/*ISoundSource* shootSound2 = engine2->addSoundSourceFromFile("Media/Steven Universe-Rosquillas.mp3");
-	shootSound2->setDefaultVolume(1000.0f);
-	shootSound2->setDefaultMinDistance(20.0f);
-	engine2->play3D(shootSound2, vec3df(450, 0, -1030), true);*/
-
-	ISoundSource* shootSound = engine2->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
-	shootSound->setDefaultVolume(0.09f);
-	engine2->play2D(shootSound, true);
-
-	//engine2->play3D("Media/Gravity Falls - Opening Theme Song.mp3", vec3df (50,3,0), true);
-	
-
+	//Skybox
 	skybox = Skybox(skyboxFaces);
 	skybox2 = Skybox(skyboxFaces2);
 
@@ -2290,7 +2314,9 @@ int main()
 		}
 
 		////// Fin Animaciones Obligatorias de vehiculos--------
-
+		//llama a la funcion de efectos especiales
+		Efectos(mainWindow.getsKeys());
+		
 		//Transformaciones----------
 		//Eco Eco
 		if (mainWindow.getAlien1() == 1.0f && Limite)
@@ -2609,9 +2635,11 @@ int main()
 		//Recibir eventos del usuario
 		glfwPollEvents();
 		if (mainWindow.getCamara() == 1.0f) {
+			auxAudio = 0;
 			CamaraActual = &camera;
 		}
 		else if (mainWindow.getCamara() == 2.0f) {
+			auxAudio = 1;
 			CamaraActual = &camera2;
 		}
 		CamaraActual->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime, peridotPos);
@@ -2644,6 +2672,9 @@ int main()
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(CamaraActual->calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, CamaraActual->getCameraPosition().x, CamaraActual->getCameraPosition().y, CamaraActual->getCameraPosition().z);
+
+		//llama a la funcion para conocer la posicion de peridot e interactuar con el sonido posicional
+		Oyente(CamaraActual->getCameraPosition().x, CamaraActual->getCameraPosition().y, CamaraActual->getCameraPosition().z, -CamaraActual->getCameraDirection().x, CamaraActual->getCameraDirection().y, -CamaraActual->getCameraDirection().z);
 
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);

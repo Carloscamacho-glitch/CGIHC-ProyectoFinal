@@ -63,28 +63,6 @@ void Camera::keyControl(int cameraID, bool* keys, GLfloat deltaTime, glm::vec3 o
 		{
 			position += right * velocity;
 		}
-		//Camara en libre
-	}
-	else {
-		if (keys[GLFW_KEY_W])
-		{
-			position += front * velocity;
-		}
-
-		if (keys[GLFW_KEY_S])
-		{
-			position -= front * velocity;
-		}
-
-		if (keys[GLFW_KEY_A])
-		{
-			position -= right * velocity;
-		}
-
-		if (keys[GLFW_KEY_D])
-		{
-			position += right * velocity;
-		}
 	}
 
 }
@@ -125,25 +103,6 @@ void Camera::mouseControl(int cameraID, GLfloat xChange, GLfloat yChange, glm::v
 	}
 	else if (cameraID == 2.0f) {
 
-
-		//Camara en libre
-	}
-	else {
-		xChange *= turnSpeed;
-		yChange *= turnSpeed;
-
-		yaw += xChange;
-		pitch += yChange;
-
-		if (pitch > 89.0f)
-		{
-			pitch = 89.0f;
-		}
-
-		if (pitch < -89.0f)
-		{
-			pitch = -89.0f;
-		}
 	}
 
 	update();

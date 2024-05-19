@@ -17,15 +17,12 @@ Proyecto Final
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
-//para probar el importer
-//#include<assimp/Importer.hpp>
 
 #include "Window.h"
 #include "Mesh.h"
 #include "Shader_light.h"
 #include "Camera.h"
 #include "Texture.h"
-#include "Sphere.h"
 #include "Model.h"
 #include "Skybox.h"
 
@@ -36,6 +33,13 @@ Proyecto Final
 #include "SpotLight.h"
 #include "Material.h"
 #include <time.h> //tiempo
+
+//Para audio 
+#include<iostream>
+#include <irrKlang.h>
+using namespace irrklang;
+//#pragma comment(lib, “irrKlang.lib”)
+
 const float toRadians = 3.14159265f / 180.0f;
 bool* keys;
 glm::vec3 peridotPos = glm::vec3(-200.0f, 12.0f, 0.0f);
@@ -45,8 +49,9 @@ time_t contador, contador2;
 double resta, tiempoguardado, resta2, tiempoguardado2;
 float dia = 0.0f, intensidad = 0.2f, direccionx = -1.0f, direcciony = 0.0f;
 int aux = 0;
-float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 450.5f;
+float posnaveX = 1335.0f, posnaveY = 27.0f, posnaveZ = 900.5f;
 float posCarroX = -1295.0f, posCarroY = 0.3f, posCarroZ = 60.0f;
+int nada = 0, nada2 = 0;
 
 //Variables para animaciones
 //DX10------------
@@ -59,6 +64,7 @@ float giroDX10 = 0.0;
 float giroDX10Offset = 0.0f;
 bool avanzaDX10 = true;
 bool controlDX10 = true;
+int NoAniDX10 = 1;
 //-------
 //Ben-----
 float rotmano = 0.0f;
@@ -86,6 +92,7 @@ float maxTraslation = 0.0f;
 bool AtaqueDiamante = false;
 bool Revertir = false;
 bool Limite = true;
+bool LimiteFX = true;
 //Jetsky------------
 float movJetskyXoffset = 0.0f;
 float movJetskyYoffset = 0.0f;
@@ -97,6 +104,8 @@ float giroJetsky = 0.0f;
 float giroJetskyOffset = 0.0f;
 bool JetskyAni = true;
 bool controlJetsky = true;
+bool controlJetsky2 = true;
+int NoAniJetsky = 1;
 //Peridot-----------
 float rotPeridotPiernas = 0.0f;
 float rotPeridotPiernasOffset = 0.0f;
@@ -111,6 +120,14 @@ float rotDonaOffset = 0.0f;
 float rotSoporteOffset = 0.0f;
 float movSoporteOffset = 0.0f;
 bool DonaAni = true;
+//Pajaro
+float rotAlaDer = 0.0;
+float rotAlaIzq = 0.0;
+float rotAlasOffset = 0.0;
+float movCuerpo = 0.0;
+float movCuerpoOffset = 0.08;
+float maxRotationAlas = 0;
+bool Vuelo = true;
 //BlimpDuff---------
 float rotHelice = 0.0f;
 float rotHeliceOffset = 0.0f;
@@ -120,12 +137,65 @@ float giroBlimp = 0.0f;
 float giroBlimpOffset = 0.0f;
 float movBlimpX = 0.0f;
 float movBlimpXOffset = 0.0f;
+float movBlimpZ = 0.0f;
+float movBlimpZOffset = 0.0f;
 bool sube = true;
 bool avanza = false;
 bool giro1 = false;
 bool regresa = false;
 bool giro2 =  false;
 bool baja = false;
+bool BlimpAni = true;
+bool ControlBlimp = true;
+int NoAniBlimp = 1;
+//Xylene------------
+float movXyleneXoffset = 0.0f;
+float movXyleneYoffset = 0.0f;
+float movXyleneZoffset = 0.0f;
+float movXyleneX = 0.0f;
+float movXyleneY = 0.0f;
+float movXyleneZ = 0.0f;
+float giroXylene = 0.0f;
+float giroXyleneOffset = 0.0f;
+float movXyleneAspY = 0.0f;
+float movXyleneAspYoffset = 0.0f;
+float giroXyleneAsp = 0.0f;
+float giroXyleneAspOffset = 0.0f;
+float movXyleneLuzX = 0.0f;
+float movXyleneLuzZ = 0.0f;
+float movXyleneLuzXoffset = 0.0f;
+float movXyleneLuzZoffset = 0.0f;
+bool XyleneAni = true;
+bool XyleneLuz = true;
+bool ControlXylene = true;
+bool ControlAereo = true;
+//Trickster------------- (Animacion De Chill)
+float rotbrazoT = 0.0f;
+float rotbrazoTOffset = 0.0f;
+bool SaludoT = true;
+float maxSaludo = 0.0f;
+
+//Sonido
+ISoundEngine* Pocicional = createIrrKlangDevice();
+ISoundEngine* Fondo = createIrrKlangDevice();
+ISoundEngine* Efecto1 = createIrrKlangDevice();
+ISoundEngine* Efecto2 = createIrrKlangDevice();
+ISoundEngine* Efecto3 = createIrrKlangDevice();
+ISound* currentSound = nullptr; // Puntero para mantener la pista actual
+bool isSoundPlaying = false; // Estado para rastrear si el sonido está en reproducción
+int auxAudio = 0;
+
+ISoundEngine* PeridotAudio = createIrrKlangDevice();
+// Posición del oyente
+vec3df PosJugador(0, 0, 0);
+// Dirección a la que mira el oyente
+vec3df listenerLookDir(0, 0, 1);
+// Vector up del oyente (normalmente (0, 1, 0) para un mundo con el eje Y hacia arriba)
+vec3df listenerUpVector(0, 1, 0);
+// Velocidad del oyente (puede ser (0, 0, 0) si está quieto)
+vec3df Velocidad(0, 0, 0);
+//posicion del sonido
+vec3df PosSonido(477.8f, 0.0f, -1109.5f);
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -134,12 +204,11 @@ std::vector<Shader> shaderList;
 Camera camera;
 Camera camera2;
 Camera camera3;
-Camera* currentCamera;
+Camera* CamaraActual;
 
 Texture estatua;
 Texture MesaLGR;
 Texture pinoTex;
-
 
 //Ben10 ---------------------------------
 Model SrSmoothy;
@@ -257,6 +326,8 @@ Model gompersPTI;
 Model gompers;
 Model estatuaBill;
 Model trickster;
+Model tricksterBrazo;
+Model tricksterMano;
 Model mysteryShack;
 Model pato;
 Model patoPDD;
@@ -302,16 +373,16 @@ Model Espectacular1;
 Model Espectacular2;
 Model EspectacularCocinado1;
 Model EspectacularCocinado2;
-
 Model Jetsky;
 Model Lancha;
-
 Model Reflector;
-
 Model ArbolSolo1;
 Model ArbolSolo2;
 Model ArbolSolo3;
 Model ArbolSolo4;
+Model Pajaro;
+Model AlaDer;
+Model AlaIzq;
 //Lamparas 
 Model Candil; 
 Model Lampara1;
@@ -333,8 +404,8 @@ static const char* vShader = "shaders/shader_light.vert";
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
 
-
 Skybox skybox;
+Skybox skybox2;
 
 //materiales
 Material Material_brillante;
@@ -658,10 +729,6 @@ void crearPino()
 		42, 43, 40,
 
 
-		//		//ArribaB
-				//44,45,46,
-				//46,47,44,
-
 				//Segundo Piso
 				//FrenteA
 				48, 49, 50,
@@ -804,6 +871,43 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 }
 
+void Efectos(bool* keys) {
+	if ((keys[GLFW_KEY_J] == true || keys[GLFW_KEY_K] == true) && LimiteFX) {
+		LimiteFX = !LimiteFX;
+		Efecto1->play2D("Media/Ben 10 Omnitrix Tra.mp3", false);
+	}
+	else if (keys[GLFW_KEY_L] == true && LimiteFX == false) {
+		LimiteFX = !LimiteFX;
+		Efecto2->play2D("Media/Ben 10 Omnitrix Des.mp3", false);
+	}
+
+	if ((keys[GLFW_KEY_W] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D] || keys[GLFW_KEY_A]) && auxAudio == 0) {
+		if (!currentSound) {
+			// Reproduce el sonido solo si no hay ningún sonido en reproducción
+			currentSound = Efecto3->play3D("Media/Sonido de pasos.mp3", vec3df(0, -1, 0), true, false, true);
+			isSoundPlaying = true;
+		}
+		else if (currentSound->getIsPaused()) {
+			// Reanuda el sonido si estaba pausado
+			currentSound->setIsPaused(false);
+			isSoundPlaying = true;
+		}
+	}
+	else {
+		if (currentSound && isSoundPlaying) {
+			// Pausa el sonido si ninguna tecla está presionada
+			currentSound->setIsPaused(true);
+			isSoundPlaying = false;
+		}
+	}
+}
+
+void Oyente(float x, float y, float z, float lookX, float lookY, float lookZ) {
+	vec3df PosJugador(x, y, z);
+	vec3df listenerLookDir(lookX, lookY, lookZ);
+
+	Pocicional->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
+}
 
 int main()
 {
@@ -823,18 +927,16 @@ int main()
 	camera = Camera(glm::vec3(-300.0f, 30.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
 	//Camara aerea
 	camera2 = Camera(glm::vec3(-300.0f, 500.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, -90.0f, 5.5f, 2.5f, peridotPos);
-	//Camara libre temporal
-	camera3 = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.5f, 2.5f, peridotPos);
 
 	//Carga de texturas ///////////////////////////////////////////////////////////////////////////////////////////
 	estatua = Texture("Textures/daiza1.png");
 	estatua.LoadTextureA();
 	MesaLGR = Texture("Textures/MesaLGR.tga");
 	MesaLGR.LoadTextureA();
-
-	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	pinoTex = Texture("Textures/pino.tga");
 	pinoTex.LoadTextureA();
+
+	//Carga de modelos ///////////////////////////////////////////////////////////////////////////////////////////
 	//Ben 10 --------------------------------
 	SrSmoothy = Model();
 	SrSmoothy.LoadModel("Models/Ben10/mrsmoothie-3d-model/Mr_SmoothieCompleto.obj");
@@ -1050,6 +1152,10 @@ int main()
 	estatuaBill.LoadModel("Models/Gravity Falls/Estatua Bill/Estatua Bill.obj");
 	trickster = Model();
 	trickster.LoadModel("Models/Gravity Falls/Trickster/trickster.obj");
+	tricksterBrazo = Model();
+	tricksterBrazo.LoadModel("Models/Gravity Falls/Trickster/trickster_brazo.obj");
+	tricksterMano = Model();
+	tricksterMano.LoadModel("Models/Gravity Falls/Trickster/trickster_mano.obj");
 	mysteryShack = Model();
 	mysteryShack.LoadModel("Models/Gravity Falls/Mystery Shack/Mystery Shack.obj");
 	pato = Model();
@@ -1153,6 +1259,12 @@ int main()
 	Esfera2.LoadModel("Models/Extras/Esfera2.obj");
 	Reflector = Model();
 	Reflector.LoadModel("Models/Extras/Reflector.obj");
+	Pajaro = Model();
+	Pajaro.LoadModel("Models/Extras/Bird.obj");
+	AlaDer = Model();
+	AlaDer.LoadModel("Models/Extras/alaDerecha.obj");
+	AlaIzq = Model();
+	AlaIzq.LoadModel("Models/Extras/alaIzquierda.obj");
 	//Lamparas
 	Candil = Model();
 	Candil.LoadModel("Models/Lamparas/candil.obj");
@@ -1164,14 +1276,38 @@ int main()
 	LamparaLago.LoadModel("Models/Lamparas/LamparaLago.obj");
 
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_dn.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_up.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_RT.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_IF.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_DN.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_UP.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_BK.tga");
+	skyboxFaces.push_back("Textures/Skybox/Dia_FT.tga");
 
+	std::vector<std::string> skyboxFaces2;
+	skyboxFaces2.push_back("Textures/Skybox/Noche_RT.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_IF.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_DN.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_UP.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_BK.tga");
+	skyboxFaces2.push_back("Textures/Skybox/Noche_FT.tga");
+
+	//Audio
+	PeridotAudio->setListenerPosition(PosJugador, listenerLookDir, Velocidad, listenerUpVector);
+	
+	ISound* sound = Pocicional->play3D("Media/Steven Universe-Rosquillas.mp3", PosSonido, true, false, true);
+	if (sound) {
+		// Puedes ajustar la atenuación y el radio de influencia del sonido
+		sound->setMinDistance(30.0f); // Distancia mínima a partir de la cual el sonido empieza a atenuarse
+		sound->setMaxDistance(100000.0f); // Distancia máxima a la que se oye el sonido
+	}
+
+	ISoundSource* shootSound = Fondo->addSoundSourceFromFile("Media/Gravity Falls - Opening Theme Song.mp3");
+	shootSound->setDefaultVolume(0.5f);
+	/*Fondo->play2D(shootSound, true);*/
+	
+	//Skybox
 	skybox = Skybox(skyboxFaces);
+	skybox2 = Skybox(skyboxFaces2);
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
@@ -1217,9 +1353,9 @@ int main()
 		//VECTOR DE DIRECCION
 		0.0f, -1.0f, 0.0f,
 		//Con /Lin /Exp
-		1.0f, 0.0f, 0.0f,
+		1.0f, 0.005f, 0.0f,
 		//VALOR DEL CONO (TAMAÑO)
-		15.0f);
+		35.0f);
 	spotLightCount++;
 	//Carro
 	spotLights[1] = SpotLight(1.0f, 1.0f, 0.0f,
@@ -1285,7 +1421,9 @@ int main()
 	int contadorEspectacular = 0;
 	int contadorSemaforo = 0;
 	int contadorGlitch = 0;
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
+
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 3000.0f);
+
 	///Variables para animaciones
 	//DX10
 	movDX10 = 400.0f;
@@ -1336,7 +1474,31 @@ int main()
 	rotHeliceOffset = 20.0f;
 	subeBlimpOffset = 0.5f;
 	giroBlimpOffset = 0.6;
-	movBlimpXOffset = 1.7f;
+	movBlimpXOffset = 1.4f;
+	movBlimpZOffset = 1.4f;
+
+	//Xylene
+	movXyleneXoffset = 2.0f;
+	movXyleneYoffset = 2.0f;
+	movXyleneZoffset = 2.0f;
+	giroXyleneOffset = 1.0f;
+	movXyleneAspYoffset = 0.04f;
+	giroXyleneAspOffset = 1.0;
+	movXyleneLuzXoffset = 2.0f;
+	movXyleneLuzZoffset = 2.0f;
+
+	//Pajaro
+	rotAlaDer = 0.0;
+	rotAlaIzq = 0.0;
+	rotAlasOffset = 1.2;
+	movCuerpo = 31.5;
+	movCuerpoOffset = 0.08;
+	maxRotationAlas = 45;
+
+	//Trickster
+	rotbrazoT = 0.0f;
+	rotbrazoTOffset = 0.6f;
+	maxSaludo = 160.f;
 	
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -1346,66 +1508,183 @@ int main()
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
 
+		//Audio 
+		//vec3df pos3d(peridotPos.x, peridotPos.y, peridotPos.z);
+
+
 		////////////////////// ANIMACIONES /////////////////////
 		// Vehiculos Motorizados Obligatorios//------------------
 		//DX10------
-		if (avanzaDX10 && controlDX10) {
-			if (giroDX10 >= 360) {
-				giroDX10 = 0;
-			}
-			if (movDX10 < 990.0f)
-			{
-				movDX10 += movDX10Offset;
-				rotllanta += rotllantaOffset;
-			}
-			else {
-				if (giroDX10 < 90) {
-					if (giroDX10 < 45) {
-						giroDX10 += giroDX10Offset;
-						movDX10 += movDX10Offset;
-						rotllanta += rotllantaOffset;
+		if (NoAniDX10 == 0) {
+			if (avanzaDX10 && controlDX10) {
+				if (giroDX10 >= 360) {
+					giroDX10 = 0;
+				}
+				if (movDX10 < 990.0f)
+				{
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (-90 < giroDX10) {
+						if (-45 < giroDX10) {
+							rotllanta += rotllantaOffset;
+							giroDX10 -= giroDX10Offset;
+							movDX10 += movDX10Offset;
+						}
+						else {
+							rotllanta += rotllantaOffset;
+							giroDX10 -= giroDX10Offset;
+							movDX10z -= giroDX10Offset;
+						}
 					}
 					else {
-						movDX10z += movDX10Offset;
+						if (-685.0f < movDX10z){
+							movDX10z -= movDX10Offset;
+							rotllanta += rotllantaOffset;
+						}
+						else {
+							if (-180 < giroDX10) {
+								if (-135 < giroDX10) {
+									rotllanta += rotllantaOffset;
+									giroDX10 -= giroDX10Offset;
+									movDX10z -= movDX10Offset;
+								}
+								else {
+									rotllanta += rotllantaOffset;
+									movDX10 -= movDX10Offset;
+									giroDX10 -= giroDX10Offset;
+								}
+							}
+							else {
+								controlDX10 = !controlDX10;
+							}
+						}
+					}
+				}
+			}
+			else if (avanzaDX10 && controlDX10 == false) {
+				if (120.0f < movDX10)
+				{
+					movDX10 -= movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (giroDX10 < -90) {
+						if (giroDX10 < -135) {
+							rotllanta += rotllantaOffset;
+							giroDX10 += giroDX10Offset;
+							movDX10 -= movDX10Offset;
+						}
+						else {
+							rotllanta += rotllantaOffset;
+							giroDX10 += giroDX10Offset;
+							movDX10z -= giroDX10Offset;
+						}
+					}
+					else {
+						if (-2500.0f < movDX10z) {
+							movDX10z -= movDX10Offset;
+							rotllanta += rotllantaOffset;
+						}
+						else {
+							controlDX10 = !controlDX10;
+							avanzaDX10 = !avanzaDX10;
+						}
+					}
+				}
+			}
+			else if (avanzaDX10 == false && controlDX10) {
+				if (-180 < giroDX10) {
+					if (-135 < giroDX10) {
 						rotllanta += rotllantaOffset;
-						giroDX10 += giroDX10Offset;
+						giroDX10 -= giroDX10Offset;
+						movDX10z -= movDX10Offset;
+					}
+					else {
+						rotllanta += rotllantaOffset;
+						movDX10 -= movDX10Offset;
+						giroDX10 -= giroDX10Offset;
 					}
 				}
 				else {
-					if (movDX10z < 2500.0f)
+					if (-920.0f < movDX10)
 					{
-						movDX10z += movDX10Offset;
+						movDX10 -= movDX10Offset;
 						rotllanta += rotllantaOffset;
 					}
 					else {
+						if (-270 < giroDX10) {
+							if (-225 < giroDX10) {
+								rotllanta += rotllantaOffset;
+								giroDX10 -= giroDX10Offset;
+								movDX10 -= movDX10Offset;
+							}
+							else {
+								rotllanta += rotllantaOffset;
+								movDX10z += movDX10Offset;
+								giroDX10 -= giroDX10Offset;
+							}
+						}
+						else {
+							if (movDX10z < 760.0f) {
+								movDX10z += movDX10Offset;
+								rotllanta += rotllantaOffset;
+							}
+							else {
+								if (-360 < giroDX10) {
+									if (-315 < giroDX10) {
+										rotllanta += rotllantaOffset;
+										giroDX10 -= giroDX10Offset;
+										movDX10z += movDX10Offset;
+									}
+									else {
+										rotllanta += rotllantaOffset;
+										movDX10 += movDX10Offset;
+										giroDX10 -= giroDX10Offset;
+									}
+								}
+								else {
+									controlDX10 = !controlDX10;
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				if (movDX10 < 400.0f) {
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (nada < 1000) {
+						nada += 1;
+					}
+					else {
 						controlDX10 = !controlDX10;
+						avanzaDX10 = !avanzaDX10;
+						NoAniDX10 = 1;
+						nada = 0;
 					}
 				}
 			}
 		}
-		else if (avanzaDX10 && controlDX10 == false) {
-			if (giroDX10 < 180) {
-				if (giroDX10 < 135) {
-					movDX10 -= movDX10Offset;
-					rotllanta += rotllantaOffset;
-					giroDX10 += giroDX10Offset;
+		else {
+			if (avanzaDX10 && controlDX10) {
+				if (giroDX10 <= -360) {
+					giroDX10 = 0;
 				}
-				else {
-					giroDX10 += giroDX10Offset;
-					movDX10z -= movDX10Offset;
-					rotllanta += rotllantaOffset;
-				}
-			}
-			else {
-				if (movDX10 > 120.0f) {
-					movDX10 -= movDX10Offset;
+				if (movDX10 < 940.0f)
+				{
+					movDX10 += movDX10Offset;
 					rotllanta += rotllantaOffset;
 				}
 				else {
-					if (giroDX10 < 270) {
-						if (giroDX10 < 225) {
+					if (giroDX10 < 90) {
+						if (giroDX10 < 45) {
 							giroDX10 += giroDX10Offset;
-							movDX10 -= movDX10Offset;
+							movDX10 += movDX10Offset;
 							rotllanta += rotllantaOffset;
 						}
 						else {
@@ -1415,193 +1694,661 @@ int main()
 						}
 					}
 					else {
-						if (movDX10z > 815.0f)
+						if (movDX10z < 2500.0f)
 						{
-							movDX10z -= movDX10Offset;
+							movDX10z += movDX10Offset;
 							rotllanta += rotllantaOffset;
 						}
 						else {
-							avanzaDX10 = !avanzaDX10;
+							controlDX10 = !controlDX10;
 						}
 					}
 				}
 			}
-		}
-		else {
-			if (giroDX10 < 360) {
-				if (giroDX10 < 315) {
-					movDX10 += movDX10Offset;
-					rotllanta += rotllantaOffset;
-					giroDX10 += giroDX10Offset;
+			else if (avanzaDX10 && controlDX10 == false) {
+				if (giroDX10 < 180) {
+					if (giroDX10 < 135) {
+						movDX10 -= movDX10Offset;
+						rotllanta += rotllantaOffset;
+						giroDX10 += giroDX10Offset;
+					}
+					else {
+						giroDX10 += giroDX10Offset;
+						movDX10z -= movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
 				}
 				else {
-					giroDX10 += giroDX10Offset;
-					movDX10 += movDX10Offset;
-					rotllanta += rotllantaOffset;
+					if (movDX10 > 120.0f) {
+						movDX10 -= movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
+					else {
+						if (giroDX10 < 270) {
+							if (giroDX10 < 225) {
+								giroDX10 += giroDX10Offset;
+								movDX10 -= movDX10Offset;
+								rotllanta += rotllantaOffset;
+							}
+							else {
+								movDX10z += movDX10Offset;
+								rotllanta += rotllantaOffset;
+								giroDX10 += giroDX10Offset;
+							}
+						}
+						else {
+							if (movDX10z > 815.0f)
+							{
+								movDX10z -= movDX10Offset;
+								rotllanta += rotllantaOffset;
+							}
+							else {
+								avanzaDX10 = !avanzaDX10;
+								controlDX10 = !controlDX10;
+							}
+						}
+					}
+				}
+			}
+			else if (avanzaDX10 == false && controlDX10) {
+				if (giroDX10 < 360) {
+					if (giroDX10 < 315) {
+						movDX10 += movDX10Offset;
+						rotllanta += rotllantaOffset;
+						giroDX10 += giroDX10Offset;
+					}
+					else {
+						giroDX10 += giroDX10Offset;
+						movDX10 += movDX10Offset;
+						rotllanta += rotllantaOffset;
+					}
+				}
+				else {
+					controlDX10 = !controlDX10;
 				}
 			}
 			else {
-				controlDX10 = !controlDX10;
-				avanzaDX10 = !avanzaDX10;
+				if (movDX10 < 400.0f) {
+					movDX10 += movDX10Offset;
+					rotllanta += rotllantaOffset;
+				}
+				else {
+					if (nada < 1000) {
+						nada += 1;
+					}
+					else {
+						avanzaDX10 = !avanzaDX10;
+						controlDX10 = !controlDX10;
+						NoAniDX10 = 0;
+						nada = 0;
+					}
+				}
 			}
 		}
-		//Jetsky------	
-		if (JetskyAni && controlJetsky) {
-			if (giroJetsky >= 360) {
-				giroJetsky = 0;
+
+		//Jetsky------
+		if (NoAniJetsky == 0) {
+			if (JetskyAni && controlJetsky && controlJetsky2) {
+				if (giroJetsky >= 360) {
+					giroJetsky = 0;
+				}
+				if (movJetskyYoffset > 360.0f) {
+					movJetskyYoffset = 0.0f;
+				}
+				if (movJetskyZ < 300.0f)
+				{
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ += movJetskyZoffset;
+				}
+				else {
+					if (giroJetsky < 90) {
+						if (giroJetsky < 45) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+							movJetskyZ += movJetskyZoffset;
+						}
+						else {
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX > -250.0f)
+						{
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							controlJetsky = !controlJetsky;
+						}
+					}
+				}
 			}
-			if (movJetskyYoffset > 360.0f) {
-				movJetskyYoffset = 0.0f;
+			else if (JetskyAni && controlJetsky == false && controlJetsky2) {
+				if (0 < giroJetsky) {
+					if (45 < giroJetsky) {
+						movJetskyX -= movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky -= giroJetskyOffset;
+					}
+					else {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky -= giroJetskyOffset;
+						movJetskyZ += movJetskyZoffset;
+					}
+				}
+				else {
+					if (movJetskyZ < 750.0f) {
+						movJetskyY += movJetskyYoffset;
+						movJetskyZ += movJetskyZoffset;
+					}
+					else {
+						if (-90 < giroJetsky) {
+							if (-45 < giroJetsky) {
+								movJetskyY += movJetskyYoffset;
+								giroJetsky -= giroJetskyOffset;
+								movJetskyZ += movJetskyZoffset;
+							}
+							else {
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+								giroJetsky -= giroJetskyOffset;
+							}
+						}
+						else {
+							if (movJetskyX < -100.0f)
+							{
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+							}
+							else {
+								if (-180 < giroJetsky) {
+									if (-135 < giroJetsky) {
+										movJetskyY += movJetskyYoffset;
+										giroJetsky -= giroJetskyOffset;
+										movJetskyX += movJetskyZoffset;
+									}
+									else {
+										movJetskyZ -= movJetskyXoffset;
+										movJetskyY += movJetskyYoffset;
+										giroJetsky -= giroJetskyOffset;
+									}
+								}
+								else {
+									JetskyAni = !JetskyAni;
+									controlJetsky = !controlJetsky;
+								}
+							}
+						}
+					}
+				}
 			}
-			if (movJetskyZ < 700.0f)
-			{
-				movJetskyY += movJetskyYoffset;
-				movJetskyZ += movJetskyZoffset;
+			else if (JetskyAni == false && controlJetsky && controlJetsky2) {
+				if (500.0f < movJetskyZ) {
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ -= movJetskyZoffset;
+				}
+				else {
+					if (-270 < giroJetsky) {
+						if (-225 < giroJetsky) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky -= giroJetskyOffset;
+							movJetskyZ -= movJetskyXoffset;
+						}
+						else {
+							movJetskyX -= movJetskyZoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky -= giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX > -250.0f)
+						{
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							controlJetsky = !controlJetsky;
+						}
+					}
+				}
+			}
+			else if (JetskyAni == false && controlJetsky == false && controlJetsky2) {
+				if (giroJetsky < -180) {
+					if (giroJetsky < -225) {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+						movJetskyX -= movJetskyXoffset;
+					}
+					else {
+						movJetskyZ -= movJetskyZoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+				}
+				else {
+					if (movJetskyZ > 300.0f)
+					{
+						movJetskyZ -= movJetskyZoffset;
+						movJetskyY += movJetskyYoffset;
+					}
+					else {
+						if (giroJetsky < -90) {
+							if (giroJetsky < -135) {
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+								movJetskyZ -= movJetskyXoffset;
+							}
+							else {
+								movJetskyX += movJetskyZoffset;
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+							}
+						}
+						else {
+							if (movJetskyX < -100.0f)
+							{
+								movJetskyX += movJetskyZoffset;
+								movJetskyY += movJetskyYoffset;
+							}
+							else {
+								if (giroJetsky < 0) {
+									if (giroJetsky < -45) {
+										movJetskyY += movJetskyYoffset;
+										giroJetsky += giroJetskyOffset;
+										movJetskyX += movJetskyXoffset;
+									}
+									else {
+										movJetskyZ += movJetskyZoffset;
+										movJetskyY += movJetskyYoffset;
+										giroJetsky += giroJetskyOffset;
+									}
+								}
+								else {
+									controlJetsky2 = !controlJetsky2;
+								}
+							}
+						}
+					}
+				}
 			}
 			else {
-				if (giroJetsky < 90) {
-					if (giroJetsky < 45) {
+				if (nada2 < 1000) {
+					nada2 += 1;
+				}
+				else {
+					controlJetsky2 = !controlJetsky2;
+					JetskyAni = !JetskyAni;
+					controlJetsky = !controlJetsky;
+					NoAniJetsky = 1;
+					nada2 = 0;
+				}
+			}
+		}
+		else {
+			if (JetskyAni && controlJetsky) {
+				if (movJetskyYoffset > 360.0f) {
+					movJetskyYoffset = 0.0f;
+				}
+				if (movJetskyZ < 700.0f)
+				{
+					movJetskyY += movJetskyYoffset;
+					movJetskyZ += movJetskyZoffset;
+				}
+				else {
+					if (giroJetsky < 90) {
+						if (giroJetsky < 45) {
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+							movJetskyZ += movJetskyZoffset;
+						}
+						else {
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+							giroJetsky += giroJetskyOffset;
+						}
+					}
+					else {
+						if (movJetskyX > -250.0f)
+						{
+							movJetskyX -= movJetskyXoffset;
+							movJetskyY += movJetskyYoffset;
+						}
+						else {
+							controlJetsky = !controlJetsky;
+						}
+					}
+				}
+			}
+			else if (JetskyAni && controlJetsky == false) {
+				if (movJetskyYoffset > 360.0f) {
+					movJetskyYoffset = 0.0f;
+				}
+				if (giroJetsky < 180) {
+					if (giroJetsky < 135) {
+						movJetskyX -= movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+					else {
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+						movJetskyZ -= movJetskyZoffset;
+					}
+				}
+				else {
+					if (movJetskyZ > 150.0f) {
+						movJetskyY += movJetskyYoffset;
+						movJetskyZ -= movJetskyZoffset;
+					}
+					else {
+						if (giroJetsky < 270) {
+							if (giroJetsky < 225) {
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+								movJetskyZ -= movJetskyZoffset;
+							}
+							else {
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+								giroJetsky += giroJetskyOffset;
+							}
+						}
+						else {
+							if (movJetskyX < -100.0f)
+							{
+								movJetskyX += movJetskyXoffset;
+								movJetskyY += movJetskyYoffset;
+							}
+							else {
+								JetskyAni = !JetskyAni;
+								controlJetsky = !controlJetsky;
+							}
+						}
+					}
+				}
+			}
+			else if (JetskyAni == false && controlJetsky) {
+				if (giroJetsky < 360) {
+					if (giroJetsky < 315) {
+						movJetskyX += movJetskyXoffset;
+						movJetskyY += movJetskyYoffset;
+						giroJetsky += giroJetskyOffset;
+					}
+					else {
 						movJetskyY += movJetskyYoffset;
 						giroJetsky += giroJetskyOffset;
 						movJetskyZ += movJetskyZoffset;
 					}
-					else {
-						movJetskyX -= movJetskyXoffset;
-						movJetskyY += movJetskyYoffset;
-						giroJetsky += giroJetskyOffset;
-					}
 				}
 				else {
-					if (movJetskyX > -250.0f)
-					{
-						movJetskyX -= movJetskyXoffset;
-						movJetskyY += movJetskyYoffset;
-					}
-					else {
-						controlJetsky = !controlJetsky;
-					}
-				}
-			}
-		}
-		else if (JetskyAni && controlJetsky == false) {
-			if (movJetskyYoffset > 360.0f) {
-				movJetskyYoffset = 0.0f;
-			}
-			if (giroJetsky < 180) {
-				if (giroJetsky < 135) {
-					movJetskyX -= movJetskyXoffset;
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-				}
-				else {
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-					movJetskyZ -= movJetskyZoffset;
+					controlJetsky = !controlJetsky;
 				}
 			}
 			else {
-				if (movJetskyZ > 150.0f) {
-					movJetskyY += movJetskyYoffset;
-					movJetskyZ -= movJetskyZoffset;
+				if (nada2 < 1000) {
+					nada2 += 1;
 				}
 				else {
-					if (giroJetsky < 270) {
-						if (giroJetsky < 225) {
-							movJetskyY += movJetskyYoffset;
-							giroJetsky += giroJetskyOffset;
-							movJetskyZ -= movJetskyZoffset;
-						}
-						else {
-							movJetskyX += movJetskyXoffset;
-							movJetskyY += movJetskyYoffset;
-							giroJetsky += giroJetskyOffset;
-						}
+					controlJetsky = !controlJetsky;
+					JetskyAni = !JetskyAni;
+					NoAniJetsky = 0;
+					nada2 = 0;
+				}
+			}
+		}
+
+		//Aereas
+		if (ControlAereo) {
+			//Duuf Blimp
+			if (NoAniBlimp == 0) {
+				if (BlimpAni && ControlBlimp) {
+					if (sube && subeBlimp <= 280.0f) {
+						subeBlimp += subeBlimpOffset;
+						rotHelice -= rotHeliceOffset;
+					}
+					else if (sube) {
+						sube = !sube;
+						baja = !baja;
 					}
 					else {
-						if (movJetskyX < -100.0f)
-						{
-							movJetskyX += movJetskyXoffset;
-							movJetskyY += movJetskyYoffset;
+						if (-55.0f <= giroBlimp) {
+							giroBlimp -= giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
 						}
 						else {
-							JetskyAni = !JetskyAni;
+							if (movBlimpX > -1500.0f && movBlimpZ > -1500) {
+								movBlimpZ -= movBlimpZOffset;
+								movBlimpX -= movBlimpXOffset;
+								rotHelice -= rotHeliceOffset;
+							}
+							else {
+								if (-190.0f <= giroBlimp) {
+									giroBlimp -= giroBlimpOffset;
+									rotHelice -= rotHeliceOffset;
+								}
+								else {
+									ControlBlimp = !ControlBlimp;
+								}
+							}
+						}
+					}
+				}
+				else if (BlimpAni && ControlBlimp == false) {
+					if (movBlimpX < -300.0f) {
+						movBlimpX += movBlimpXOffset;
+						rotHelice -= rotHeliceOffset;
+					}else{
+						if (-325.0f <= giroBlimp) {
+							giroBlimp -= giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							ControlBlimp = !ControlBlimp;
+							BlimpAni = !BlimpAni;
+						}
+					}
+				}
+				else if (BlimpAni == false && ControlBlimp) {
+					if (movBlimpX > -1800.0f && movBlimpZ < 0) {
+						movBlimpX -= movBlimpXOffset;
+						movBlimpZ += movBlimpZOffset;
+						rotHelice -= rotHeliceOffset;
+					}
+					else {
+						if (giroBlimp <= -190) {
+							giroBlimp += giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							ControlBlimp = !ControlBlimp;
+						}
+					}
+				}
+				else {
+					if (movBlimpX < 0) {
+						movBlimpX += movBlimpXOffset;
+						rotHelice -= rotHeliceOffset;
+					}
+					else {
+						if (giroBlimp <= 0) {
+							giroBlimp += giroBlimpOffset;
+							rotHelice -= rotHeliceOffset;
+						}
+						else {
+							if (baja && subeBlimp >= 8.2f) {
+								subeBlimp -= subeBlimpOffset;
+								rotHelice -= rotHeliceOffset;
+							}
+							else if (baja) {
+								sube = !sube;
+								baja = !baja;
+								ControlBlimp = !ControlBlimp;
+								BlimpAni = !BlimpAni;
+								NoAniBlimp = 1;
+								ControlAereo = !ControlAereo;
+							}
 						}
 					}
 				}
 			}
+			else {
+				if (sube && subeBlimp <= 200.0f) {
+					subeBlimp += subeBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (sube) {
+					avanza = !avanza;
+					sube = !sube;
+				}
+				else if (avanza && movBlimpX >= -2500.0f) {
+					movBlimpX -= movBlimpXOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (avanza) {
+					giro1 = !giro1;
+					avanza = !avanza;
+				}
+				else if (giro1 && giroBlimp <= 180.0f) {
+					giroBlimp += giroBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (giro1) {
+					regresa = !regresa;
+					giro1 = !giro1;
+				}
+				else if (regresa && movBlimpX <= 3.0f) {
+					movBlimpX += movBlimpXOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (regresa) {
+					regresa = !regresa;
+					giro2 = !giro2;
+				}
+				else if (giro2 && giroBlimp >= 0.0f) {
+					giroBlimp -= giroBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (giro2) {
+					baja = !baja;
+					giro2 = !giro2;
+				}
+				else if (baja && subeBlimp >= 8.2f) {
+					subeBlimp -= subeBlimpOffset;
+					rotHelice -= rotHeliceOffset;
+				}
+				else if (baja) {
+					sube = !sube;
+					baja = !baja;
+					ControlAereo = !ControlAereo;
+					NoAniBlimp = 0;
+				}
+			}
+			////// Fin Animaciones Obligatorias de vehiculos--------
 		}
 		else {
-			if (giroJetsky < 360) {
-				if (giroJetsky < 315) {
-					movJetskyX += movJetskyXoffset;
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
+			//Xylene
+			if (XyleneAni && ControlXylene) {
+				if (movXyleneY < 50) {
+					movXyleneY += movXyleneYoffset;
+					movXyleneAspY -= movXyleneAspYoffset;
+					if (giroXyleneAsp < 32) {
+						giroXyleneAsp += giroXyleneAspOffset;
+					}
+					else {
+						giroXyleneAsp = 32.5f;
+					}
+				}
+				else if (movXyleneY >= 50 && movXyleneY <= 250) {
+					movXyleneY += movXyleneYoffset;
 				}
 				else {
-					movJetskyY += movJetskyYoffset;
-					giroJetsky += giroJetskyOffset;
-					movJetskyZ += movJetskyZoffset;
+					if (movXyleneX > -1500 && movXyleneZ > -1500) {
+						movXyleneX -= movXyleneXoffset;
+						movXyleneZ -= movXyleneZoffset;
+					}
+					else {
+						if (giroXylene < 89) {
+							movXyleneLuzZ -= movXyleneLuzZoffset;
+							giroXylene += giroXyleneOffset;
+						}
+						else {
+							ControlXylene = !ControlXylene;
+						}
+					}
+				}
+			}
+			else if (XyleneAni && ControlXylene == false) {
+				if (movXyleneX > -3000 && movXyleneZ < 0) {
+					giroXylene = 90.0f;
+					movXyleneLuzZ = 0.0f;
+					movXyleneX -= movXyleneXoffset;
+					movXyleneZ += movXyleneZoffset;
+				}
+				else {
+					if (giroXylene < 224) {
+						giroXylene += giroXyleneOffset;
+						if (giroXylene < 180) {
+							movXyleneLuzX -= movXyleneLuzXoffset;
+						}
+						else {
+							movXyleneLuzZ += movXyleneLuzZoffset;
+						}
+					}
+					else {
+						if (movXyleneX < 0) {
+							giroXylene = 225.0f;
+							movXyleneLuzX = 0.0f;
+							movXyleneLuzZ = 0.0f;
+							movXyleneX += movXyleneXoffset;
+						}
+						else {
+							XyleneAni = !XyleneAni;
+						}
+					}
 				}
 			}
 			else {
-				controlJetsky = !controlJetsky;
-				JetskyAni = !JetskyAni;
+				if (giroXylene < 360) {
+					giroXylene += giroXyleneOffset;
+					if (giroXylene < 269) {
+						movXyleneLuzZ += movXyleneLuzZoffset;
+					}
+					else {
+						movXyleneLuzX += movXyleneLuzXoffset;
+					}
+				}
+				else {
+					if (movXyleneY > 50) {
+						giroXylene = 360;
+						movXyleneY -= movXyleneYoffset;
+					}
+					else if (movXyleneY <= 50 && movXyleneY > 0) {
+						movXyleneY -= movXyleneYoffset;
+						movXyleneAspY += movXyleneAspYoffset;
+					}
+					else if (giroXyleneAsp > 0) {
+						giroXyleneAsp -= giroXyleneAspOffset;
+					}
+					else {
+						movXyleneLuzX = 0.0f;
+						movXyleneLuzZ = 0.0f;
+						giroXylene = 0;
+						giroXyleneAsp = 0.0f;
+						movXyleneY = 0.0f;
+						ControlXylene = !ControlXylene;
+						XyleneAni = !XyleneAni;
+						ControlAereo = !ControlAereo;
+					}
+				}
 			}
 		}
-		
-		//Duuf Blimp
-		if (sube && subeBlimp <= 200.0f) {
-			subeBlimp += subeBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (sube) {
-			avanza = !avanza;
-			sube = !sube;
-		}
-		else if (avanza && movBlimpX >= -2500.0f) {
-			movBlimpX -= movBlimpXOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (avanza) {
-			giro1 = !giro1;
-			avanza = !avanza;
-		}
-		else if (giro1 && giroBlimp <= 180.0f) {
-			giroBlimp += giroBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (giro1) {
-			regresa = !regresa;
-			giro1 = !giro1;
-		}
-		else if (regresa && movBlimpX <= 3.0f) {
-			movBlimpX += movBlimpXOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (regresa) {
-			regresa = !regresa;
-			giro2 = !giro2;
-		}
-		else if (giro2 && giroBlimp >= 0.0f) {
-			giroBlimp -= giroBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (giro2) {
-			baja = !baja;
-			giro2 = !giro2;
-		}
-		else if (baja && subeBlimp >= 8.2f) {
-			subeBlimp -= subeBlimpOffset;
-			rotHelice -= rotHeliceOffset;
-		}
-		else if (baja) {
-			sube = !sube;
-			baja = !baja;
-		}
-
 
 		////// Fin Animaciones Obligatorias de vehiculos--------
-
+		//llama a la funcion de efectos especiales
+		Efectos(mainWindow.getsKeys());
+		
 		//Transformaciones----------
 		//Eco Eco
 		if (mainWindow.getAlien1() == 1.0f && Limite)
@@ -1610,7 +2357,7 @@ int main()
 			rotmano += rotmanoOffset;
 			//toca el reloj y comienza la transformacion
 			if (rotmano >= maxRotation) {
-				rotmano = maxRotation; 
+				rotmano = maxRotation;
 				//Dibuja la esfera y la escala
 				Dibujaresfera = true;
 				escesferax += escesferaOffset;
@@ -1634,60 +2381,60 @@ int main()
 		////Diamante (ANIMACION COMPLEJA)
 		else if (mainWindow.getAlien2() == 1.0f && Limite)
 		{
-				//Se activa animacion de mano
-				rotmano += rotmanoOffset;
-				//toca el reloj y comienza la transformacion
-				if (rotmano >= maxRotation) {
-					rotmano = maxRotation;
-					//Dibuja la esfera y la escala
-					Dibujaresfera = true;
-					escesferax += escesferaOffset;
-					escesferay += escesferaOffset;
-					escesferaz += escesferaOffset;
-					//Llega al tope de crecimiento 
-					if (escesferax == escesferay == escesferaz >= maxEscale) {
-						escesferax = maxEscale;
-						escesferay = maxEscale;
-						escesferaz = maxEscale;
-						Transformar = 2.0f;
-						Dibujaresfera = false;
-						if (Revertir == false) {
-							rotbrazoD += rotbrazoDOffset;
-							if (rotbrazoD >= maxRotation) {
-								rotbrazoD = maxRotation;
-								rotmanoD += rotmanoDOffset;
-								if (rotmanoD >= maxRotation) {
-									rotmanoD = maxRotation;
-									AtaqueDiamante = true;
-									movAtaque += movAtaqueOffset;
-									if (movAtaque >= maxTraslation) {
-										movAtaque = maxTraslation;
-										Revertir = true;
-									}
-								}
-							}
-						}
-						else {
-							rotmanoD -= rotmanoDOffset;
-							if (rotmanoD <= minRotation) {
-								rotmanoD = minRotation;
-								rotbrazoD -= rotbrazoDOffset;
-								if (rotbrazoD <= minRotation) {
-									rotbrazoD = minRotation;
-									AtaqueDiamante = false;
-									escesferax2 = 6.5;
-									escesferay2 = 6.5;
-									escesferaz2 = 6.5;
-									rotmanoD = 0.0;
-									rotbrazoD = 0.0;
-									movAtaque = -35.0;
-									Revertir = false;
-									Limite = !Limite;
+			//Se activa animacion de mano
+			rotmano += rotmanoOffset;
+			//toca el reloj y comienza la transformacion
+			if (rotmano >= maxRotation) {
+				rotmano = maxRotation;
+				//Dibuja la esfera y la escala
+				Dibujaresfera = true;
+				escesferax += escesferaOffset;
+				escesferay += escesferaOffset;
+				escesferaz += escesferaOffset;
+				//Llega al tope de crecimiento 
+				if (escesferax == escesferay == escesferaz >= maxEscale) {
+					escesferax = maxEscale;
+					escesferay = maxEscale;
+					escesferaz = maxEscale;
+					Transformar = 2.0f;
+					Dibujaresfera = false;
+					if (Revertir == false) {
+						rotbrazoD += rotbrazoDOffset;
+						if (rotbrazoD >= maxRotation) {
+							rotbrazoD = maxRotation;
+							rotmanoD += rotmanoDOffset;
+							if (rotmanoD >= maxRotation) {
+								rotmanoD = maxRotation;
+								AtaqueDiamante = true;
+								movAtaque += movAtaqueOffset;
+								if (movAtaque >= maxTraslation) {
+									movAtaque = maxTraslation;
+									Revertir = true;
 								}
 							}
 						}
 					}
+					else {
+						rotmanoD -= rotmanoDOffset;
+						if (rotmanoD <= minRotation) {
+							rotmanoD = minRotation;
+							rotbrazoD -= rotbrazoDOffset;
+							if (rotbrazoD <= minRotation) {
+								rotbrazoD = minRotation;
+								AtaqueDiamante = false;
+								escesferax2 = 6.5;
+								escesferay2 = 6.5;
+								escesferaz2 = 6.5;
+								rotmanoD = 0.0;
+								rotbrazoD = 0.0;
+								movAtaque = -35.0;
+								Revertir = false;
+								Limite = !Limite;
+							}
+						}
+					}
 				}
+			}
 		}
 
 		//Destransformar
@@ -1719,11 +2466,14 @@ int main()
 		////// ANIMACION AVATAR /////////-----------------
 		//Caminata peridot------
 		//Hacia adelante y atras
+		
+
 		if (keys[GLFW_KEY_W] && keys[GLFW_KEY_S]) {
 			rotPeridotPiernas = rotPeridotPiernas;
 			rotPeridotBrazos = rotPeridotBrazos;
 		}
 		else if (keys[GLFW_KEY_W] || keys[GLFW_KEY_S]) {
+			//engine3->play3D("Media/Sonido de pasos.mp3", vec3df(pos3d), true);
 			if (movPeridot) {
 				if (rotPeridotPiernas < 10.0f)
 				{
@@ -1746,7 +2496,6 @@ int main()
 			}
 		}
 		//////////////--------------
-		
 		///////////// ANIMACIONES BASICAS //////////////--------
 		//Dona
 		if (DonaAni) {
@@ -1773,19 +2522,59 @@ int main()
 				DonaAni = !DonaAni;
 			}
 		}
-		// Animal
-		
-
+		//Pajaro
+		if (Vuelo) {
+			rotAlaDer += rotAlasOffset;
+			rotAlaIzq += rotAlasOffset;
+			movCuerpo += movCuerpoOffset;
+			if (movCuerpo >= 34.5) {
+				movCuerpo = 34.5;
+				if (rotAlaDer >= maxRotationAlas && rotAlaIzq >= maxRotationAlas) {
+					rotAlaDer = maxRotationAlas;
+					rotAlaIzq = maxRotationAlas;
+					Vuelo = !Vuelo;
+				}
+			}
+		}
+		else {
+			if (rotAlaDer > 0 && rotAlaIzq > 0) {
+				rotAlaDer -= rotAlasOffset;
+				rotAlaIzq -= rotAlasOffset;
+				movCuerpo -= movCuerpoOffset;
+				if (movCuerpo <= 31.5) {
+					movCuerpo = 31.5;
+					if (rotAlaDer >= -45 && rotAlaIzq >= -45) {
+						rotAlaDer = -45;
+						rotAlaIzq = -45;
+						Vuelo = !Vuelo;
+					}
+				}
+			}
+		}
 		////////---------------
-		
-		////// Animaciones de Vehiculos motorizados para punto extra ////////////-----
+
+		//////////"Animacion" extra de Chill porque ya se habia trabajado y se queda para no desperdiciarla////////
+		// Trickster
+		if (SaludoT) {
+			rotbrazoT += rotbrazoTOffset;
+			if (rotbrazoT >= maxSaludo) {
+				rotbrazoT = maxSaludo;
+				SaludoT = !SaludoT;
+			}
+		}
+		else {
+			if (rotbrazoT > 0) {
+				rotbrazoT -= rotbrazoTOffset;
+				if (rotbrazoT <= 0)
+				{
+					rotbrazoT = 0.0f;
+					SaludoT = !SaludoT;
+				}
+			}
+		}
 
 
 
-		///////// Fin animaciones punto extra /////////--------
-
-		
- 
 
 		//Calculo de dia y noche
 		contador = time(NULL);
@@ -1878,21 +2667,27 @@ int main()
 		//Recibir eventos del usuario
 		glfwPollEvents();
 		if (mainWindow.getCamara() == 1.0f) {
-			currentCamera = &camera;
+			auxAudio = 0;
+			CamaraActual = &camera;
 		}
 		else if (mainWindow.getCamara() == 2.0f) {
-			currentCamera = &camera2;
+			auxAudio = 1;
+			CamaraActual = &camera2;
 		}
-		else {
-			currentCamera = &camera3;
-		}
-		currentCamera->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime, peridotPos);
-		currentCamera->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange(), peridotPos);
+		CamaraActual->keyControl(mainWindow.getCamara(), mainWindow.getsKeys(), deltaTime, peridotPos);
+		CamaraActual->mouseControl(mainWindow.getCamara(), mainWindow.getXChange(), mainWindow.getYChange(), peridotPos);
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		skybox.DrawSkybox(currentCamera->calculateViewMatrix(), projection);
+
+		if (dia == 1.0f) {
+			skybox.DrawSkybox(CamaraActual->calculateViewMatrix(), projection);
+		}
+		else {
+			skybox2.DrawSkybox(CamaraActual->calculateViewMatrix(), projection);
+		}
+
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
@@ -1900,15 +2695,18 @@ int main()
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformColor = shaderList[0].getColorLocation();
 
-	
+
 
 		//información en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(currentCamera->calculateViewMatrix()));
-		glUniform3f(uniformEyePosition, currentCamera->getCameraPosition().x, currentCamera->getCameraPosition().y, currentCamera->getCameraPosition().z);
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(CamaraActual->calculateViewMatrix()));
+		glUniform3f(uniformEyePosition, CamaraActual->getCameraPosition().x, CamaraActual->getCameraPosition().y, CamaraActual->getCameraPosition().z);
+
+		//llama a la funcion para conocer la posicion de peridot e interactuar con el sonido posicional
+		Oyente(CamaraActual->getCameraPosition().x, CamaraActual->getCameraPosition().y, CamaraActual->getCameraPosition().z, -CamaraActual->getCameraDirection().x, CamaraActual->getCameraDirection().y, -CamaraActual->getCameraDirection().z);
 
 		//información al shader de fuentes de iluminación
 		shaderList[0].SetDirectionalLight(&mainLight);
@@ -1917,20 +2715,36 @@ int main()
 			shaderList[0].SetPointLights(pointLights, pointLightCount);
 		}
 		else {
-			shaderList[0].SetPointLights(pointLights, pointLightCount-1);
+			shaderList[0].SetPointLights(pointLights, pointLightCount - 1);
 		}
 
 		if (mainWindow.getLucesspot() == 1.0f) {
 			shaderList[0].SetSpotLights(spotLights, spotLightCount);
 			//luz de la nave de xilene
-			spotLights[0].SetFlash(glm::vec3(posnaveX + 70, posnaveY + 25, posnaveZ + 70), glm::vec3(0.0f, -1.0f, 0.0f));
+			if (giroXylene < 90) {
+				spotLights[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else if (giroXylene < 225) {
+				spotLights[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ - 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else {
+				spotLights[0].SetFlash(glm::vec3(posnaveX - 100 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
 			//luz del rustbucket
 			spotLights[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		}
 		else if (mainWindow.getLucesspot() == 0.0f) {
 			shaderList[0].SetSpotLights(spotLights2, spotLightCount);
 			//luz de la nave de xilene
-			spotLights2[0].SetFlash(glm::vec3(posnaveX + 70, posnaveY + 25, posnaveZ + 70), glm::vec3(0.0f, -1.0f, 0.0f));
+			if (giroXylene < 90) {
+				spotLights2[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else if (giroXylene < 225) {
+				spotLights2[0].SetFlash(glm::vec3(posnaveX + 70 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ - 70 + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
+			else {
+				spotLights2[0].SetFlash(glm::vec3(posnaveX - 100 + movXyleneX + movXyleneLuzX, posnaveY + 10 + movXyleneY, posnaveZ + movXyleneZ + movXyleneLuzZ), glm::vec3(0.0f, -1.0f, 0.0f));
+			}
 			//luz del rustbucket
 			spotLights2[1].SetFlash(glm::vec3(posCarroX, posCarroY - 0.3, posCarroZ), glm::vec3(1.0f, 0.0f, 0.0f));
 		}
@@ -1939,6 +2753,8 @@ int main()
 		glm::mat4 modelauxMark10(1.0);
 		glm::mat4 modelauxRust(1.0);
 		glm::mat4 modelauxBen(1.0);
+		glm::mat4 modelauxPajaro(1.0);
+		glm::mat4 modelauxTrickster(1.0);
 		glm::mat4 modelauxDiamante(1.0);
 		glm::mat4 modelauxEscarabola(1.0);
 		glm::mat4 modelauxCrab(1.0);
@@ -2977,10 +3793,7 @@ int main()
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8.8f, 8.8f, 8.8f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		mysteryShack.RenderModel();
-		glDisable(GL_BLEND);
 
 		//Dipper
 		glm::mat4 ModelAuxDipper1(1.0);
@@ -3548,7 +4361,7 @@ int main()
 
 		//Blimp Duff
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1650 + movBlimpX, subeBlimp, 450.5f));
+		model = glm::translate(model, glm::vec3(1650 + movBlimpX, subeBlimp, 450.5f + movBlimpZ));
 		model = glm::scale(model, glm::vec3(3.5f, 3.0f, 3.5f));
 		model = glm::rotate(model, -75 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, giroBlimp * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -3572,8 +4385,8 @@ int main()
 
 		//Xylene Ship-----------
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(posnaveX, posnaveY, posnaveZ));
-		model = glm::rotate(model, -45 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(posnaveX + movXyleneX, posnaveY + movXyleneY, posnaveZ + movXyleneZ));
+		model = glm::rotate(model, (-45 + giroXylene) * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(5.5f, 5.5f, 5.5f));
 		modelauxShip = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -3581,8 +4394,8 @@ int main()
 		model = modelauxShip;
 
 		//Arco
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -32.5f * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f + movXyleneAspY, 0.0f));
+		model = glm::rotate(model, (-32.5f + giroXyleneAsp) * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		XyleneShip_Arco.RenderModel();
 		model = modelauxShip;
@@ -3803,12 +4616,52 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		estatuaBill.RenderModel();
 
-		//trickster
+		//trickster--------
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(450.0f, 0.0f, -150.0f));
 		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+		modelauxTrickster = model;
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		trickster.RenderModel();
+
+		//Brazo 
+		model = modelauxTrickster;
+		model = glm::translate(model, glm::vec3(-0.458f, 1.541f, -0.014f));
+		model = glm::rotate(model, rotbrazoT * toRadians, glm::vec3(0.0f, 0.0, -1.0f));
+		modelauxTrickster = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tricksterBrazo.RenderModel();
+
+		//Mano
+		model = modelauxTrickster;
+		model = glm::translate(model, glm::vec3(-0.034f, -0.418f, 0.042f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		tricksterMano.RenderModel();
+
+		/////------------
+
+		//Pajaro---------------
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(456.5f, movCuerpo, -150.0f));
+		model = glm::scale(model, glm::vec3(17.0f, 17.0f, 17.0f));
+		modelauxPajaro = model;
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pajaro.RenderModel();
+
+		//Ala derecha
+		model = modelauxPajaro;
+		model = glm::translate(model, glm::vec3(0.053f, 0.073f, 0.05f));
+		model = glm::rotate(model, rotAlaDer * toRadians, glm::vec3(0.0f, 0.0, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		AlaDer.RenderModel();
+
+		//Ala Izquierda
+		model = modelauxPajaro;
+		model = glm::translate(model, glm::vec3(-0.053f, 0.073f, 0.05f));
+		model = glm::rotate(model, rotAlaIzq * toRadians, glm::vec3(0.0f, 0.0, -1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		AlaIzq.RenderModel();
+		/////----------------
 		
 		//Flores
 		model = glm::mat4(1.0);
@@ -4434,7 +5287,6 @@ int main()
 		model = glm::rotate(model, rotllanta * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CocheBen_RuedaTrasIzq.RenderModel();
-		model = modelauxMark10;
 		////////////////-------------------
 
 		//Barreras entre cuadrante 7 y 8 

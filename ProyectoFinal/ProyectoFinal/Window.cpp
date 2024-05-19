@@ -20,7 +20,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 		keys[i] = 0;
 	}
 	//Transformacion
-	Alien1 = Alien2 = Destransformar = Ataque = 0.0f;
+	Alien1 = Alien2 = Destransformar = 0.0f;
 
 }
 int Window::Initialise()
@@ -118,10 +118,6 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->Camara = 2.0f;
 	}
-	if (key == GLFW_KEY_3)
-	{
-		theWindow->Camara = 3.0f;
-	}
 	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
 	{
 		if (theWindow->Lucesspot < 1.0f) {
@@ -155,17 +151,13 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			theWindow->Alien2 = 0.0f;
 		}
 	}
-	if (key == GLFW_KEY_M)
-	{
-		theWindow->Ataque = 1.0;
-	}
 
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
 		{
 			theWindow->keys[key] = true;
-			//printf("se presiono la tecla %d'\n", key);
+			/*printf("se presiono la tecla %d'\n", key);*/
 		}
 		else if (action == GLFW_RELEASE)
 		{

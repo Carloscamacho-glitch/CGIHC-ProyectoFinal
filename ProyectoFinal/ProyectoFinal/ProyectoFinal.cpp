@@ -3434,29 +3434,29 @@ int main()
 		model = glm::scale(model, glm::vec3(0.52f, 0.52f, 0.52f));
 		model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		if (contadorGlitch >= 0 && contadorGlitch <= 500){
+		if (contadorGlitch >= 0 && contadorGlitch <= 500) {
 			JefeGorgory.RenderModel();
 		}
-		else if (contadorGlitch > 500 && contadorGlitch <= 600) {
+		else if (contadorGlitch > 500 && contadorGlitch <= 550) {
 			Glitch4.RenderModel();
 		}
-		else if (contadorGlitch > 600 && contadorGlitch <= 700) {
+		else if (contadorGlitch > 550 && contadorGlitch <= 600) {
 			Glitch1.RenderModel();
 		}
-		else if (contadorGlitch > 700 && contadorGlitch <= 800) {
+		else if (contadorGlitch > 600 && contadorGlitch <= 650) {
 			Glitch5.RenderModel();
 		}
-		else if (contadorGlitch > 800 && contadorGlitch <= 1200) {
+		else if (contadorGlitch > 650 && contadorGlitch <= 900) {
 			Glitch6.RenderModel();
 		}
-		else if (contadorGlitch > 1200 && contadorGlitch <= 1300) {
+		else if (contadorGlitch > 900 && contadorGlitch <= 950) {
 			Glitch3.RenderModel();
 		}
-		else if (contadorGlitch > 1300 && contadorGlitch <= 1500) {
+		else if (contadorGlitch > 950 && contadorGlitch <= 1000) {
 			Glitch2.RenderModel();
 		}
 		contadorGlitch++;
-		if (contadorGlitch > 1500) {
+		if (contadorGlitch > 1000) {
 			contadorGlitch = 0; // Reiniciar el contador
 		}
 		

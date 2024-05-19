@@ -269,9 +269,16 @@ Model DonutVanLlanta01;
 Model DonutVanLlanta02;
 Model BlimpDuff;
 Model Helice1;
+Model Glitch1;
+Model Glitch2;
+Model Glitch3;
+Model Glitch4;
+Model Glitch5;
+Model Glitch6;
+
 
 //Steven Universe -----------------------
-Model LGR;
+Model LGR; 
 Model LGRVid;
 Model Dona;
 Model Soporte;
@@ -358,6 +365,9 @@ Model Esfera;
 Model Esfera2;
 Model Semaforo;
 Model Semaforo2;
+Model SemaforoRojoCocinado;
+Model SemaforoAmarilloCocinado;
+Model SemaforoVerdeCocinado;
 Model Barrera;
 Model Espectacular1;
 Model Espectacular2;
@@ -1035,6 +1045,18 @@ int main()
 	BlimpDuff.LoadModel("Models/Simpsons/Blimp/BlimpDuff.obj");
 	Helice1 = Model();
 	Helice1.LoadModel("Models/Simpsons/Blimp/Helice1.obj");
+	Glitch1 = Model();
+	Glitch1.LoadModel("Models/Glitch/JefeGorgoryGlitch1.obj");
+	Glitch2 = Model();
+	Glitch2.LoadModel("Models/Glitch/JefeGorgoryGlitch2.obj");
+	Glitch3 = Model();
+	Glitch3.LoadModel("Models/Glitch/JefeGorgoryGlitch3.obj");
+	Glitch4 = Model();
+	Glitch4.LoadModel("Models/Glitch/JefeGorgoryGlitch4.obj");
+	Glitch5 = Model();
+	Glitch5.LoadModel("Models/Glitch/JefeGorgoryGlitch5.obj");
+	Glitch6 = Model();
+	Glitch6.LoadModel("Models/Glitch/JefeGorgoryGlitch7.obj");
 
 
 	//Steven Universe -----------------------
@@ -1195,6 +1217,12 @@ int main()
 	Poste.LoadModel("Models/Extras/Poste.obj");
 	Semaforo = Model();
 	Semaforo.LoadModel("Models/Extras/Semaforo.obj");
+	SemaforoAmarilloCocinado = Model();
+	SemaforoAmarilloCocinado.LoadModel("Models/Extras/SemaforoAmarilloCocinado.obj");
+	SemaforoRojoCocinado = Model();
+	SemaforoRojoCocinado.LoadModel("Models/Extras/SemaforoRojoCocinado.obj"); 
+	SemaforoVerdeCocinado = Model();
+	SemaforoVerdeCocinado.LoadModel("Models/Extras/SemaforoVerdeCocinado.obj"); 
 	Barrera = Model();
 	Barrera.LoadModel("Models/Extras/Barrera.obj");
 	Espectacular1 = Model();
@@ -1391,7 +1419,11 @@ int main()
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	GLuint uniformColor = 0;
 	int contadorEspectacular = 0;
+	int contadorSemaforo = 0;
+	int contadorGlitch = 0;
+
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 3000.0f);
+
 	///Variables para animaciones
 	//DX10
 	movDX10 = 400.0f;
@@ -2549,7 +2581,7 @@ int main()
 		resta = contador - tiempoguardado;
 
 		//cambio de variables
-		if (resta >= 60) {
+		if (resta >= 660) {
 			if (dia == 1.0f) {
 				//Noche
 				dia = 0.0f;
@@ -3137,11 +3169,24 @@ int main()
 
 		//Semaforo
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-156.5f, 0.0f, -910.0f));
+		model = glm::translate(model, glm::vec3(-158.5f, 0.0f, -910.0f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Semaforo.RenderModel();
+		if (contadorSemaforo >= 0 && contadorSemaforo <= 600) {
+			SemaforoVerdeCocinado.RenderModel();
+		}
+		else if (contadorSemaforo > 600 && contadorSemaforo <= 1000) {
+			SemaforoAmarilloCocinado.RenderModel();
+		}
+		else if (contadorSemaforo > 1000 && contadorSemaforo <= 1600) {
+			SemaforoRojoCocinado.RenderModel();
+		}
+		contadorSemaforo++;
+		if (contadorSemaforo > 1600) {
+			contadorSemaforo = 0; // Reiniciar el contador
+		}
+		
 
 		//Coladera
 		model = glm::mat4(1.0);
@@ -3386,11 +3431,36 @@ int main()
 
 		//Jefe Gorgory
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(1400.0f, -15.5f, -450.0f));
+		model = glm::translate(model, glm::vec3(1400.0f, 0.0f, -450.0f));
 		model = glm::scale(model, glm::vec3(0.52f, 0.52f, 0.52f));
 		model = glm::rotate(model, -55 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		JefeGorgory.RenderModel();
+		if (contadorGlitch >= 0 && contadorGlitch <= 500){
+			JefeGorgory.RenderModel();
+		}
+		else if (contadorGlitch > 500 && contadorGlitch <= 600) {
+			Glitch4.RenderModel();
+		}
+		else if (contadorGlitch > 600 && contadorGlitch <= 700) {
+			Glitch1.RenderModel();
+		}
+		else if (contadorGlitch > 700 && contadorGlitch <= 800) {
+			Glitch5.RenderModel();
+		}
+		else if (contadorGlitch > 800 && contadorGlitch <= 1200) {
+			Glitch6.RenderModel();
+		}
+		else if (contadorGlitch > 1200 && contadorGlitch <= 1300) {
+			Glitch3.RenderModel();
+		}
+		else if (contadorGlitch > 1300 && contadorGlitch <= 1500) {
+			Glitch2.RenderModel();
+		}
+		contadorGlitch++;
+		if (contadorGlitch > 1500) {
+			contadorGlitch = 0; // Reiniciar el contador
+		}
+		
 
 		//Khyber
 		model = glm::mat4(1.0);
@@ -3609,7 +3679,19 @@ int main()
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Semaforo.RenderModel();
+		if (contadorSemaforo >= 0 && contadorSemaforo <= 600) {
+			SemaforoVerdeCocinado.RenderModel();
+		}
+		else if (contadorSemaforo > 600 && contadorSemaforo <= 1000) {
+			SemaforoAmarilloCocinado.RenderModel();
+		}
+		else if (contadorSemaforo > 1000 && contadorSemaforo <= 1600) {
+			SemaforoRojoCocinado.RenderModel();
+		}
+		contadorSemaforo++;
+		if (contadorSemaforo > 1600) {
+			contadorSemaforo = 0; // Reiniciar el contador
+		}
 
 		//Lampara
 		model = glm::mat4(1.0);
@@ -4104,7 +4186,7 @@ int main()
 		//KwikEmart
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(530.0f, -1.0f, 1116.6f));
-		model = glm::scale(model, glm::vec3(8.0f, 8.0f, 8.0f));
+		model = glm::scale(model, glm::vec3(9.7f, 9.2f, 9.7f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glEnable(GL_BLEND);
@@ -4125,7 +4207,19 @@ int main()
 		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Semaforo.RenderModel();
+		if (contadorSemaforo >= 0 && contadorSemaforo <= 600) {
+			SemaforoVerdeCocinado.RenderModel();
+		}
+		else if (contadorSemaforo > 600 && contadorSemaforo <= 1000) {
+			SemaforoAmarilloCocinado.RenderModel();
+		}
+		else if (contadorSemaforo > 1000 && contadorSemaforo <= 1600) {
+			SemaforoRojoCocinado.RenderModel();
+		}
+		contadorSemaforo++;
+		if (contadorSemaforo > 1600) {
+			contadorSemaforo = 0; // Reiniciar el contador
+		}
 
 		//Coladera
 		model = glm::mat4(1.0);
@@ -4158,7 +4252,7 @@ int main()
 
 		//Apu 
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(460.5f, 0.0f, 1000.5f));
+		model = glm::translate(model, glm::vec3(460.5f, 0.0f, 980.5f));
 		model = glm::scale(model, glm::vec3(1.8f, 1.7f, 1.8f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -4168,7 +4262,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(250.0f, 0.3f, 1300.0f));
 		model = glm::scale(model, glm::vec3(2.5f, 3.0f, 2.5f));
-		//model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		if (dia == 1.0) {
 			if (contadorEspectacular >= 0 && contadorEspectacular <= 600) {
